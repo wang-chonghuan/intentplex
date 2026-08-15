@@ -21,19 +21,26 @@ clean build; the "Key decisions" reasons are recovered from why the code is shap
 - **TypeScript, strict**, ESM-only, single package, npm.
 
 There is no database, no backend service, no authentication, and no server-side data source. Content
-is static TypeScript in `src/content/`.
+is files in the repo, in two shapes: **entries are Markdown with frontmatter under `content/`** at the
+repo root, and **the chrome's own copy is TypeScript in `src/content/`**. Both are read at build time;
+neither is fetched.
 
 **Structure**
 
 ```text
+content/         # the entries — Markdown + frontmatter, one file per entry per language
+  posts/ articles/ works/
+                 # <YYYY-MM-DD>-<slug>[.<lang>].md; lang is the suffix or a frontmatter field
+public/media/    # the images those entries reference
 src/
   routes/        # one file per page + __root.tsx; the only place a route is declared
   components/    # the app shell and adapters — see ui.md for the tier rule
-  content/       # all user-visible copy, as {en, zh} objects. No component imports another's copy
+  content/       # the chrome's copy as {en, zh} objects, plus the loader and validator for content/
   i18n/          # locale context and the t() reader
   styles/        # app.css (cascade order + vendor imports), tokens.stylex.ts (token constants)
   types/         # ambient declarations for build-time virtual modules
   router.tsx     # getRouter(), the entry TanStack Start calls
+server.mjs       # binds a port around the built fetch handler; what the container runs
 ```
 
 The boundaries that matter: **routes compose, they do not hold copy**; **content holds copy, it does
@@ -57,16 +64,26 @@ not import React**; **`styles/` is the only place a design token is named**.
   and is installed once via `LinkProvider`, so every Astryx link, nav item and linked row navigates
   client-side. Adding a second adapter, or bypassing it with a raw `<a>` to an internal path, is what
   this decision exists to prevent.
-- **Copy is bilingual at the type level.** `L10n<T> = {en: T; zh: T}` means a half-translated string
-  fails `tsc` rather than reaching a reader. This is why copy is data in `src/content/` rather than
-  markup in a component.
+- **Chrome copy is bilingual at the type level.** `L10n<T> = {en: T; zh: T}` means a half-translated
+  nav label or button fails `tsc` rather than reaching a reader. This is why the chrome's copy is data
+  in `src/content/` rather than markup in a component.
+- **Entries are per-language files, and a missing language is a normal state.** An entry is one
+  Markdown file per language it exists in; the loader groups them by slug into optional renditions. A
+  post written once in English is complete, and the reader is told which language they are getting —
+  the type-level guarantee above is deliberately not extended here, because it would mean either
+  blocking an entry until it is translated or committing a machine translation.
+- **Content is validated at build time, not at first request.** `src/content/validate.ts` is the one
+  definition of a valid entry, and a Vite plugin runs it over `content/` during `buildStart`. `vite
+  build` bundles the loader without executing it, so without that plugin a malformed file would only
+  surface on the first production request.
 
 ## Tools
 
 **Generated — never hand-edited:** `src/routeTree.gen.ts` (TanStack Start Vite plugin).
 
 **Build output:** `dist/client/` and `dist/server/`. `dist/server/server.js` is a fetch handler, not a
-listening server — see `runbook.md` for how the build is actually served.
+listening server; `server.mjs` is the committed half that binds a port around it — see `runbook.md`
+for the command.
 
 **The structural checks** are the same command as `dev.md`'s mechanical defence; the StyleX compiler
 and the route generator both run inside it:
@@ -96,8 +113,8 @@ npx tsc --noEmit && npm run build
 **How to approach a change here**
 
 Reach for an Astryx component before writing one, a route before a component when the change is a
-page, and `src/content/` before either when the change is words. A change that needs a new dependency
-is a stop, not a design choice.
+page, and content before either when the change is words — `content/` for an entry, `src/content/` for
+the chrome. A change that needs a new dependency is a stop, not a design choice.
 
 ## Redlines
 
@@ -109,9 +126,10 @@ Every entry says which of the two it is — **forbidden outright**, or **not wit
 explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
 Guidance instead (`format.md`, test 2).
 
-1. **A file under `src/content/` importing React, an Astryx component, or anything from
-   `src/components/` or `src/routes/`** — forbidden outright. Content is data; the moment it renders,
-   copy stops being extractable and the bilingual guarantee goes with it.
+1. **A copy file under `src/content/` importing React, an Astryx component, or anything from
+   `src/components/` or `src/routes/`** — forbidden outright. Copy is data; the moment it renders, it
+   stops being extractable and the bilingual guarantee goes with it. `loader.ts` and `validate.ts` sit
+   in the same directory and are code, not copy — the same import list still binds them.
 2. **Adding, removing or changing a dependency** — not without the human's explicit approval, and
    only when a ticket carries that decision.
 3. **Hand-editing `src/routeTree.gen.ts`** — forbidden outright.

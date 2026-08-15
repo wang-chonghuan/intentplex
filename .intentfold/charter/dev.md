@@ -61,9 +61,9 @@ become their own ticket.
 **Uncertainty surfaces.** Prefer stopping and asking over inventing a fallback or a hidden
 compatibility layer.
 
-**Copy is data, not markup.** Every user-visible string lives in `src/content/` as an `L10n` object
-and is read through `t()`. A string literal in a component or a route is a defect even when it reads
-fine, because it is the one that never gets translated.
+**Copy is data, not markup.** Chrome copy lives in `src/content/` as an `L10n` object read through
+`t()`; entry text lives in `content/` as Markdown. A string literal in a component or a route is a
+defect even when it reads fine, because it is the one that never gets translated.
 
 **Read the library before writing against it.** This stack has three moving parts whose APIs are easy
 to guess wrong — Astryx components, TanStack Start routing, StyleX. `npx astryx component <Name>` and
