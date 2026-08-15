@@ -2,7 +2,7 @@
 title: "Can AI Users Judge an App First?"
 date: "2026-07-15T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-f14cc16ed57e.jpg"
+image: "/media/linkedin/li-f14cc16ed57e.webp"
 source: "https://www.linkedin.com/pulse/can-ai-users-judge-app-first-chonghuan-wang-br2pf"
 ---
 

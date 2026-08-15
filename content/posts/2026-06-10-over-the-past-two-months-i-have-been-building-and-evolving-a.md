@@ -2,7 +2,7 @@
 title: "Over the past two months, I have been building and evolving a comprehensive Harness Engine"
 date: "2026-06-10T14:04:19.826Z"
 lang: "en"
-image: "/media/linkedin/li-143584ce86f8.jpg"
+image: "/media/linkedin/li-143584ce86f8.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7470475944189718528/"
 ---
 
@@ -34,4 +34,4 @@ In addition, I have developed and maintained a set of supporting tools and skill
 
 Rather than being standalone tools, these components form an interconnected engineering ecosystem. Every system is simultaneously being developed, refined, and evolved, while also being used to accelerate the development of the ecosystem itself, creating a continuous feedback loop of improvement and automation.
 
-![](/media/linkedin/li-143584ce86f8.jpg)
+![](/media/linkedin/li-143584ce86f8.webp)

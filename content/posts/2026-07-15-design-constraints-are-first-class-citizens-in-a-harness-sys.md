@@ -2,7 +2,7 @@
 title: "​Design constraints are first-class citizens in a harness system, which consists of two ma"
 date: "2026-07-15T08:04:21.550Z"
 lang: "en"
-image: "/media/linkedin/li-9f410d5fdce8.jpg"
+image: "/media/linkedin/li-9f410d5fdce8.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7483068929750392832/"
 ---
 
@@ -12,4 +12,4 @@ source: "https://www.linkedin.com/feed/update/urn:li:activity:748306892975039283
 
 ​Consequently, at the solution design, code development, and ticket acceptance stages, these constraints must be treated with the exact same priority as the requirements themselves.
 
-![](/media/linkedin/li-9f410d5fdce8.jpg)
+![](/media/linkedin/li-9f410d5fdce8.webp)

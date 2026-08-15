@@ -2,7 +2,7 @@
 title: "I propose a test-case-centered Harness Engineering approach"
 date: "2026-03-30T04:36:11.499Z"
 lang: "en"
-image: "/media/linkedin/li-19f6291c120f.jpg"
+image: "/media/linkedin/li-19f6291c120f.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7444241041060241408/"
 ---
 
@@ -22,4 +22,4 @@ These test cases collectively define the final production-grade and development-
 
 #HarnessEngineering #Code #ClaudeCode #OpenClaw #TodoClaw
 
-![](/media/linkedin/li-19f6291c120f.jpg)
+![](/media/linkedin/li-19f6291c120f.webp)

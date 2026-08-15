@@ -2,7 +2,7 @@
 title: "Decoupling the M system, which is responsible for product, requirements, and solutions, fr"
 date: "2026-05-23T06:56:05.039Z"
 lang: "en"
-image: "/media/linkedin/li-fea652062476.jpg"
+image: "/media/linkedin/li-fea652062476.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7463845190861053952/"
 ---
 
@@ -14,4 +14,4 @@ This turns automated workflows into automated work loops.
 
 Even while humans are sleeping, AI can continue creating value.
 
-![](/media/linkedin/li-fea652062476.jpg)
+![](/media/linkedin/li-fea652062476.webp)

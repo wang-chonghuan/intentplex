@@ -2,7 +2,7 @@
 title: "Now my harness is already close to a closed loop"
 date: "2026-06-21T08:00:48.083Z"
 lang: "en"
-image: "/media/linkedin/li-8ddccf8c09e4.jpg"
+image: "/media/linkedin/li-8ddccf8c09e4.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7474370725630468096/"
 ---
 
@@ -20,4 +20,4 @@ The User only needs to say what they want, then answer a few questions to clarif
 [Codex] updates and runs the regression test suite.
 [Codex] updates the documentation.
 
-![](/media/linkedin/li-8ddccf8c09e4.jpg)
+![](/media/linkedin/li-8ddccf8c09e4.webp)

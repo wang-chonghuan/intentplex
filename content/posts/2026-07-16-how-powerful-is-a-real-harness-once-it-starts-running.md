@@ -2,7 +2,7 @@
 title: "How powerful is a real harness once it starts running?"
 date: "2026-07-16T06:16:07.969Z"
 lang: "en"
-image: "/media/linkedin/li-a98e42ff9c53.jpg"
+image: "/media/linkedin/li-a98e42ff9c53.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7483404081563238400/"
 ---
 
@@ -14,4 +14,4 @@ But operating at this scale requires abandoning perfectionism. You cannot obsess
 
 #HarnessEngineering #LoopEngineering #AI #Agents #Codex
 
-![](/media/linkedin/li-a98e42ff9c53.jpg)
+![](/media/linkedin/li-a98e42ff9c53.webp)

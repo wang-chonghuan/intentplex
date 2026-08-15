@@ -2,7 +2,7 @@
 title: "This is the software factory workflow I designed"
 date: "2026-06-18T06:36:20.320Z"
 lang: "en"
-image: "/media/linkedin/li-38d92540c0b8.jpg"
+image: "/media/linkedin/li-38d92540c0b8.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7473262306294947840/"
 ---
 
@@ -12,4 +12,4 @@ They correspond to: submitting the requirement, answering key decision questions
 
 Roughly 20 skills support this system, and some of the more complex skills contain more than 5 capabilities.
 
-![](/media/linkedin/li-38d92540c0b8.jpg)
+![](/media/linkedin/li-38d92540c0b8.webp)

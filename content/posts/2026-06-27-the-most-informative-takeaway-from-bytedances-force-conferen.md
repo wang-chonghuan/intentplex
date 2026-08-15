@@ -2,7 +2,7 @@
 title: "The most informative takeaway from ByteDance's FORCE conference wasn't the product name TR"
 date: "2026-06-27T17:10:25.516Z"
 lang: "en"
-image: "/media/linkedin/li-269b53f48f24.jpg"
+image: "/media/linkedin/li-269b53f48f24.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7476683370203123712/"
 ---
 
@@ -16,4 +16,4 @@ It's very similar to what happened with DevOps.
 
 Once Agile dramatically increased the frequency of code changes, traditional integration, testing, and deployment processes became the bottleneck. DevOps and CI/CD weren't optional improvements—they were created to ensure high-frequency changes could reliably make it into production.
 
-![](/media/linkedin/li-269b53f48f24.jpg)
+![](/media/linkedin/li-269b53f48f24.webp)
