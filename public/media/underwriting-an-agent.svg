@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="presentation">
+  <style>
+    .bg { fill: #ffefc7; }
+    @media (prefers-color-scheme: dark) { .bg { fill: #2f2500; } }
+  </style>
+  <rect class="bg" width="400" height="300"/>
+  <path d="M60 180 Q130 110 200 180 T340 180" fill="none" stroke="#bbaa81" stroke-width="16" stroke-linecap="round"/><path d="M60 220 Q130 150 200 220 T340 220" fill="none" stroke="#786944" stroke-width="16" stroke-linecap="round"/>
+</svg>

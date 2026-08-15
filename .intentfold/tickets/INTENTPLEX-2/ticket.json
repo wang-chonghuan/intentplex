@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-2",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "review",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-2",
+  "branch": "INTENTPLEX-2-redesign",
+  "base": "abf9641b1043e797a4c8dac7de381776d01d1465",
+  "ports": {
+    "web": 53002
+  }
+}
