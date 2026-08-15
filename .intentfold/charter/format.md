@@ -3,10 +3,10 @@
 Read this before writing or editing anything in `charter/`. It applies to the files laid down at
 initialization **and to every later edit by anyone** — human or machine.
 
-**An agent may not edit these files at all** unless the human says 「我亲自同意修改charter」 in the
-conversation (see `SKILL.md`, Hard rules). Proving the charter is stale is not permission to change
-it; it is the reason to report it. `format.md` itself is the one exception — it is machine-owned and
-cap1 refreshes it from the template.
+**These files are human-owned.** An agent edits them when the human asks for that edit, and only for
+what they asked — never on its own initiative, and never to make the charter agree with code it just
+wrote. Proving the charter is stale is a reason to report it, not permission to rewrite it.
+`format.md` itself is machine-owned and cap1 refreshes it from the template.
 
 The charter is the only place this project's intent lives. It is read by people who have never seen
 the repo and by agents that will act on it within seconds. That is why its shape is fixed.
@@ -141,4 +141,4 @@ are not repeated in any project's charter.
 - When a Contract fact changes, look for the `Tools` entry and the static check that encode it. A
   contract changed in prose but not in the check is a contract that no longer holds.
 - The charter is human-owned. An agent reports drift and proposes; it does not edit `charter/` on its
-  own initiative.
+  own initiative. Being asked to make a change is what authorises it.
