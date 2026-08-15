@@ -65,22 +65,50 @@ belong to the product and change under tickets that never open this file.
 
 ```bash
 URL=https://intentplex.com
-curl -s "$URL/" \
-  | grep -oE 'href="/[^"#?]*"' | sed 's/href="//; s/"$//' \
-  | grep -vE '\.[a-z0-9]+$' | sort -u \
-  | while read -r p; do
-      body=$(curl -s "$URL$p")
-      printf '%s  %-12s %s bytes\n' \
-        "$(curl -s -o /dev/null -w '%{http_code}' "$URL$p")" "$p" "$(printf %s "$body" | wc -c)"
-    done
+body=$(mktemp)
+
+routes=$(curl -sf "$URL/" \
+  | grep -aoE 'href="/[^"#?]*"' | sed 's/href="//; s/"$//' \
+  | grep -vE '\.[a-z0-9]+$' | sort -u)
+
+if [ -z "$routes" ]; then
+  echo "FAIL: derived 0 routes from $URL/ — no answer, or a page with no internal links"
+  exit 1
+fi
+
+fail=0
+while read -r p; do
+  code=$(curl -s -o "$body" -w '%{http_code}' "$URL$p")
+  bytes=$(wc -c < "$body" | tr -d ' ')
+  printf '%s  %-48s %8s bytes\n' "$code" "$p" "$bytes"
+  { [ "$code" = 200 ] && [ "$bytes" -gt 10000 ]; } || fail=1
+done <<ROUTES
+$routes
+ROUTES
+
+rm -f "$body"
+[ "$fail" -eq 0 ] || { echo "FAIL: a route is missing, erroring, or served without SSR content"; exit 1; }
+printf 'OK: %s routes derived, all 200 with SSR content\n' "$(printf '%s\n' "$routes" | wc -l | tr -d ' ')"
 ```
 
-The `grep -v` drops anything with a file extension: `/assets/*.js` and `/media/*.jpg` are served by
-the same origin and answer 200 whatever the app is doing, so leaving them in makes the check pass on
-a site whose pages are all broken.
+Read it as three separate assertions, because each one fails in a way the others cannot see:
 
-Every line must read `200`, and the byte counts must be in the tens of kilobytes — a shell without
-SSR content comes back an order of magnitude smaller. Confirm the revision actually took over:
+- **`grep -a` is load-bearing, not a flag someone left on.** The home page is one long line of UTF-8
+  — Chinese, em dashes — and BSD `grep` in a non-UTF-8 locale classifies that as binary, then reports
+  **no matches at all** rather than saying so. Without `-a` this check derives nothing on the very
+  machine most likely to run it.
+- **An empty derivation is a hard failure.** Deriving targets removes the stale-list failure and
+  replaces it with a quieter one: derive zero, iterate zero times, exit 0. That reads as a clean bill
+  of health for a site that is entirely down. A derived check must prove it derived something.
+- **`grep -v` drops anything with a file extension.** `/assets/*.js` and `/media/*.jpg` come from the
+  same origin and answer 200 whatever the app is doing, so leaving them in makes the check pass on a
+  site whose pages are all broken.
+
+The 10 kB floor is what separates a server-rendered page from a bare shell: this site SSRs, so a
+container that is up with a broken handler still answers 200 with a body an order of magnitude too
+small. The exit status is the result — `OK:` on success, non-zero and a reason otherwise.
+
+Confirm the revision actually took over:
 
 ```bash
 az containerapp revision list -g rg-easyapp-shared -n ca-intentplex \
