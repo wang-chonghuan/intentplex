@@ -1,0 +1,23 @@
+/*
+ * Cascade order for the whole site.
+ *
+ *   reset        Astryx element reset + the stone theme's prose element styles
+ *   astryx-base  compiled component styles shipped in astryx.css
+ *   astryx-theme stone token + component overrides
+ *   priority*    StyleX output (useCSSLayers), written by @stylexjs/unplugin
+ *
+ * StyleX comes last so an `xstyle` prop can adjust layout on a themed
+ * component. It must never be used to restate a token value — see DESIGN.md.
+ *
+ * The statement below is also the natural order (the imports run in the same
+ * sequence and the StyleX plugin appends its rules to the end of this asset),
+ * so the production minifier drops the line as redundant. It stays because it
+ * is the declaration of intent — if an import ever moves, this is what breaks
+ * loudly instead of silently reordering the cascade.
+ */
+@layer reset, astryx-base, astryx-theme, priority1, priority2, priority3,
+  priority4, priority5, priority6, priority7, priority8, priority9, priority10;
+
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-stone/theme.css';
