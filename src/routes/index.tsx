@@ -6,7 +6,7 @@ import {Text} from '@astryxdesign/core/Text';
 
 import {ItemList} from '~/components/ItemList';
 import {home} from '~/content/home';
-import {recentItems} from '~/content/items';
+import {recentItems} from '~/content/loader';
 import {useLocale} from '~/i18n/locale';
 import {frame} from '~/styles/tokens.stylex';
 

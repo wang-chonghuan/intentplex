@@ -1,7 +1,7 @@
 import {createFileRoute, notFound} from '@tanstack/react-router';
 
 import {ItemDetail} from '~/components/ItemDetail';
-import {findItem} from '~/content/items';
+import {findItem} from '~/content/loader';
 
 export const Route = createFileRoute('/works/$slug')({
   loader: ({params}) => {

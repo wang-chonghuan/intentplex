@@ -1,35 +1,26 @@
 import * as stylex from '@stylexjs/stylex';
-import {AspectRatio} from '@astryxdesign/core/AspectRatio';
 import {Heading} from '@astryxdesign/core/Heading';
 import {Link} from '@astryxdesign/core/Link';
-import {VStack} from '@astryxdesign/core/Stack';
+import {Markdown} from '@astryxdesign/core/Markdown';
+import {HStack, VStack} from '@astryxdesign/core/Stack';
 import {Text} from '@astryxdesign/core/Text';
 import {Timestamp} from '@astryxdesign/core/Timestamp';
 
 import {site} from '~/content/site';
-import type {Item} from '~/content/items';
+import {pickRendition, type Item} from '~/content/loader';
 import {useLocale} from '~/i18n/locale';
-import {frame, radius} from '~/styles/tokens.stylex';
+import {frame} from '~/styles/tokens.stylex';
 
 const styles = stylex.create({
   prose: {
     maxWidth: frame.proseWidth,
   },
-  cover: {
-    borderRadius: radius.container,
-    overflow: 'hidden',
-    maxWidth: frame.proseWidth,
-  },
-  image: {
-    height: '100%',
-    objectFit: 'cover',
-    width: '100%',
-  },
 });
 
 /** The detail page for an article or a work. Nothing else has one. */
 export function ItemDetail({item, backHref}: {item: Item; backHref: string}) {
-  const {t} = useLocale();
+  const {locale, t} = useLocale();
+  const {rendition, isFallback} = pickRendition(item, locale);
 
   return (
     <VStack gap={6}>
@@ -39,29 +30,25 @@ export function ItemDetail({item, backHref}: {item: Item; backHref: string}) {
 
       <VStack gap={3}>
         <Heading level={1} xstyle={styles.prose}>
-          {t(item.title)}
+          {rendition.title}
         </Heading>
-        <Timestamp value={item.date} format="date_long" />
+        <HStack gap={3} vAlign="center" wrap="wrap">
+          <Timestamp value={item.date} format="date_long" />
+          {isFallback && (
+            <Text type="supporting">{t(site.detail.originalLanguage)}</Text>
+          )}
+          {rendition.source != null && (
+            <Link href={rendition.source} isExternalLink>
+              {t(site.detail.source)}
+            </Link>
+          )}
+        </HStack>
       </VStack>
 
-      <AspectRatio ratio={16 / 9} fit="cover" xstyle={styles.cover}>
-        <img
-          src={item.image.src}
-          alt={t(item.image.alt)}
-          {...stylex.props(styles.image)}
-        />
-      </AspectRatio>
-
-      <VStack gap={4} xstyle={styles.prose}>
-        <Text type="large" color="secondary">
-          {t(item.summary)}
-        </Text>
-        {(item.body ? t(item.body) : []).map((paragraph, index) => (
-          <Text key={index} type="body" as="p" display="block">
-            {paragraph}
-          </Text>
-        ))}
-      </VStack>
+      {/* headingLevelStart=2 keeps the page's h1 the only h1. */}
+      <Markdown headingLevelStart={2} contentWidth="68ch" xstyle={styles.prose}>
+        {rendition.body}
+      </Markdown>
     </VStack>
   );
 }
