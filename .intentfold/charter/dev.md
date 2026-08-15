@@ -25,17 +25,20 @@ The build is where the StyleX compiler runs, so a token that does not exist, an 
 resolve, and a `stylex.create()` value the compiler cannot evaluate statically all fail here rather
 than at runtime.
 
-**Pull requests.** This project lands every ticket through a PR against `main`:
+**Landing a change: commit to `main`.** One person works on this repo. Branches, pull requests and
+tickets bought nothing here — a one-line documentation fix went through file-a-ticket → worktree →
+PR → merge, and the paperwork was longer than the change. Commit directly:
 
 ```bash
-gh pr create --title "<title>" --body "<body>"
-gh pr view <number> --json state,mergeStateStatus,statusCheckRollup
-gh pr merge <number> --squash
+git add -A && git commit && git push origin main
 ```
 
+Open a PR only when the human asks for one. **What is dropped is the paperwork, not the checking**:
+the mechanical defence above still runs before anything is pushed, and `devops.md`'s post-deploy
+check still runs before a deploy is called done.
+
 There is no IntentFold integration configured on this repository — no usage policy, no verifier, no
-overlap detector, no required `intentfold / integrity` check. cap4 lands PRs on the strength of the
-committed handoff and whatever GitHub checks exist.
+overlap detector, no required `intentfold / integrity` check.
 
 ## Guidance
 
