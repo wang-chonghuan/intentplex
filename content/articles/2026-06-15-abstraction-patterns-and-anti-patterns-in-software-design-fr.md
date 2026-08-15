@@ -2,7 +2,7 @@
 title: "Abstraction Patterns and Anti-Patterns in Software Design from a Category Theory Perspective"
 date: "2026-06-15T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-aa178dbfa9a9.jpg"
+image: "/media/linkedin/li-aa178dbfa9a9.webp"
 source: "https://www.linkedin.com/pulse/abstraction-patterns-anti-patterns-software-design-from-wang-cua5f"
 ---
 

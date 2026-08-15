@@ -2,7 +2,7 @@
 title: "Can Agents Safely Rewrite Themselves?"
 date: "2026-08-15T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-759f2b2fa6f2.jpg"
+image: "/media/linkedin/li-759f2b2fa6f2.webp"
 source: "https://www.linkedin.com/pulse/can-agents-safely-rewrite-themselves-chonghuan-wang-sqxdf"
 ---
 

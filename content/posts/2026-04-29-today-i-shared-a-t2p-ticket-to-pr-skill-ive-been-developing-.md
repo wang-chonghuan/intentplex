@@ -2,7 +2,7 @@
 title: "Today I shared a T2P (Ticket to PR) skill I’ve been developing with the team"
 date: "2026-04-29T17:44:42.413Z"
 lang: "en"
-image: "/media/linkedin/li-ec398003ab1b.jpg"
+image: "/media/linkedin/li-ec398003ab1b.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7455311113384214528/"
 ---
 
@@ -26,4 +26,4 @@ Its key characteristics are:
 
 7. Captures the development process for each ticket so the work can be retrospectively reviewed and analyzed.
 
-![](/media/linkedin/li-ec398003ab1b.jpg)
+![](/media/linkedin/li-ec398003ab1b.webp)

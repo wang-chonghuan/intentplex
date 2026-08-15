@@ -48,7 +48,7 @@ export function ItemList({
             key={`${item.kind}-${item.id}`}
             href={href ?? undefined}
             startContent={
-              item.image ? <Thumbnail src={item.image} alt={rendition.title} /> : undefined
+              item.image ? <Thumbnail src={item.thumb ?? item.image} alt={rendition.title} /> : undefined
             }
             label={
               <VStack gap={1}>

@@ -2,7 +2,7 @@
 title: "Building AI Apps with a Tool Layer: from Authorization to Automation"
 date: "2025-09-07T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-846a8015c0ad.jpg"
+image: "/media/linkedin/li-846a8015c0ad.webp"
 source: "https://www.linkedin.com/pulse/building-ai-apps-tool-layer-from-authorization-automation-wang-oa7xf"
 ---
 

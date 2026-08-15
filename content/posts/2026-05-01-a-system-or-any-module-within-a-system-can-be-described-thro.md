@@ -2,7 +2,7 @@
 title: "A system, or any module within a system, can be described through five dimensions: Objecti"
 date: "2026-05-01T07:35:18.362Z"
 lang: "en"
-image: "/media/linkedin/li-bdef3ef34c18.jpg"
+image: "/media/linkedin/li-bdef3ef34c18.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7455882528369954816/"
 ---
 
@@ -12,4 +12,4 @@ Philosophically, these five dimensions can be understood as the system’s ontol
 
 I call this system description framework the OSPIC Framework. OSPIC can be used to structure project documentation.
 
-![](/media/linkedin/li-bdef3ef34c18.jpg)
+![](/media/linkedin/li-bdef3ef34c18.webp)

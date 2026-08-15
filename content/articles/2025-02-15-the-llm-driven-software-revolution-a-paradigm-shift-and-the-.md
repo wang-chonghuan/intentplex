@@ -2,7 +2,7 @@
 title: "The LLM-Driven Software Revolution: A Paradigm Shift and the Reimagining of Product Goals"
 date: "2025-02-15T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-43a95b1d58ae.jpg"
+image: "/media/linkedin/li-43a95b1d58ae.webp"
 source: "https://www.linkedin.com/pulse/llm-driven-software-revolution-paradigm-shift-reimagining-wang-cbq5f"
 ---
 

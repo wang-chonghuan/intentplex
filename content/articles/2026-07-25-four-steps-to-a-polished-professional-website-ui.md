@@ -2,7 +2,7 @@
 title: "Four Steps to a Polished, Professional Website UI"
 date: "2026-07-25T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-39705dd92523.jpg"
+image: "/media/linkedin/li-39705dd92523.webp"
 source: "https://www.linkedin.com/pulse/four-steps-polished-professional-website-ui-chonghuan-wang-g9t7f"
 ---
 

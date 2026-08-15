@@ -35,6 +35,20 @@ import {frame} from '~/styles/tokens.stylex';
  */
 const LEAD_LIMIT = 220;
 
+/**
+ * The body with its images taken out, for a row that is still closed.
+ *
+ * A closed row's body is in the DOM and only hidden with CSS, and a hidden
+ * `<img>` is still fetched — /posts pulled every full-size photo in the corpus,
+ * four megabytes, to show sixty-two 64px thumbnails. Dropping the image syntax
+ * while closed keeps the text server-rendered and indexable, which is the whole
+ * reason the body is there at all, and defers the bytes to the click that
+ * actually asks for them.
+ */
+function bodyWithoutImages(body: string): string {
+  return body.replace(/!\[[^\]]*\]\([^)]*\)/g, '').replace(/\n{3,}/g, '\n\n');
+}
+
 const styles = stylex.create({
   body: {
     maxWidth: frame.proseWidth,
@@ -69,7 +83,7 @@ export function PostList({items}: {items: readonly Item[]}) {
             trigger={
               <HStack gap={3} vAlign="start">
                 {item.image != null && (
-                  <Thumbnail src={item.image} alt={rendition.title} />
+                  <Thumbnail src={item.thumb ?? item.image} alt={rendition.title} />
                 )}
                 <VStack gap={1}>
                   <HStack gap={2} vAlign="center">
@@ -82,7 +96,9 @@ export function PostList({items}: {items: readonly Item[]}) {
               </HStack>
             }>
             <VStack xstyle={styles.body}>
-              <Markdown headingLevelStart={3}>{rendition.body}</Markdown>
+              <Markdown headingLevelStart={3}>
+                {isOpen ? rendition.body : bodyWithoutImages(rendition.body)}
+              </Markdown>
             </VStack>
           </Collapsible>
         );

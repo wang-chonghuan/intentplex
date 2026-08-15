@@ -2,7 +2,7 @@
 title: "My development harness has now reached its 4th generation"
 date: "2026-08-03T22:12:23.206Z"
 lang: "en"
-image: "/media/linkedin/li-78a5bc32155a.jpg"
+image: "/media/linkedin/li-78a5bc32155a.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7490167712330027008/"
 ---
 
@@ -18,4 +18,4 @@ The 4th is DimLeaper—short for thinking beyond LLMs and across dimensions. Bui
 
 It also corrects an overly idealised assumption in the earlier system: that completing a ticket was the end of the process. In DimLeaper, human review and rework after implementation are first-class parts of the workflow.
 
-![](/media/linkedin/li-78a5bc32155a.jpg)
+![](/media/linkedin/li-78a5bc32155a.webp)

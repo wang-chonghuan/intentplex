@@ -2,7 +2,7 @@
 title: "Claude's newly launched Workflow is a breakout feature"
 date: "2026-06-04T05:49:06.274Z"
 lang: "en"
-image: "/media/linkedin/li-2972815520b7.jpg"
+image: "/media/linkedin/li-2972815520b7.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7468176989326217216/"
 ---
 
@@ -12,4 +12,4 @@ Many workflows in our codebase, such as semantic ranking, classification, and ba
 
 https://lnkd.in/e3zwd9eW
 
-![](/media/linkedin/li-2972815520b7.jpg)
+![](/media/linkedin/li-2972815520b7.webp)

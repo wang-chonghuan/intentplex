@@ -2,7 +2,7 @@
 title: "TodoClaw: The Execution Engine for Harness Engineering"
 date: "2026-03-28T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-7508e26d106f.jpg"
+image: "/media/linkedin/li-7508e26d106f.webp"
 source: "https://www.linkedin.com/pulse/todoclaw-execution-engine-harness-engineering-chonghuan-wang-cg1sc"
 ---
 

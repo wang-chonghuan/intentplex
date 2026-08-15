@@ -2,7 +2,7 @@
 title: "Ontology is relational modeling dressed in graph vocabulary"
 date: "2026-08-06T23:19:14.998Z"
 lang: "en"
-image: "/media/linkedin/li-d33a93fa26b7.jpg"
+image: "/media/linkedin/li-d33a93fa26b7.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7491271702602129408/"
 ---
 
@@ -14,4 +14,4 @@ What I found is that it looks like a graph, but it does not have a graph engine.
 
 In Ontology modelling, there is no graph query language, and cross-Ontology joins are not supported. In other words, it behaves very much like a relational database. It adopts the vocabulary and presentation of a knowledge graph, while its implementation remains firmly relational.
 
-![](/media/linkedin/li-d33a93fa26b7.jpg)
+![](/media/linkedin/li-d33a93fa26b7.webp)

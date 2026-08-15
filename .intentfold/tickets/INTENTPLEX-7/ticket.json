@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-7",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "review",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-7",
+  "branch": "INTENTPLEX-7-shrink-images",
+  "base": "8beffb8",
+  "ports": {
+    "web": 53007
+  }
+}

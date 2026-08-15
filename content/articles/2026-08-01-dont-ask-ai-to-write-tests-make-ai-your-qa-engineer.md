@@ -2,7 +2,7 @@
 title: "Don’t Ask AI to Write Tests. Make AI Your QA Engineer."
 date: "2026-08-01T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-a98ba1f5164f.jpg"
+image: "/media/linkedin/li-a98ba1f5164f.webp"
 source: "https://www.linkedin.com/pulse/dont-ask-ai-write-tests-make-your-qa-engineer-chonghuan-wang-ctemf"
 ---
 

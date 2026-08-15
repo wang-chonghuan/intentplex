@@ -2,7 +2,7 @@
 title: "Over the past two years, most AI products were thin wrappers around LLM APIs, mainly expos"
 date: "2026-02-13T23:32:32.427Z"
 lang: "en"
-image: "/media/linkedin/li-c3caec45b86c.jpg"
+image: "/media/linkedin/li-c3caec45b86c.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7428219558647189505/"
 ---
 
@@ -12,4 +12,4 @@ This year the focus is shifting to autonomous AI agents such as OpenClaw, with t
 
 At the center is a self-refine agent control loop that runs a repeated execution- evaluation- reexecution state machine to support multi-step tool use, verification, and iterative task completion across turns.
 
-![](/media/linkedin/li-c3caec45b86c.jpg)
+![](/media/linkedin/li-c3caec45b86c.webp)

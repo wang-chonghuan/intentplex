@@ -2,7 +2,7 @@
 title: "The core principle of my harness system is that the user provides a research proposal, pro"
 date: "2026-07-15T07:45:55.384Z"
 lang: "en"
-image: "/media/linkedin/li-9a9de4f01ff5.jpg"
+image: "/media/linkedin/li-9a9de4f01ff5.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7483064290153967617/"
 ---
 
@@ -12,4 +12,4 @@ Each ticket must go through several stages: draft, specification, development pl
 
 Using this approach, I can keep Claude Code or Codex working continuously for more than five hours, delivering highly complex feature sets or changes with generally satisfactory results. Everything remains traceable through well-structured tickets.
 
-![](/media/linkedin/li-9a9de4f01ff5.jpg)
+![](/media/linkedin/li-9a9de4f01ff5.webp)
