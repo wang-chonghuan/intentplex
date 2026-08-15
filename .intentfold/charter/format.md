@@ -75,7 +75,8 @@ in this flow ever reconciles the two.
 curl -sf https://example.com/posts https://example.com/essays https://example.com/work
 
 # Derived — cannot go stale, because the app is the source
-curl -s https://example.com/ | grep -oE 'href="/[^"#?]*"' | sort -u | while read -r p; do …; done
+targets=$(curl -sf https://example.com/ | grep -aoE 'href="/[^"#?]*"' | sort -u)
+[ -n "$targets" ] || { echo "FAIL: derived no targets"; exit 1; }
 ```
 
 This is worse than a stale command, not a milder version of it. A stale command fails loudly — the
@@ -83,6 +84,17 @@ binary is gone, the flag is unknown. A stale **list** fails in the wrong directi
 reports a healthy deploy as broken because three of its four routes now 404, or a broken one as
 healthy because it never asks about the route that was added. Both readings survive because the check
 "ran".
+
+**A derived command must prove it derived something.** Deriving does not remove the quiet failure, it
+moves it: derive zero targets, iterate zero times, exit `0`. A `while read` loop over an empty list is
+indistinguishable from a loop where everything passed, and it reads as a clean bill of health for an
+artifact that is entirely down. Assert the derivation is non-empty and fail loudly when it is not —
+this is the one line that turns a derived check back into something that can fail.
+
+That failure is easy to reach by accident. The example above needs `grep -a` because BSD `grep` in a
+non-UTF-8 locale classifies a single long line of UTF-8 as binary and then reports **no matches**
+rather than saying it skipped the file. The empty-derivation guard is what catches that class of
+mistake without anyone having to predict it.
 
 If a target genuinely cannot be derived, that is a signal the artifact should expose it — a route
 manifest, a sitemap, a `--list` flag — not a signal to write the list down here.

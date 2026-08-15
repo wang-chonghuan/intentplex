@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-5",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "auto-merge",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-5",
+  "branch": "INTENTPLEX-5-fix-deploy-check",
+  "base": "ed64a4b",
+  "ports": {
+    "web": 53005
+  }
+}
