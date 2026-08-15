@@ -2,7 +2,7 @@
 
 Human-authored decisions and constraints — "how this is built", as decided, not as it happens to look
 right now. Where code and this file disagree, this file is the target and the drift gets reported.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 The dependency inventory is not written here; the lockfile is its source of truth.
 

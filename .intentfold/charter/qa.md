@@ -2,7 +2,7 @@
 
 Verification here is **acceptance-criteria only**: a ticket proves its own criteria against the
 running product and stops. No regression suite in the loop, by choice.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 This file is the **method**. A ticket's assertions live in its `ac.md`. Angle-bracketed parts are this
 project's to fill; the rest holds regardless of project.

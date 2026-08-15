@@ -1,7 +1,7 @@
 # UI Requirements
 
 Binding on every UI change. **UI work follows this file strictly** — the agent does not invent
-alternatives to what is written here. Section shape is fixed — see `format.md`.
+alternatives to what is written here. Section shape is fixed — see `readme.md`.
 
 Anything this file does not cover is still a design decision: it is settled at the **grill**, by the
 human, before implementation. Never invented while coding.
@@ -86,7 +86,7 @@ require compiling Astryx from source. This project uses the pre-built distributi
 
 **What the tokens are is not written here.** `npx astryx docs tokens`, `docs color`, `docs spacing`
 and `docs shape` answer it, and answer it correctly after an Astryx upgrade — a table transcribed
-into this file is a second copy nothing reconciles (`format.md`, test 4).
+into this file is a second copy nothing reconciles (`readme.md`, test 4).
 
 What this project adds on top, which those commands cannot tell you:
 

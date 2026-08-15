@@ -1,7 +1,7 @@
 # DevOps — deployment and operations
 
 Human-authored. How **this** project is deployed and operated.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 Most tickets end at merge. A ticket the human filed as **`Finish: auto-deploy`** runs the deploy leg
 below right after merging, so this file has to be executable as written — an agent will follow it
@@ -60,7 +60,7 @@ site server-renders, so a nearly-empty body means the SSR handler failed even th
 up. **The container app also reports `Succeeded` while the previous revision is still taking all the
 traffic**, so run this until it agrees, not once.
 
-Targets are **derived from the deployed app**, never listed here (`format.md`, test 4): the routes
+Targets are **derived from the deployed app**, never listed here (`readme.md`, test 4): the routes
 belong to the product and change under tickets that never open this file.
 
 ```bash

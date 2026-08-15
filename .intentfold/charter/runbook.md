@@ -2,7 +2,7 @@
 
 Concrete, directly executable commands, repo-root-relative. No machine-specific absolute paths.
 Environment-specific values are placeholders plus how to obtain them.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 This is the file acceptance verification uses to start the product, so an out-of-date command here
 silently blocks every ticket. **Read it at the moment you need it and run it as written** — never
@@ -139,4 +139,4 @@ proceed, never approximate, never decide on the human's behalf.
 
 Every entry says which of the two it is — **forbidden outright**, or **not without the human's
 explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
+Guidance instead (`readme.md`, test 2).

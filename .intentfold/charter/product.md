@@ -1,7 +1,7 @@
 # Product
 
 Human-authored. The machine reads this as binding intent and never edits it.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 ## Contract
 

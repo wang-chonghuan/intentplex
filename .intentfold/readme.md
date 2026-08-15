@@ -5,7 +5,7 @@ it for a while.
 
 *Machine-owned: `intentfold` cap1 rewrites this file from its template. It says where things live,
 not what this project wants. The dimension files in `charter/` are human-owned and cap1 only creates
-them when absent; `charter/format.md` is machine-owned and refreshed by cap1. Do not hand-edit here;
+them when absent; `charter/readme.md` is machine-owned and refreshed by cap1. Do not hand-edit here;
 edits belong in the charter or in the skill.*
 
 ## Read in this order
@@ -23,7 +23,7 @@ edits belong in the charter or in the skill.*
    - `devops.md` — how it is deployed and operated
 
    Each of them is written in the same four sections, and **each section is used differently** —
-   `charter/format.md` states the shape and the tests, and is worth reading once:
+   `charter/readme.md` states the shape and the tests, and is worth reading once:
 
    | Section | Use it by |
    |---|---|
@@ -43,7 +43,7 @@ edits belong in the charter or in the skill.*
   Ticket text follows the backend's language: linear is English, plane is Chinese unless the human
   asks otherwise.
 - Project intent lives in the human-owned charter dimension files; read them, never edit them.
-  `charter/format.md` is the machine-owned shape definition.
+  `charter/readme.md` is the machine-owned shape definition.
 - Per-ticket contracts live in `tickets/<ticket-id>/`: `ticket.json`
   (mode, stage, effective finish, checkout, branch, base, and ports), optional `draft.md`, `plan.md`,
   `ac.md`, `grill.md`, `handoff.md`, `intentfold-usage.json` when configured, and `rework.md` when

@@ -1,7 +1,7 @@
 # Development Rules
 
 Human-authored. Binding on every coding agent working in this repo.
-Section shape is fixed — see `format.md`.
+Section shape is fixed — see `readme.md`.
 
 *Seeded at init. The `## Tools` commands were read out of `package.json` and verified by running
 them; everything else is the template's method, which the human now owns.*
