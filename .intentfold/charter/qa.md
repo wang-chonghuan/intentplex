@@ -15,8 +15,7 @@ byte-for-byte comparison, and the operator's own signed-in browser.*
 
 **What counts as evidence.** Not a particular tool — three properties:
 
-1. **It reads the authoritative surface.** The running product, the deployed URL, the database — never
-   an inference from the source you just wrote.
+1. **It reads the authoritative surface** — the running product, the deployed URL, the database.
 2. **Someone can run it again** and get the same answer. A command, or a written-down sequence of
    browser steps and what each returned.
 3. **It can fail.** Where a check is new or clever, *make* it go red once against something
@@ -102,11 +101,10 @@ the startup, or stop and report it. That is a stop condition, not a test result.
 what it should; it says nothing about whether the page hydrated, whether an image resolved, or
 whether the console is full of errors. A UI criterion gets looked at in the browser.
 
-**Locators.** Prefer user-visible ones — role, label, placeholder, visible text. For regions whose
-content varies, use a stable `data-testid` or `data-*` container attribute. Never locate by CSS class
-chains or DOM structure the user cannot perceive; they break on refactors that changed nothing a user
-would notice. **Locate the stable container first, then assert about what is inside it** — never find
-a dynamic response by matching its generated text.
+**Locators.** Prefer user-visible ones — role, label, placeholder, text. For varying regions use a
+stable `data-testid`. Never CSS class chains or DOM structure the user cannot perceive: they break on
+refactors that changed nothing. **Locate the stable container first, then assert about its contents**
+— never find a dynamic response by matching its generated text.
 
 Astryx emits stable `astryx-*` classes and `data-*` prop reflections (`data-variant`, `data-selected`,
 `data-level`). Those are the design system's public selector surface and are safe to locate the
