@@ -22,6 +22,34 @@ const GITHUB_AUTHORIZE = 'https://github.com/login/oauth/authorize';
 const GITHUB_TOKEN = 'https://github.com/login/oauth/access_token';
 const GITHUB_USER = 'https://api.github.com/user';
 
+/**
+ * The URL a *browser* used, which is not the one the container received.
+ *
+ * Azure Container Apps terminates TLS at the ingress and forwards plain HTTP,
+ * so `new URL(request.url)` says `http://` and the wrong host. Sending that to
+ * GitHub produced `redirect_uri=http://intentplex.com/auth/callback` and the
+ * whole sign-in was rejected — and the same mistake made `isSecure` false, so
+ * the session cookie shipped without `Secure`. One derivation, used for both.
+ *
+ * Falls back to the request's own URL when the forwarded headers are absent,
+ * which is what local http development needs.
+ */
+function publicUrl(request: Request): URL {
+  const url = new URL(request.url);
+  // A proxy chain appends rather than replaces; the first entry is the client.
+  const first = (value: string | null) => value?.split(',')[0]?.trim() || undefined;
+  const proto = first(request.headers.get('x-forwarded-proto'));
+  const host = first(request.headers.get('x-forwarded-host')) ?? first(request.headers.get('host'));
+  if (proto) url.protocol = `${proto}:`;
+  if (host) {
+    // Assigning `host` without a port leaves the old one in place, which turned
+    // intentplex.com into intentplex.com:3000. Clear it explicitly.
+    url.host = host;
+    if (!host.includes(':')) url.port = '';
+  }
+  return url;
+}
+
 function isSecure(url: URL): boolean {
   return url.protocol === 'https:';
 }
@@ -33,7 +61,7 @@ function redirect(to: string, cookie?: string): Response {
 }
 
 export async function handleAuthRoute(request: Request): Promise<Response | null> {
-  const url = new URL(request.url);
+  const url = publicUrl(request);
 
   if (url.pathname === '/auth/signin') {
     const authorize = new URL(GITHUB_AUTHORIZE);
