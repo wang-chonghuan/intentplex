@@ -15,9 +15,9 @@ export const Route = createFileRoute('/')({
 });
 
 const styles = stylex.create({
-  headline: {
-    maxWidth: '16ch',
-  },
+  // The headline gets no width budget of its own: it should occupy one line
+  // and only wrap when the viewport actually forces it. The intro still reads
+  // as prose, so it keeps the reading column.
   intro: {
     maxWidth: frame.proseWidth,
   },
@@ -31,7 +31,7 @@ function HomePage() {
   return (
     <VStack gap={10}>
       <VStack gap={4}>
-        <Heading level={1} type="display-2" xstyle={styles.headline}>
+        <Heading level={1} type="display-2">
           {home.headline}
         </Heading>
         <Text type="large" color="secondary" xstyle={styles.intro}>
