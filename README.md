@@ -43,7 +43,8 @@ npm run typecheck
 
 | Path | What |
 | --- | --- |
-| [`DESIGN.md`](DESIGN.md) | The Astryx / stone design system this site obeys, and the rules for touching it. Read before changing any UI. |
+| [`.intentfold/readme.md`](.intentfold/readme.md) | Session entry point. Routes to this project's intent and its ticket workflow — no product change without a ticket. |
+| [`.intentfold/charter/ui.md`](.intentfold/charter/ui.md) | The Astryx / stone design system this site obeys, and the rules for touching it. Read before changing any UI. (This is where `DESIGN.md` went.) |
 | `src/routes/` | One file per page: `index` (首页), `posts` (动态), `essays` (文章), `work` (作品), `media` (媒体矩阵) |
 | `src/content/` | All copy, as `{en, zh}` objects. Both languages are written in the same literal, so a missing translation is a type error. |
 | `src/components/` | The shell: `SiteProviders` (theme + locale + link adapter), `SiteShell` (top nav + page column), the two switches |

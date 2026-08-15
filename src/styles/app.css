@@ -7,7 +7,8 @@
  *   priority*    StyleX output (useCSSLayers), written by @stylexjs/unplugin
  *
  * StyleX comes last so an `xstyle` prop can adjust layout on a themed
- * component. It must never be used to restate a token value — see DESIGN.md.
+ * component. It must never be used to restate a token value — see
+ * .intentfold/charter/ui.md.
  *
  * The statement below is also the natural order (the imports run in the same
  * sequence and the StyleX plugin appends its rules to the end of this asset),

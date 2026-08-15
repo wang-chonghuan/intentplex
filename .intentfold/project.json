@@ -1,0 +1,19 @@
+{
+  "project": "intentplex",
+  "main_branch": "main",
+  "deploy": {
+    "where": "Azure Container Apps on the n-easyapp substrate (shared env cae-easyapp-shared). The app does not exist yet — nothing has been deployed.",
+    "how": "See .intentfold/charter/devops.md. The first deploy is an n-easyapp create and needs the human; routine redeploys are the n-easyapp redeploy capability for project intentplex."
+  },
+  "tickets": {
+    "system": "plane",
+    "project_url": "https://app.plane.so/intentmill/projects/581d2db6-9c64-48c8-94fd-6273e3f8f493/issues/",
+    "project": "intentplex"
+  },
+  "ports": {
+    "web": {
+      "main": 3000,
+      "ticket_prefix": 53
+    }
+  }
+}

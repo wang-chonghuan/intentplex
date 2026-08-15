@@ -11,7 +11,7 @@ import * as stylex from '@stylexjs/stylex';
  * define, and switching themes keeps working because nothing is copied.
  *
  * Adding a raw value here (a hex, a px) instead of a var() reference is the
- * one edit that breaks the contract described in DESIGN.md.
+ * one edit that breaks the contract in .intentfold/charter/ui.md.
  */
 
 export const color = stylex.defineConsts({
