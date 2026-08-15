@@ -7,7 +7,7 @@ export const contactsPage = {
     zh: '邮件是我真的会看的那个。其余都是文字最后落到的地方。',
   } satisfies L10n<string>,
   emailLabel: {en: 'Email', zh: '邮箱'} satisfies L10n<string>,
-  email: 'hello@intentplex.com',
+  email: 'intentplex@gmail.com',
   elsewhereLabel: {en: 'Elsewhere', zh: '其他'} satisfies L10n<string>,
 } as const;
 
@@ -22,37 +22,19 @@ export const contactLinks: readonly ContactLink[] = [
   {
     id: 'x',
     name: 'X',
-    handle: '@yongwang',
-    href: 'https://example.com/x',
+    handle: '@intentplex',
+    href: 'https://x.com/intentplex',
+  },
+  {
+    id: 'linkedin',
+    name: 'LinkedIn',
+    handle: 'in/chonghuan',
+    href: 'https://www.linkedin.com/in/chonghuan',
   },
   {
     id: 'github',
     name: 'GitHub',
     handle: 'wang-chonghuan',
     href: 'https://github.com/wang-chonghuan',
-  },
-  {
-    id: 'linkedin',
-    name: 'LinkedIn',
-    handle: 'in/yongwang',
-    href: 'https://example.com/linkedin',
-  },
-  {
-    id: 'newsletter',
-    name: 'The Intent Letter',
-    handle: 'intentplex.substack.com',
-    href: 'https://example.com/newsletter',
-  },
-  {
-    id: 'wechat',
-    name: 'WeChat',
-    handle: 'intentplex',
-    href: 'https://example.com/wechat',
-  },
-  {
-    id: 'xiaohongshu',
-    name: '小红书',
-    handle: 'intentplex',
-    href: 'https://example.com/xiaohongshu',
   },
 ] as const;
