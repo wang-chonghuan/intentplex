@@ -19,7 +19,9 @@ the angle-bracketed values with real ones.*
 
 Production only. No staging, no preview environment.
 
-- **Production** — <URL, once the app exists. Not yet assigned.>
+- **Production** — <https://intentplex.com> (apex, Cloudflare DNS-only → Azure managed cert).
+  `www` 301s to it. The container's own hostname is
+  `ca-intentplex.kindsmoke-4d84c417.northeurope.azurecontainerapps.io`.
 
 **Where it runs**
 
@@ -31,8 +33,8 @@ and no worker.
 n-easyapp is used here because the human named it. The easyapp project name is **`intentplex`**, and
 it is recorded in `.intentfold/project.json` under `deploy`.
 
-**The app has not been created.** Until it has, there is no revision to redeploy and every deploy is a
-first deploy — see `## Redlines`.
+The app exists and is serving. Routine redeploys are the normal case; the first-deploy redline
+below tests for a missing revision rather than assuming one.
 
 ## Tools
 
@@ -53,17 +55,39 @@ command an agent runs on its own:
 
 **Post-deploy check**
 
-Hit the live URL and read the response. A healthy response is HTTP 200 whose body contains the
-server-rendered page, not just the shell — the site server-renders, so an empty `<body>` means the SSR
-handler failed even though the container is up:
+A healthy response is HTTP 200 whose body carries the server-rendered page, not just the shell — this
+site server-renders, so a nearly-empty body means the SSR handler failed even though the container is
+up. **The container app also reports `Succeeded` while the previous revision is still taking all the
+traffic**, so run this until it agrees, not once.
+
+Targets are **derived from the deployed app**, never listed here (`format.md`, test 4): the routes
+belong to the product and change under tickets that never open this file.
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" https://<production-url>/
-curl -s https://<production-url>/ | grep -c "intentplex"
+URL=https://intentplex.com
+curl -s "$URL/" \
+  | grep -oE 'href="/[^"#?]*"' | sed 's/href="//; s/"$//' \
+  | grep -vE '\.[a-z0-9]+$' | sort -u \
+  | while read -r p; do
+      body=$(curl -s "$URL$p")
+      printf '%s  %-12s %s bytes\n' \
+        "$(curl -s -o /dev/null -w '%{http_code}' "$URL$p")" "$p" "$(printf %s "$body" | wc -c)"
+    done
 ```
 
-Check `/`, `/posts`, `/essays`, `/work` and `/media` — client-side routing can hide a server route
-that 404s.
+The `grep -v` drops anything with a file extension: `/assets/*.js` and `/media/*.jpg` are served by
+the same origin and answer 200 whatever the app is doing, so leaving them in makes the check pass on
+a site whose pages are all broken.
+
+Every line must read `200`, and the byte counts must be in the tens of kilobytes — a shell without
+SSR content comes back an order of magnitude smaller. Confirm the revision actually took over:
+
+```bash
+az containerapp revision list -g rg-easyapp-shared -n ca-intentplex \
+  --query "[].{name:name,health:properties.healthState,traffic:properties.trafficWeight}" -o tsv
+```
+
+The revision carrying 100% traffic must be the newest one and `Healthy`.
 
 **Secrets and configuration**
 
@@ -98,9 +122,9 @@ Guidance instead (`format.md`, test 2).
 Deployment writes to external systems, so this is the section cap4 looks up before it deploys.
 
 1. **Creating or deleting cloud resources** — not without the human's explicit approval.
-2. **Deploying for the first time** — not without the human's explicit approval. Lookupable: the
-   container app has no existing revision, and no production URL is recorded in `## Contract` above.
-   **This is the project's current state**, so every deploy right now is a stop.
+2. **Deploying for the first time** — not without the human's explicit approval. Lookupable, and it
+   is a test rather than a recorded state: `az containerapp revision list … --query "length(@)"`
+   returns `0`, or the app does not exist. A routine redeploy of an existing revision is not this.
 3. **A deploy that changes the runtime by more than the image's application code** — not without the
    human's explicit approval. The concrete shapes, so this is looked up and not judged: the service
    needs an environment variable it does not already have · the container's ingress, port, scaling or
