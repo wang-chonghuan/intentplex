@@ -2,7 +2,7 @@
 title: "Many code indexing tools have emerged to provide context for AI coding"
 date: "2026-05-23T07:32:52.751Z"
 lang: "en"
-image: "/media/linkedin/li-66495f522685.jpg"
+image: "/media/linkedin/li-66495f522685.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7463854450676355072/"
 ---
 
@@ -16,4 +16,4 @@ Second, they should not use a knowledge graph. Instead, they should use a connec
 
 AI can absolutely understand your code. What it lacks is the business process and key decisions behind that code.
 
-![](/media/linkedin/li-66495f522685.jpg)
+![](/media/linkedin/li-66495f522685.webp)

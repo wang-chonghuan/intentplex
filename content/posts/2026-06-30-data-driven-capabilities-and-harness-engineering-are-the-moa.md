@@ -2,7 +2,7 @@
 title: "Data-driven capabilities and harness engineering are the moat of IT companies in the AI er"
 date: "2026-06-30T04:44:57.194Z"
 lang: "en"
-image: "/media/linkedin/li-d8052e69be75.jpg"
+image: "/media/linkedin/li-d8052e69be75.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7477582929620094976/"
 ---
 
@@ -12,4 +12,4 @@ Why can people reverse-engineer Open Design from Claude Design, but not reverse-
 
 You can only copy the existing visible features, but you cannot copy the engineering delivery capability that allows Claude Code to ship stable new features quickly.
 
-![](/media/linkedin/li-d8052e69be75.jpg)
+![](/media/linkedin/li-d8052e69be75.webp)

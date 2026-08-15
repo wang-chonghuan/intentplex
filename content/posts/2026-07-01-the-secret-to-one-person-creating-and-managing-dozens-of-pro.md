@@ -2,7 +2,7 @@
 title: "The secret to one person creating and managing dozens of projects is not to pursue perfect"
 date: "2026-07-01T03:17:46.415Z"
 lang: "en"
-image: "/media/linkedin/li-a3716d275050.jpg"
+image: "/media/linkedin/li-a3716d275050.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7477923378008600576/"
 ---
 
@@ -12,4 +12,4 @@ Second, establish #LoopEngineering to cover the whole loop from creating tickets
 
 This is not impossible.
 
-![](/media/linkedin/li-a3716d275050.jpg)
+![](/media/linkedin/li-a3716d275050.webp)

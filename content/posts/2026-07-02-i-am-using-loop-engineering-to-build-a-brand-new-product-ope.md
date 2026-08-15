@@ -2,7 +2,7 @@
 title: "I am using loop engineering to build a brand new Product Operating System"
 date: "2026-07-02T17:54:09.527Z"
 lang: "en"
-image: "/media/linkedin/li-7133676b9701.jpg"
+image: "/media/linkedin/li-7133676b9701.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7478506315431129089/"
 ---
 
@@ -18,4 +18,4 @@ My reflection is that in vibe coding, humans spend too much time obsessing over 
 
 Loop coding feels different: define the objective, build the harness, and let the system continuously move toward the product goal.
 
-![](/media/linkedin/li-7133676b9701.jpg)
+![](/media/linkedin/li-7133676b9701.webp)

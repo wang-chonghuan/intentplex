@@ -2,7 +2,7 @@
 title: "TodoClaw: The Execution Engine for Harness Engineering 🦮"
 date: "2026-03-30T01:29:40.841Z"
 lang: "en"
-image: "/media/linkedin/li-5203db429411.jpg"
+image: "/media/linkedin/li-5203db429411.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7444194104038768640/"
 ---
 
@@ -48,4 +48,4 @@ By integrating Linear, Notion, and GitHub through business-logic-aware skills, i
 
 #HarnessEngineering #AIAgents #AutonomousDev #DevOps #AI #TodoClaw #OpenClaw #LinearApp #GitHub #Notion #SlackAI #Codex #ClaudeCode
 
-![](/media/linkedin/li-5203db429411.jpg)
+![](/media/linkedin/li-5203db429411.webp)

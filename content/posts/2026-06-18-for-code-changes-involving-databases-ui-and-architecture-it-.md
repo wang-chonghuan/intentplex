@@ -2,7 +2,7 @@
 title: "For code changes involving databases, UI, and architecture, it is impossible to remove hum"
 date: "2026-06-18T05:34:36.833Z"
 lang: "en"
-image: "/media/linkedin/li-af685003b179.jpg"
+image: "/media/linkedin/li-af685003b179.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7473246772744691712/"
 ---
 
@@ -12,4 +12,4 @@ What we can do is automate all development, testing, and integration, leaving on
 
 Software development is dramatically reduced to a handful of Q&A decisions.
 
-![](/media/linkedin/li-af685003b179.jpg)
+![](/media/linkedin/li-af685003b179.webp)

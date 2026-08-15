@@ -2,7 +2,7 @@
 title: "Tool Usage Capability Preference Matrix (Original)"
 date: "2026-05-13T07:38:01.700Z"
 lang: "en"
-image: "/media/linkedin/li-8b5c0b9830bc.jpg"
+image: "/media/linkedin/li-8b5c0b9830bc.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7460231867846447104/"
 ---
 
@@ -26,4 +26,4 @@ Quadrant Descriptions
 
 This framework helps evaluate personal or team strengths in tool-oriented workflows eg software crafts productivity engineering. Where do you position yourself?
 
-![](/media/linkedin/li-8b5c0b9830bc.jpg)
+![](/media/linkedin/li-8b5c0b9830bc.webp)

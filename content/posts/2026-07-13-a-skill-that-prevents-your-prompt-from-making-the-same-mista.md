@@ -2,7 +2,7 @@
 title: "A skill that prevents your prompt from making the same mistake 200 times"
 date: "2026-07-13T07:09:47.050Z"
 lang: "en"
-image: "/media/linkedin/li-18b49bce6ea1.jpg"
+image: "/media/linkedin/li-18b49bce6ea1.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7482330419770654721/"
 ---
 
@@ -18,4 +18,4 @@ Once several batches pass consistently, it switches to sampling-based validation
 
 The goal is simple: do not discover 200 errors at the end. Make the agent learn automatically from the first batch.
 
-![](/media/linkedin/li-18b49bce6ea1.jpg)
+![](/media/linkedin/li-18b49bce6ea1.webp)

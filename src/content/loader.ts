@@ -28,8 +28,26 @@ export type Item = {
   /** ISO 8601. The only ordering there is. */
   date: string;
   image?: string;
+  /**
+   * The list-sized rendition of `image`. Lists show a 64px square, so serving
+   * `image` there means a whole page of 1280px photos for thumbnails — on
+   * /posts that was the entire corpus, four megabytes, per visit.
+   */
+  thumb?: string;
   renditions: Partial<Record<Locale, Rendition>>;
 };
+
+/**
+ * The 128px sibling of an imported photo, or the image itself.
+ *
+ * Only the imported photos have one; the works entries point at SVGs, which
+ * are vector and already smaller than any raster thumbnail would be.
+ */
+function thumbOf(image: string): string {
+  return /^\/media\/linkedin\/li-[a-z0-9]+\.webp$/.test(image)
+    ? image.replace(/\.webp$/, '.thumb.webp')
+    : image;
+}
 
 /**
  * Every markdown file in content/, read at build time.
@@ -68,13 +86,16 @@ function parseAll(): readonly Item[] {
         throw new Error(`content: ${path} — duplicate ${f.lang} rendition for ${id}`);
       }
       existing.renditions[f.lang] = rendition;
-      if (!existing.image && f.image) existing.image = f.image;
+      if (!existing.image && f.image) {
+        existing.image = f.image;
+        existing.thumb = thumbOf(f.image);
+      }
     } else {
       byId.set(id, {
         id: f.slug,
         kind: f.kind,
         date: f.date,
-        ...(f.image ? {image: f.image} : {}),
+        ...(f.image ? {image: f.image, thumb: thumbOf(f.image)} : {}),
         renditions: {[f.lang]: rendition},
       });
     }

@@ -2,7 +2,7 @@
 title: "This weekend I spent many hours studying category theory"
 date: "2026-06-14T12:38:43.361Z"
 lang: "en"
-image: "/media/linkedin/li-1167c5e05904.jpg"
+image: "/media/linkedin/li-1167c5e05904.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7471903951756578816/"
 ---
 
@@ -18,4 +18,4 @@ Fallbacks should not be allowed.
 
 Only by doing this can we preserve the purity of the architecture’s topology, eliminate a large class of potential bugs, and make the entire system easier to understand and reason about.
 
-![](/media/linkedin/li-1167c5e05904.jpg)
+![](/media/linkedin/li-1167c5e05904.webp)

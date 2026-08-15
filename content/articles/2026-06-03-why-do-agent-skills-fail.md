@@ -2,7 +2,7 @@
 title: "Why Do Agent Skills Fail?"
 date: "2026-06-03T12:00:00.000Z"
 lang: "en"
-image: "/media/linkedin/li-71e87928dcb2.jpg"
+image: "/media/linkedin/li-71e87928dcb2.webp"
 source: "https://www.linkedin.com/pulse/why-do-agent-skills-fail-chonghuan-wang-mrnrf"
 ---
 
