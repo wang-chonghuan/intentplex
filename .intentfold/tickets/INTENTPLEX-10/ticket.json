@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-10",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "auto-merge",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-10",
+  "branch": "INTENTPLEX-10-authored-zh-generated-en",
+  "base": "1df413b",
+  "ports": {
+    "web": 53010
+  }
+}
