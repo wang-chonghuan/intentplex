@@ -152,14 +152,6 @@ half-working production site is worse than the previous one.
 
 ## Redlines
 
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
-
 Deployment writes to external systems, so this is the section cap4 looks up before it deploys.
 
 1. **Creating or deleting cloud resources** — not without the human's explicit approval.

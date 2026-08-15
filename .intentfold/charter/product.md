@@ -34,14 +34,6 @@ phrased as "never do X" is a redline and belongs below, where it will actually b
 
 ## Redlines
 
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
-
 1. **<What this product must never become>** — forbidden outright. <The removed feature that must not
    come back, the shape it must not take. Keep it detectable: name the route, the file, the
    dependency, so crossing it is visible without judgement.>

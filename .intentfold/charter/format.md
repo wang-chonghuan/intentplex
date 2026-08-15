@@ -110,9 +110,16 @@ manifest, a sitemap, a `--list` flag — not a signal to write the list down her
   is *who decides whether it was met*: the author, while writing, rather than a lookup afterwards.
   Nothing in this skill reviews a diff against Guidance, and that is deliberate. State it so an
   author can follow it, not so a reviewer can score it.
-- **Redlines** is a closed list, looked up and never judged. Every entry says which of the two it
-  is — **forbidden outright**, or **not without the human's explicit approval**. Entries hold whether
-  or not anyone thought of them when the plan was written.
+- **Redlines** is a closed list, looked up and never judged. Do not ask "is this a big deal?"; check
+  whether the action is on the list. If it is: **route around it, or stop and hand it to the human** —
+  never proceed, never approximate, never decide on the human's behalf. Every entry says which of the
+  two it is — **forbidden outright**, or **not without the human's explicit approval**. An entry that
+  needs a read-through to apply is not a redline; it is a Guidance line filed in the wrong section
+  (test 2). Entries hold whether or not anyone thought of them when the plan was written.
+
+  **This rule lives here and nowhere else.** It used to be restated verbatim above every `## Redlines`
+  section in every file — seven copies of the same seven lines, which is the duplication test 3 and
+  test 4 exist to prevent, committed inside the document that states them.
 - **A redline states its test, never today's answer to it.** *"Lookupable: the service has no
   existing revision"* is a test and stays true forever. *"This is the project's current state, so
   every deploy right now is a stop"* is the answer on the day it was written — it goes false the

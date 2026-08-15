@@ -33,36 +33,25 @@ The repo keeps a **copy**, not the source: `scripts/export-to-repo.mjs` writes t
 only thing standing between the writing and a single Burstable instance, and it is why the export is
 a required step rather than a nicety.
 
-**Structure**
+**Structure — the boundaries, not the listing**
 
-```text
-content/         # the entries — Markdown + frontmatter, one file per entry per language
-  posts/ articles/ works/
-                 # <YYYY-MM-DD>-<slug>[.<lang>].md; lang is the suffix or a frontmatter field
-export/media/    # the images, same backup. NOT under public/ — a static copy there
-                 # would shadow the database route with whatever was exported last
-src/
-  routes/        # one file per page + __root.tsx; the only place a route is declared
-  components/    # the app shell and adapters — see ui.md for the tier rule
-  content/       # the chrome's copy as {en, zh} objects, plus the corpus types and
-                 # pure helpers, plus the per-platform channel briefs
-  rpc/           # server functions. The BOUNDARY: the browser may import these
-  server/        # what those functions do — auth, upload, generation, the queue.
-  db/            # the pool and the queries.
-                 #   src/server and src/db are forbidden to the client and the build
-                 #   enforces it; see Key decisions
-  i18n/          # locale context and the t() reader
-  styles/        # app.css (cascade order + vendor imports), tokens.stylex.ts (token constants)
-  types/         # ambient declarations for build-time virtual modules
-  start.ts       # createStart(): request middleware for /media/* and the /admin gate
-  router.tsx     # getRouter(), the entry TanStack Start calls
-scripts/         # migrate / export-to-repo / sender-queue — operational, not shipped
-.agents/skills/  # ipsl-* skills that belong to this project
-server.mjs       # binds a port around the built fetch handler; what the container runs
-```
+`ls src/` answers what the directories are, and answers it after every change; this file states what
+they are *for* and where the lines run.
 
-The boundaries that matter: **routes compose, they do not hold copy**; **content holds copy, it does
-not import React**; **`styles/` is the only place a design token is named**.
+- **`src/routes/` composes.** One file per page. It holds no copy and no query — a route reaches for
+  a component or a server function.
+- **`src/content/` holds copy and the corpus's own types and pure helpers.** A file here never
+  imports React, an Astryx component, `src/components/` or `src/routes/`.
+- **`src/rpc/` is the only bridge the browser may cross.** `src/server/` and `src/db/` are what those
+  functions actually do — auth, upload, generation, the queue, the pool — and nothing outside
+  `src/rpc/` may import them. The build enforces it; see Key decisions.
+- **`src/styles/` is the only place a design token is named.**
+- **`scripts/` is operational, not shipped.** Import/export, the sender queue. Not reachable from the
+  app.
+- **`content/` and `export/media/` are a backup**, written by `scripts/export-to-repo.mjs`. Nothing
+  reads them at build or run time.
+- **`.agents/skills/`** holds this project's own `ipsl-*` skills.
+- **`server.mjs`** binds a port around the built fetch handler; it is what the container runs.
 
 **Key decisions**
 
@@ -146,14 +135,6 @@ page, and content before either when the change is words — `content/` for an e
 the chrome. A change that needs a new dependency is a stop, not a design choice.
 
 ## Redlines
-
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
 
 1. **A copy file under `src/content/` importing React, an Astryx component, or anything from
    `src/components/` or `src/routes/`** — forbidden outright. Copy is data; the moment it renders, it

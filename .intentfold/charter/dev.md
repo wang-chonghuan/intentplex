@@ -42,8 +42,6 @@ overlap detector, no required `intentfold / integrity` check.
 
 ## Guidance
 
-Binding. Followed while writing, judged by the author — nothing reviews a diff against this section.
-
 **No gratuitous dependencies.** If the existing architecture and stack can implement the requirement,
 **do not add, remove, or change any library**. Solve it with what is here. A dependency change is
 admissible only when the existing stack genuinely cannot meet the requirement **and** the ticket
@@ -79,14 +77,6 @@ is how the locale and colour-mode switches are built; a hydration mismatch is a 
 to live with.
 
 ## Redlines
-
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
 
 1. **Committing credentials, tokens, connection strings, or hidden account data** — forbidden
    outright, in source, mocks, ticket artifacts and commits alike.

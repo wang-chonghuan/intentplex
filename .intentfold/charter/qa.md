@@ -7,46 +7,57 @@ Section shape is fixed — see `format.md`.
 This file is the **method**. A ticket's assertions live in its `ac.md`. Angle-bracketed parts are this
 project's to fill; the rest holds regardless of project.
 
-*Seeded at init. The project-specific parts — run command, viewports, the bilingual and colour-mode
-notes — are inferred from the repo; Playwright is not installed yet, so the first ticket that needs
-it runs the install step below.*
+*Seeded at init, then rewritten once the project had actually been verified a few times. Playwright
+was never installed and has not been needed: what settles criteria here is a route sweep, a
+byte-for-byte comparison, and the operator's own signed-in browser.*
 
 ## Contract
 
-**What counts as evidence.** A **ticket-scoped script run from the command line** — it encodes
-assertions someone can re-run. `playwright-cli open <url>` is fine for poking at a page while
-debugging; it is never the evidence that a criterion passed.
+**What counts as evidence.** Not a particular tool — three properties:
 
-Scripts and screenshots live in `.intentfold/tickets/<ticket-id>/tmp/`, uncommitted. One script
-covering all of a ticket's criteria is the normal case, with a screenshot per criterion.
+1. **It reads the authoritative surface.** The running product, the deployed URL, the database — never
+   an inference from the source you just wrote.
+2. **Someone can run it again** and get the same answer. A command, or a written-down sequence of
+   browser steps and what each returned.
+3. **It can fail.** Where a check is new or clever, *make* it go red once against something
+   deliberately broken. This project has been bitten twice: a derived deploy check whose `grep`
+   silently matched nothing iterated zero times and exited 0, and the same check later called a
+   by-design redirect a failure. Both looked like results.
 
-**What a criterion check asserts.** The page or flow is reachable · the fixed controls are present ·
-the expected region renders · the action is accepted · the result appears in the right place ·
-loading resolves · no error state · the value has the right shape.
+**The shapes that actually settle criteria here**, in rough order of how often they are the right one:
 
-**A chore's proof is whatever settles its criterion** — usually the observation command the ticket
-names, and then it needs no port and no browser. But a criterion that is only visible in the running
-product is checked in the running product, chore or not: a query proves a row landed and proves
-nothing about whether the product shows it.
+- **A route sweep.** Derive every route from what the app itself links to, then assert status and that
+  the page rendered something real. This is what `devops.md`'s post-deploy check does, and the same
+  shape run against `localhost` is how a ticket proves it did not break the site.
+- **A before/after comparison.** When a change is supposed to change nothing visible, capture every
+  page before, capture again after, and compare **byte for byte**. Normalise only what must differ —
+  the router's serialisation payload, `modulepreload` hints, asset hashes — and say in the handoff
+  exactly what was normalised, because each one is something the comparison no longer checks.
+- **A query**, for data that has no UI yet, plus a look at the product when there is one. The query
+  proves the row landed and proves nothing about whether the product shows it.
+- **The browser**, for anything only a browser can see: hydration errors in the console, client-side
+  navigation, broken images, the language switch, mobile layout.
+
+**A chore's proof is whatever settles its criterion** — often a single command, and then it needs no
+port and no browser.
+
+Scripts, snapshots and screenshots live in `.intentfold/tickets/<ticket-id>/tmp/`, uncommitted.
 
 ## Tools
 
-**Playwright** — after first adding it, or after upgrading: `npx playwright install chromium`.
+**The browser is the operator's own**, driven through the agent's browser tools. That is not a
+compromise — it is the only browser that carries the signed-in sessions this project needs, both for
+`/admin` and for the platform accounts `ipsl-syndicate` posts to. It is not unattended and a stranger
+cannot re-run it, so **write down what was done and what came back**; that record is the evidence.
 
-Checks are standalone `.mjs` scripts driving `chromium.launch()`, run as:
+There is no test runner and no Playwright. A check that genuinely needs one is a change to this file
+first — and note what the browser tools already cover before concluding that.
 
-```bash
-node .intentfold/tickets/<ticket-id>/tmp/ac.mjs
-```
+**Command-line checks** are plain `curl` / `node` one-liners or small `.mjs` scripts under the
+ticket's `tmp/`. They are the default: cheaper than a browser, and re-runnable by anyone.
 
-There is no `playwright.config.ts` and no `.spec.ts` suite — this project has no test runner, so a
-check that needs one is a change to this file first.
-
-**Ports and base URL.** Ticket ports come from `project.json`:
-
-```bash
-python3 <intentfold-skill>/scripts/ports.py .intentfold/project.json ticket <ticket-id>
-```
+**Ports and base URL.** `runbook.md` owns how this project is started and how a ticket's port is
+resolved; read it there rather than keeping a second copy that goes stale on its own schedule.
 
 Express work uses the `web` service's explicit `main` port from the same file.
 
@@ -84,13 +95,12 @@ curl -s http://localhost:<web-port>/<route> | grep -c "<expected text>"
 
 Binding. Followed while writing the check, judged by the author.
 
-**Start the product first.** Confirm the service is actually responding at its URL before invoking
-Playwright. Knowingly running into `ERR_CONNECTION_REFUSED` produces a failure that says nothing — fix
+**Start the product first.** Confirm the service is actually responding at its URL before driving it. Knowingly running into `ERR_CONNECTION_REFUSED` produces a failure that says nothing — fix
 the startup, or stop and report it. That is a stop condition, not a test result.
 
-**Headed, not headless,** for formal UI verification — headless hides real rendering failures. Fall
-back to headless only on a non-GUI environment, and say so in the handoff rather than claiming headed
-verification passed.
+**A green command is not a rendered page.** `curl` proves a route answers and that its HTML contains
+what it should; it says nothing about whether the page hydrated, whether an image resolved, or
+whether the console is full of errors. A UI criterion gets looked at in the browser.
 
 **Locators.** Prefer user-visible ones — role, label, placeholder, visible text. For regions whose
 content varies, use a stable `data-testid` or `data-*` container attribute. Never locate by CSS class
@@ -134,14 +144,6 @@ command** — do not switch commands, and do not create extra diagnostic scripts
 work around it.
 
 ## Redlines
-
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
 
 1. **Recording a criterion as passed when its check did not run** — forbidden outright. An
    environment or external limit that stopped the run goes into `handoff.md` exactly as it happened.

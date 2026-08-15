@@ -28,7 +28,7 @@ Three layers, with one owner each:
 | Layer | Owner | This repo may |
 |---|---|---|
 | Tokens — `--color-*`, `--spacing-*`, `--radius-*`, `--shadow-*`, `--duration-*`, `--font-*` | the stone theme | read them, never define or redefine them |
-| Components — `Button`, `Card`, `TopNav`, `List`… (156 of them) | Astryx | compose them, pass their props, never restyle their internals |
+| Components — `Button`, `Card`, `TopNav`, `List`… (`npx astryx component --list`) | Astryx | compose them, pass their props, never restyle their internals |
 | Composition — which component, in what order, at what width | this repo | everything |
 
 The only legal channel from layer 3 into layers 1–2 is the `xstyle` prop, which every Astryx
@@ -84,85 +84,23 @@ require compiling Astryx from source. This project uses the pre-built distributi
 - ❌ `color: '#25252a'`, `padding: '16px'`, `borderRadius: '8px'`
 - ❌ adding a raw value to `tokens.stylex.ts`
 
-The only non-token values that file carries are two layout budgets, `frame.proseWidth` (`68ch`) and
-`frame.pageWidth` (`1080px`). They measure a reading column rather than describe visual style, and
-Astryx has no token for them.
+**What the tokens are is not written here.** `npx astryx docs tokens`, `docs color`, `docs spacing`
+and `docs shape` answer it, and answer it correctly after an Astryx upgrade — a table transcribed
+into this file is a second copy nothing reconciles (`format.md`, test 4).
 
-*Colour — neutrals at hue 291, chroma 3.* Stone is deliberately near-achromatic: its accent is the
-darkest neutral rather than a brand colour, so emphasis reads as contrast, not hue.
+What this project adds on top, which those commands cannot tell you:
 
-| Token | Light | Dark |
-|---|---|---|
-| `--color-accent` | `#25252a` | `#f3f3f5` |
-| `--color-on-accent` | `#ffffff` | `#25252a` |
-| `--color-background-body` | `#f3f3f5` | `#111015` |
-| `--color-background-surface` | `#ffffff` | `#1b1b1f` |
-| `--color-background-card` | `#ffffff` | `#242325` |
-| `--color-background-muted` | `#e2e2e8` | `#3b3b3f` |
-| `--color-text-primary` | `#25252a` | `#f3f3f5` |
-| `--color-text-secondary` | `#83838a` | `#9d9da3` |
-| `--color-text-disabled` | `#d7d7da` | `#5e5e61` |
-| `--color-border` | `#e2e2e8` | `#f3f3f5` @ 10% |
-| `--color-border-emphasized` | `#83838a` | `#5e5e61` |
-| `--color-overlay-hover` | `#25252a` @ 5% | `#f3f3f5` @ 5% |
-| `--color-overlay-pressed` | `#25252a` @ 10% | `#f3f3f5` @ 10% |
-| `--color-skeleton` | `#d4d4da` | `#5e5e64` |
-
-Status colours are muted to the same handmade register — stone carries no saturated alert colour:
-
-| Token | Light | Dark |
-|---|---|---|
-| `--color-success` | `#374c36` | `#b4cdb2` |
-| `--color-warning` | `#524622` | `#d7c59c` |
-| `--color-error` | `#58413e` | `#dcc0bc` |
-
-Ten categorical hues (blue, cyan, gray, green, orange, pink, purple, red, teal, yellow) each carry
-`--color-background-*`, `--color-border-*`, `--color-icon-*` and `--color-text-*`. Light mode is a T90
-pastel surface with T30 text; dark mode is a T35 surface with T90 text — the same hex, mirrored. Raw
-tonal ramps are exported as `stonePalettes` from `@astryxdesign/theme-stone`; they are reference, not
-a source of values for a component.
-
-*Spacing — 4px base.* `--spacing-0` 0 · `0-5` 2 · `1` 4 · `1-5` 6 · `2` 8 · `3` 12 · `4` 16 · `5` 20 ·
-`6` 24 · `7` 28 · `8` 32 · `9` 36 · `10` 40 · `11` 44 · `12` 48 (px).
-
-*Radius — stone overrides the default scale.* `--radius-none` `0.125rem` · `--radius-inner` `0.25rem` ·
-`--radius-element` `0.5rem` · `--radius-container` `0.75rem` · `--radius-page` `1.5rem` ·
-`--radius-full` `9999px`. `--radius-none` is 2px, not 0 — stone has no truly sharp corner. The theme
-additionally overrides buttons to `--radius-full`, which is why every button on this site is a pill.
-
-*Typography.* Heading **Montserrat**, body **Figtree**, code **JetBrains Mono**. The theme names these
-fonts but does not bundle them; they are loaded from Google Fonts in `src/routes/__root.tsx`, and
-without that link the theme silently falls back to system fonts.
-
-Scale: base 14px, ratio 1.25. `--font-size-base` `0.875rem` · `lg` `1.125rem` · `xl` `1.375rem` ·
-`2xl` `1.6875rem` · `3xl` `2.125rem` · `4xl` `2.6875rem` · `5xl` `3.3125rem`.
-
-The semantic types are the closed vocabulary — these are what gets written, not `size` + `weight`:
-
-| Prop | Size | Weight |
-|---|---|---|
-| `<Text type="body">` | base | normal |
-| `<Text type="label">` | base | medium |
-| `<Text type="large">` | lg | semibold |
-| `<Text type="supporting">` | 12px (stone override) | normal |
-| `<Text type="code">` | base | normal |
-| `<Heading level={1}>` | 2xl | semibold |
-| `<Heading level={2}>` | xl | semibold |
-| `<Heading level={3}>` | lg | bold |
-| `<Heading type="display-2">` | 4xl | normal |
-
-*Elevation.* `--shadow-low` `0 2px 4px #28282A0D, 0 4px 8px #28282A1A` · `--shadow-med`
-`0 2px 4px #28282A0D, 0 4px 12px #28282A1A` · `--shadow-high`
-`0 4px 6px #28282A1A, 0 12px 24px #28282A26`. Consumed as `elevation="none|low|med|high"`; the default
-is `none`.
-
-*Motion.* Stone is faster than the Astryx default: `--duration-fast` `125ms`, `--duration-medium`
-`300ms`, `--duration-slow` `700ms`, each with a `-min` and `-max` sibling. Easing is
-`--ease-standard: cubic-bezier(0.24, 1, 0.4, 1)`.
-
-*Focus and borders.* `--border-width` `1px`. The focus ring is one shared set —
-`--focus-outline-width` `2px`, `--focus-outline-style` `solid`, `--focus-outline-color`
-`var(--color-accent)`, `--focus-outline-offset` `3px` — and every component draws from it.
+- **Two non-token values are allowed**, both in `tokens.stylex.ts`: `frame.proseWidth` (`68ch`) and
+  `frame.pageWidth` (`1080px`). They measure a reading column rather than describe visual style, and
+  Astryx has no token for them. Nothing else may be a raw value.
+- **The stone theme, unmodified.** Its accent is the darkest neutral rather than a brand colour, so
+  emphasis reads as contrast, not hue. `astryx theme` is how a brand colour would be introduced, and
+  this project does not.
+- **Two surprises worth knowing before you fight them.** `--radius-none` is 2px, not 0 — stone has no
+  truly sharp corner. And the theme overrides buttons to `--radius-full`, which is why every button
+  on this site is a pill.
+- **`stonePalettes` from `@astryxdesign/theme-stone` is reference, not a source of values.** Reading a
+  ramp to pick a hex is the same defect as typing one.
 
 **Layout and responsive**
 
@@ -224,8 +162,6 @@ npx astryx template --list    # page and block recipes
 with `npx astryx upgrade --apply`).
 
 ## Guidance
-
-Binding. Followed while writing, judged by the author — nothing reviews a diff against this section.
 
 **Choosing components.** Reach for a custom component only when Astryx genuinely has nothing that
 fits — not because the official one needs configuring, and not because writing one looks faster.
@@ -294,14 +230,6 @@ language. `<html lang>` follows the locale (`en` / `zh-Hans`) so the browser hyp
 lines correctly.
 
 ## Redlines
-
-**A closed list, looked up — never judged.** Do not ask "is this a big deal?"; check whether the
-action is on the list. If it is: **route around it, or stop and hand it to the human.** Never
-proceed, never approximate, never decide on the human's behalf.
-
-Every entry says which of the two it is — **forbidden outright**, or **not without the human's
-explicit approval**. An entry that needs a read-through to apply is not a redline; write it as
-Guidance instead (`format.md`, test 2).
 
 1. **Changing a governed token registry** — adding, renaming, removing or retuning a value — not
    without the human's explicit approval. The registries are, by path, so this can be matched against
