@@ -26,10 +26,8 @@ export const site = {
     light: {en: 'Light', zh: '浅色'},
     dark: {en: 'Dark', zh: '深色'},
   } satisfies Record<string, L10n<string>>,
-  filter: {
-    label: {en: 'Filter by tag', zh: '按标签筛选'},
-    all: {en: 'All', zh: '全部'},
-    empty: {en: 'Nothing under this tag yet', zh: '这个标签下还没有内容'},
+  list: {
+    empty: {en: 'Nothing here yet', zh: '这里还没有内容'},
   } satisfies Record<string, L10n<string>>,
   detail: {
     back: {en: 'Back', zh: '返回'},

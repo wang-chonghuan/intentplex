@@ -15,8 +15,6 @@ export type Item = {
   kind: ItemKind;
   /** ISO 8601. The only ordering there is. */
   date: string;
-  /** Filter keys. Which filters a page offers is derived from these. */
-  tags: readonly string[];
   title: L10n<string>;
   image: {src: string; alt: L10n<string>};
   summary: L10n<string>;
@@ -41,7 +39,6 @@ export const posts: readonly Item[] = chronological([
     id: 'retry-loop',
     kind: 'post',
     date: '2026-08-11T09:20:00Z',
-    tags: ['engineering', 'harness'],
     title: {
       en: 'The retry loop was hiding a schema mismatch',
       zh: '那段重试逻辑藏着一个 schema 不匹配',
@@ -59,7 +56,6 @@ export const posts: readonly Item[] = chronological([
     id: 'code-review-answer',
     kind: 'post',
     date: '2026-08-06T19:05:00Z',
-    tags: ['team', 'engineering'],
     title: {
       en: 'How to get better at code review',
       zh: '怎么把 code review 做好',
@@ -77,7 +73,6 @@ export const posts: readonly Item[] = chronological([
     id: 'brass-birmingham',
     kind: 'post',
     date: '2026-07-29T21:40:00Z',
-    tags: ['boardgames'],
     title: {
       en: 'Six players, four hours, one coal shortage',
       zh: '六个人，四小时，一次缺煤',
@@ -95,7 +90,6 @@ export const posts: readonly Item[] = chronological([
     id: 'dewey-on-habit',
     kind: 'post',
     date: '2026-07-22T08:15:00Z',
-    tags: ['reading', 'philosophy'],
     title: {en: 'Re-reading Dewey on habit', zh: '重读杜威谈习惯'},
     image: {
       src: '/media/dewey-on-habit.svg',
@@ -110,7 +104,6 @@ export const posts: readonly Item[] = chronological([
     id: 'eval-suite-four-minutes',
     kind: 'post',
     date: '2026-07-14T12:00:00Z',
-    tags: ['agents', 'harness'],
     title: {
       en: 'The eval suite runs in under four minutes',
       zh: '评测套件跑进四分钟以内',
@@ -128,7 +121,6 @@ export const posts: readonly Item[] = chronological([
     id: 'support-team-workshop',
     kind: 'post',
     date: '2026-07-02T17:30:00Z',
-    tags: ['education', 'team'],
     title: {
       en: 'Two hours on how the model actually fails',
       zh: '两小时，讲模型到底会怎么出错',
@@ -146,7 +138,6 @@ export const posts: readonly Item[] = chronological([
     id: 'technical-debt-cards',
     kind: 'post',
     date: '2026-06-25T10:10:00Z',
-    tags: ['boardgames', 'engineering'],
     title: {
       en: 'A card game about technical debt',
       zh: '一个关于技术债的卡牌游戏',
@@ -164,7 +155,6 @@ export const posts: readonly Item[] = chronological([
     id: 'irish-canals',
     kind: 'post',
     date: '2026-06-18T07:45:00Z',
-    tags: ['reading'],
     title: {en: 'A book on Irish canal engineering', zh: '一本讲爱尔兰运河工程的书'},
     image: {
       src: '/media/irish-canals.svg',
@@ -182,7 +172,6 @@ export const articles: readonly Item[] = chronological([
     id: 'teaching-is-design',
     kind: 'article',
     date: '2026-07-30T00:00:00Z',
-    tags: ['education', 'product'],
     title: {
       en: 'Teaching Is a Design Problem, Not a Content Problem',
       zh: '教育是设计问题，不是内容问题',
@@ -216,7 +205,6 @@ export const articles: readonly Item[] = chronological([
     id: 'underwriting-an-agent',
     kind: 'article',
     date: '2026-06-11T00:00:00Z',
-    tags: ['agents', 'fintech'],
     title: {
       en: 'Underwriting an Agent: What Fintech Taught Me About Autonomy',
       zh: '给 Agent 做核保：金融科技教会我的自主性边界',
@@ -250,7 +238,6 @@ export const articles: readonly Item[] = chronological([
     id: 'intention-is-not-a-prompt',
     kind: 'article',
     date: '2026-05-02T00:00:00Z',
-    tags: ['philosophy', 'agents'],
     title: {en: 'Intention Is Not a Prompt', zh: '意图不是提示词'},
     image: {
       src: '/media/intention-is-not-a-prompt.svg',
@@ -279,7 +266,6 @@ export const articles: readonly Item[] = chronological([
     id: 'four-person-platform-team',
     kind: 'article',
     date: '2026-03-19T00:00:00Z',
-    tags: ['team', 'engineering'],
     title: {en: 'The Four-Person Platform Team', zh: '四个人的平台团队'},
     image: {
       src: '/media/four-person-platform-team.svg',
@@ -306,7 +292,6 @@ export const articles: readonly Item[] = chronological([
     id: 'how-to-read-a-rulebook',
     kind: 'article',
     date: '2025-11-08T00:00:00Z',
-    tags: ['boardgames', 'writing'],
     title: {en: 'How to Read a Rulebook', zh: '怎么读一本规则书'},
     image: {
       src: '/media/how-to-read-a-rulebook.svg',
@@ -336,7 +321,6 @@ export const works: readonly Item[] = chronological([
     id: 'intentplex',
     kind: 'work',
     date: '2026-08-15T00:00:00Z',
-    tags: ['tools', 'writing'],
     title: {en: 'intentplex', zh: 'intentplex'},
     image: {
       src: '/media/intentplex.svg',
@@ -363,7 +347,6 @@ export const works: readonly Item[] = chronological([
     id: 'rulesmith',
     kind: 'work',
     date: '2025-09-02T00:00:00Z',
-    tags: ['boardgames', 'tools'],
     title: {en: 'Rulesmith', zh: 'Rulesmith'},
     image: {
       src: '/media/rulesmith.svg',
@@ -390,7 +373,6 @@ export const works: readonly Item[] = chronological([
     id: 'socratic-deck',
     kind: 'work',
     date: '2025-04-18T00:00:00Z',
-    tags: ['education', 'tools'],
     title: {en: 'Socratic Deck', zh: 'Socratic Deck'},
     image: {
       src: '/media/socratic-deck.svg',
@@ -417,7 +399,6 @@ export const works: readonly Item[] = chronological([
     id: 'ledgerlens',
     kind: 'work',
     date: '2024-10-07T00:00:00Z',
-    tags: ['data', 'fintech'],
     title: {en: 'LedgerLens', zh: 'LedgerLens'},
     image: {
       src: '/media/ledgerlens.svg',
@@ -442,7 +423,6 @@ export const works: readonly Item[] = chronological([
     id: 'marginalia',
     kind: 'work',
     date: '2023-06-30T00:00:00Z',
-    tags: ['reading', 'tools'],
     title: {en: 'Marginalia', zh: 'Marginalia'},
     image: {
       src: '/media/marginalia.svg',
@@ -467,7 +447,6 @@ export const works: readonly Item[] = chronological([
     id: 'tempo',
     kind: 'work',
     date: '2022-11-14T00:00:00Z',
-    tags: ['team', 'tools'],
     title: {en: 'Tempo', zh: 'Tempo'},
     image: {
       src: '/media/tempo.svg',
