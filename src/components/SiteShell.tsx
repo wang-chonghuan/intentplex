@@ -3,11 +3,9 @@ import * as stylex from '@stylexjs/stylex';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Divider} from '@astryxdesign/core/Divider';
 import {HStack, VStack} from '@astryxdesign/core/Stack';
-import {NavIcon} from '@astryxdesign/core/NavIcon';
 import {Text} from '@astryxdesign/core/Text';
 import {TopNav, TopNavHeading, TopNavItem} from '@astryxdesign/core/TopNav';
 import {useRouterState} from '@tanstack/react-router';
-import {HexagonIcon} from 'lucide-react';
 
 import {AppearanceSwitch} from '~/components/AppearanceSwitch';
 import {LanguageSwitch} from '~/components/LanguageSwitch';
@@ -16,8 +14,12 @@ import {useLocale} from '~/i18n/locale';
 import {frame, space} from '~/styles/tokens.stylex';
 
 /**
- * Frame — a single content column under a top nav, the archetype the Astryx
- * layout guide calls a "plain content column" (documents, marketing).
+ * Frame — a single content column under a top nav.
+ *
+ * The nav bar is deliberately opaque, and `variant` is what makes it so:
+ * `"section"` only draws dividers and leaves the sticky header with no
+ * background of its own, so page content scrolls straight through it and
+ * collides with the nav labels. `"surface"` paints it.
  *
  * Responsive contract:
  *   > 1080px  centred 1080px column, 32px gutters
@@ -27,15 +29,13 @@ import {frame, space} from '~/styles/tokens.stylex';
 const NAV_ITEMS = [
   {to: '/', key: 'home'},
   {to: '/posts', key: 'posts'},
-  {to: '/essays', key: 'essays'},
-  {to: '/work', key: 'work'},
-  {to: '/media', key: 'media'},
+  {to: '/articles', key: 'articles'},
+  {to: '/works', key: 'works'},
+  {to: '/contacts', key: 'contacts'},
 ] as const;
 
 const styles = stylex.create({
   column: {
-    // The page's one width budget. Everything else derives from Astryx
-    // spacing props; this is the only measurement the site owns.
     marginInline: 'auto',
     maxWidth: frame.pageWidth,
     paddingInline: {
@@ -54,19 +54,12 @@ export function SiteShell({children}: {children: ReactNode}) {
   return (
     <AppShell
       height="auto"
-      variant="section"
+      variant="surface"
       contentPadding={0}
       topNav={
         <TopNav
           label={t(site.nav.home)}
-          heading={
-            <TopNavHeading
-              heading={site.wordmark}
-              subheading={t(site.tagline)}
-              headingHref="/"
-              logo={<NavIcon icon={<HexagonIcon />} />}
-            />
-          }
+          heading={<TopNavHeading heading={site.wordmark} headingHref="/" />}
           startContent={NAV_ITEMS.map(({to, key}) => (
             <TopNavItem
               key={to}
@@ -87,10 +80,7 @@ export function SiteShell({children}: {children: ReactNode}) {
         {children}
         <VStack gap={3}>
           <Divider />
-          <HStack gap={3} hAlign="between" wrap="wrap">
-            <Text type="supporting">{t(site.footer.note)}</Text>
-            <Text type="supporting">{t(site.footer.rights)}</Text>
-          </HStack>
+          <Text type="supporting">{t(site.footer.rights)}</Text>
         </VStack>
       </VStack>
     </AppShell>
