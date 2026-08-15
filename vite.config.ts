@@ -1,11 +1,45 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {defineConfig} from 'vite';
+import {defineConfig, type Plugin} from 'vite';
 import {tanstackStart} from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
 import stylex from '@stylexjs/unplugin';
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Fails the build when a content file is malformed.
+ *
+ * `vite build` bundles src/content/loader.ts without ever running it, so the
+ * loader's own checks would not fire until the first request in production.
+ * This applies the same rules — from the same module — at buildStart, so a
+ * file missing its date breaks the build by name.
+ */
+function contentValidation(): Plugin {
+  return {
+    name: 'intentplex:content-validation',
+    async buildStart() {
+      const {parseContentFile} = await import('./src/content/validate.ts');
+      const root = path.join(rootDir, 'content');
+      if (!fs.existsSync(root)) return;
+      const files: string[] = [];
+      const walk = (dir: string) => {
+        for (const e of fs.readdirSync(dir, {withFileTypes: true})) {
+          const full = path.join(dir, e.name);
+          if (e.isDirectory()) walk(full);
+          else if (e.name.endsWith('.md')) files.push(full);
+        }
+      };
+      walk(root);
+      for (const full of files) {
+        const rel = '/' + path.relative(rootDir, full).split(path.sep).join('/');
+        parseContentFile(rel, fs.readFileSync(full, 'utf8'));
+      }
+      this.info(`content: ${files.length} markdown files validated`);
+    },
+  };
+}
 
 // Astryx tokens are authored with light-dark(), which is Baseline 2024. The
 // StyleX plugin runs its own lightningcss pass whose default browserslist
@@ -31,6 +65,7 @@ export default defineConfig({
     cssTarget: ['chrome123', 'firefox120', 'safari17.5'],
   },
   plugins: [
+    contentValidation(),
     tanstackStart(),
     // StyleX must be registered before the React plugin so the compiler sees
     // untransformed stylex.create() calls.

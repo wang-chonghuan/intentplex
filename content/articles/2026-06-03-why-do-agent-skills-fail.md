@@ -1,0 +1,53 @@
+---
+title: "Why Do Agent Skills Fail?"
+date: "2026-06-03T12:00:00.000Z"
+lang: "en"
+image: "/media/linkedin/li-71e87928dcb2.jpg"
+source: "https://www.linkedin.com/pulse/why-do-agent-skills-fail-chonghuan-wang-mrnrf"
+---
+
+Recently, I have been building an Agent Skill that automatically generates documentation from source code. The goal sounds straightforward: make the agent read the codebase deeply, understand each module, and generate high-quality documentation that can help the next AI agent or engineer maintain the system safely.
+
+After several rounds of debugging, I was still not satisfied with the output. The generated documents had the right structure, enough words, correct headings, and could pass the validator. But once I actually read them, many of them were empty. They looked like documentation, but they did not demonstrate real understanding of the code. They had form, but not semantics.
+
+This made me realize something important: many Agent Skills do not fail because the prompt is not long enough, strict enough, or detailed enough. They fail because we are trying to use natural language instructions to control a task that actually requires engineered verification.
+
+A prompt describes ideal behavior. It says: do not be lazy, do not use templates, do not infer from filenames, do not speedrun, read the code deeply, understand upstream and downstream dependencies, and produce module-specific semantics. But the actual execution environment usually enforces a very different set of things: format, word count, heading order, banned phrases, paragraph count, absence of fenced code blocks, and other static rules. The gap between these two layers is where Agent Skills break.
+
+A common failure mode looks like this: the Skill explicitly tells the agent to read the code deeply, but the validator can only check whether the document looks like a valid document. So the agent can produce something long enough, with the correct headings, no banned phrases, and a complete structure, and it will pass all the hard gates. Whether it actually understood the module, described the real state machine, SQL, call paths, data structures, or edge cases is invisible to the system.
+
+This is Goodhart’s Law applied to agent workflows: when a metric becomes the target, it stops being a good metric. Word count, headings, and forbidden phrases were originally meant to be auxiliary checks. But once they become the only machine-verifiable success criteria, the agent optimizes for those surface signals instead of optimizing for real understanding.
+
+In some cases, validators even make the problem worse. If the forbidden patterns are too specific, they become a bypass list. Ban one obvious template phrase, and the agent replaces it with a slightly different generic phrase. The result is not less templating. The result is templated text that looks more compliant. The failure is not that the model is “bad.” The failure is that the system gives it a shortest path: generate a document that is formally valid but semantically shallow. As long as that path exists, the agent will eventually take it, especially under long-task pressure, context pressure, or volume pressure.
+
+Another reason Agent Skills fail is that task goals and execution pressure often conflict. A Skill may say that each module must be read deeply, that the process can be batched and resumable, and that large modules may require a dedicated pass. But if the outer objective becomes “generate all documents and make sure validation passes,” quality gets dominated by throughput. Dozens of modules, each requiring more than a thousand words, plus source reading, dependency analysis, relationship mapping, constraints, and maintenance notes — this is a high-cognitive-load task. If an agent tries to complete it in one sweep, it will naturally degrade into batch template generation. The first few modules may still be careful, but later ones become more abstract, more generic, and more interchangeable.
+
+Adding another sentence like “do not speedrun” does not fix this. A natural language warning does not change the incentive structure. If the real acceptance condition is still “all files exist and the validator is green,” the agent will prioritize that harder target.
+
+A third reason is that Skills often provide helper materials that can be misused. Tools may expose module indexes, file paths, module stats, declaration samples, filenames, and exported symbols. These are useful for navigation and deterministic checks, but they are not substitutes for reading source code. If the workflow does not require the agent to submit evidence of code reading, the agent can easily turn shallow materials into fake understanding. This produces a very recognizable type of bad documentation: instead of describing actual behavior, it decomposes the filename into pseudo-concepts. A module named pooled_event_sync becomes a paragraph about “pool,” “event,” and “sync.” A module named money_action_generation becomes a paragraph about “money,” “action,” and “generation.” It sounds domain-specific, but it is often just token expansion from the path.
+
+This kind of text is dangerous because it is not completely random. It has weak correlation with the module name, so it feels plausible. But it contains no operational knowledge. It cannot help the next agent modify the code safely. It does not reduce comprehension cost. It does not expose real constraints. It simply repackages codebase naming into documentation-shaped prose.
+
+A fourth issue is that fixed documentation structures can unintentionally encourage templating. Headings such as purpose, structure, flows, relationships, constraints, known limits, and notes for AI are useful. But if they are not filled with module-level facts, they naturally attract generic writing. Sections like constraints and notes for AI are especially prone to degenerating into project-level clichés: keep patches surgical, verify boundaries, avoid duplicate implementation paths. These may be true globally, but if they appear in every module document, they are not documentation. They are pollution. A useful document should answer one question: what facts in this document are true only for this module? If the module name can be replaced and the document still mostly works, the document is garbage.
+
+The fifth reason is the lack of a negative quality feedback loop. Many workflows have four stages: generate, check stats, apply, validate. If validation passes, the system considers the task complete. But that process usually does not ask the questions that actually matter. How much of this document is uniquely true for this module? Does it mention real functions, state fields, tables, DTOs, cron jobs, routes, or frontend consumers? Does it describe actual control flow, data flow, error paths, caching behavior, or idempotency constraints? How similar is it to documents for other modules? Would it still make sense if the module name were replaced? Did it infer semantics by splitting the filename? These are the questions that determine document quality, but they are rarely turned into hard gates.
+
+So the system can catch formatting errors, but not semantic emptiness. It can catch banned phrases, but not synonymous templates. It can verify that a document exists, but not that the document is useful.
+
+A sixth reason is that parallel subagents increase throughput, not quality. Splitting work across subagents does not automatically improve the result. If every subagent receives the same task — “generate these module documents according to the rules” — without required reading evidence, fact checks, or review by a lead agent, then parallelization only produces more low-quality output faster. Parallelism is not a quality mechanism. It is a throughput mechanism. Without a better evaluation function, subagents simply replicate the same failure pattern in parallel.
+
+The core issue is that many Agent Skills are prompts, not protocols. A reliable Skill cannot merely say “read the code deeply.” It has to force the agent to produce reading evidence before it is allowed to write the final document. For each module, the agent should first identify which core files it actually read, what the module’s entry points are, which functions and state transitions matter, which tables, fields, caches, or external services it reads or writes, who calls it, what it calls, which behaviors are idempotent, which are not, which edge cases affect the output, and which facts must appear in the final document. Without this evidence, the document generation step should not proceed. Without module-specific facts, validation should fail.
+
+Validators also need to move beyond format checks. They should produce quality risk signals: cross-document repetition, module-specific token density, real symbol coverage, source entity references, call-path coverage, repeated n-grams, generic phrase detection, and filename-token expansion detection. The validator does not need to fully understand semantics, but it must be able to block obvious templated output.
+
+More importantly, the workflow needs a review gate. After a document is generated, the system should ask: can this document help the next agent safely modify this module? If the answer is no, the document should not be accepted.
+
+This is where I think the reliability of Agent Skills really comes from. It is not about how strict the prompt sounds. It is about whether the quality goal has been converted into unavoidable workflow artifacts, review gates, and machine-detectable risk signals.
+
+In one sentence: Agent Skills fail when they treat “hoping the agent behaves well” as system design. Real system design assumes the agent will take the shortest path, then redesigns the workflow so that the shortest path is also the correct path.
+
+Prompts can describe goals, but they cannot replace verification. Skills can specify behavior, but they cannot replace evidence. Validators can check format, but if they do not check semantic risk, they will reward garbage.
+
+To make Agent Skills work, the answer is not to keep adding more sentences like “do not template” or “read carefully.” The answer is to redesign the execution chain: make code reading a required intermediate artifact, make module-specific semantics a hard gate, make repetition and generic content failure conditions, and make “finish everything” subordinate to “each module is genuinely useful.”
+
+Otherwise, no matter how many times the prompt is revised, the agent will still generate garbage. Not because it did not understand the instruction, but because the system allowed garbage to pass.

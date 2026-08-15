@@ -2,7 +2,8 @@ import {Heading} from '@astryxdesign/core/Heading';
 import {VStack} from '@astryxdesign/core/Stack';
 
 import {ItemList} from '~/components/ItemList';
-import type {Item} from '~/content/items';
+import {PostList} from '~/components/PostList';
+import type {Item} from '~/content/loader';
 import type {L10n} from '~/i18n/locale';
 import {useLocale} from '~/i18n/locale';
 
@@ -14,11 +15,17 @@ import {useLocale} from '~/i18n/locale';
  */
 export function ItemPage({title, items}: {title: L10n<string>; items: readonly Item[]}) {
   const {t} = useLocale();
+  // Posts open in place because they have no detail page; the others link out.
+  const isPosts = items[0]?.kind === 'post';
 
   return (
     <VStack gap={5}>
       <Heading level={1}>{t(title)}</Heading>
-      <ItemList items={items} />
+      {isPosts ? (
+        <PostList items={items} />
+      ) : (
+        <ItemList items={items} isNumbered={items[0]?.kind === 'article'} />
+      )}
     </VStack>
   );
 }
