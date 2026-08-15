@@ -11,6 +11,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noEmit": true,
+    // vite.config.ts imports the content validator directly from source.
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

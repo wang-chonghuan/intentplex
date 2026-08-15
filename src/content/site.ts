@@ -32,6 +32,9 @@ export const site = {
   detail: {
     back: {en: 'Back', zh: '返回'},
     notFound: {en: 'Not found', zh: '没有这一篇'},
+    source: {en: 'Original', zh: '原文'},
+    // Shown when this entry has no rendition in the reader's language.
+    originalLanguage: {en: 'In the original language', zh: '暂无中文版，以下为原文'},
   } satisfies Record<string, L10n<string>>,
   footer: {
     rights: {en: '© 2026 Yong Wang', zh: '© 2026 Yong Wang'},
