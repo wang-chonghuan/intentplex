@@ -1,3 +1,5 @@
+import type {L10n} from '~/i18n/locale';
+
 /**
  * The four places a piece goes, and what each one is actually like.
  *
@@ -12,7 +14,7 @@
 export const CHANNELS = [
   {
     id: 'x-zh',
-    label: 'X 中文',
+    label: {en: 'X (Chinese)', zh: 'X 中文'} satisfies L10n<string>,
     limit: 280,
     brief:
       'X in Chinese. 280 characters, and Chinese carries roughly two to three times ' +
@@ -21,7 +23,7 @@ export const CHANNELS = [
   },
   {
     id: 'x-en',
-    label: 'X English',
+    label: {en: 'X (English)', zh: 'X 英文'} satisfies L10n<string>,
     limit: 280,
     brief:
       'X in English. 280 characters per post. If the piece has several distinct points, ' +
@@ -30,7 +32,7 @@ export const CHANNELS = [
   },
   {
     id: 'linkedin',
-    label: 'LinkedIn',
+    label: {en: 'LinkedIn', zh: 'LinkedIn'} satisfies L10n<string>,
     limit: 3000,
     brief:
       'LinkedIn, up to 3000 characters. The first ~200 characters are all that shows ' +
@@ -39,7 +41,7 @@ export const CHANNELS = [
   },
   {
     id: 'weibo',
-    label: '微博',
+    label: {en: 'Weibo', zh: '微博'} satisfies L10n<string>,
     limit: 2000,
     brief:
       '微博, up to 2000 characters, in Chinese. Written to be read on a phone: short ' +

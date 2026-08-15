@@ -11,7 +11,9 @@ import {TextArea} from '@astryxdesign/core/TextArea';
 import {TextInput} from '@astryxdesign/core/TextInput';
 import {Thumbnail} from '@astryxdesign/core/Thumbnail';
 
+import {adminCopy} from '~/content/admin-copy';
 import type {ItemKind} from '~/content/loader';
+import {useLocale} from '~/i18n/locale';
 import {adminSave, adminUpload} from '~/rpc/admin';
 import {frame} from '~/styles/tokens.stylex';
 
@@ -52,6 +54,8 @@ async function fileToBase64(file: File): Promise<string> {
 }
 
 export function EntryEditor({initial}: {initial: EditorEntry}) {
+  const {t} = useLocale();
+  const c = adminCopy.editor;
   const [entry, setEntry] = useState(initial);
   const [tab, setTab] = useState<'write' | 'preview'>('write');
   const [busy, setBusy] = useState<string | null>(null);
@@ -70,23 +74,23 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
 
   /** Paste or drop a picture and it lands in the body where the cursor is. */
   async function insertImage(file: File) {
-    setBusy('上传中…');
+    setBusy(t(c.uploading));
     try {
       const path = await upload(file);
       const textarea = bodyRef.current;
       const at = textarea?.selectionStart ?? entry.bodyZh.length;
       const snippet = `\n![](${path})\n`;
       set('bodyZh', entry.bodyZh.slice(0, at) + snippet + entry.bodyZh.slice(at));
-      setMessage(`已插入 ${path}`);
+      setMessage(t(c.inserted) + path);
     } catch (error) {
-      setMessage(`上传失败：${(error as Error).message}`);
+      setMessage(t(adminCopy.errors.uploadFailed) + (error as Error).message);
     } finally {
       setBusy(null);
     }
   }
 
   async function save(status: 'draft' | 'published') {
-    setBusy(status === 'published' ? '发布中…' : '保存中…');
+    setBusy(t(status === 'published' ? c.publishing : c.saving));
     try {
       const saved = await adminSave({
         data: {
@@ -101,9 +105,9 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
         },
       });
       setEntry((e) => ({...e, id: saved.id, status}));
-      setMessage(status === 'published' ? '已发布' : '已保存为草稿');
+      setMessage(t(status === 'published' ? c.published : c.savedDraft));
     } catch (error) {
-      setMessage(`保存失败：${(error as Error).message}`);
+      setMessage(t(adminCopy.errors.saveFailed) + (error as Error).message);
     } finally {
       setBusy(null);
     }
@@ -113,41 +117,41 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
     <VStack gap={5}>
       <HStack gap={3} vAlign="end">
         <TextInput
-          label="标题（中文）"
+          label={t(c.title)}
           value={entry.titleZh}
           onChange={(v) => set('titleZh', v)}
           isRequired
         />
-        <TextInput label="slug" value={entry.slug} onChange={(v) => set('slug', v)} isRequired />
+        <TextInput label={t(c.slug)} value={entry.slug} onChange={(v) => set('slug', v)} isRequired />
       </HStack>
 
       <HStack gap={3} vAlign="end">
         <TextInput
-          label="日期"
+          label={t(c.date)}
           value={entry.date.slice(0, 10)}
           onChange={(v) => set('date', new Date(`${v}T12:00:00.000Z`).toISOString())}
         />
         <SegmentedControl
-          label="类型"
+          label={t(c.kind)}
           value={entry.kind}
           onChange={(v) => set('kind', v as ItemKind)}>
-          <SegmentedControlItem value="post" label="动态" />
-          <SegmentedControlItem value="article" label="文章" />
-          <SegmentedControlItem value="work" label="作品" />
+          <SegmentedControlItem value="post" label={t(c.kindPost)} />
+          <SegmentedControlItem value="article" label={t(c.kindArticle)} />
+          <SegmentedControlItem value="work" label={t(c.kindWork)} />
         </SegmentedControl>
       </HStack>
 
       <Card>
         <HStack gap={3} vAlign="center">
-          {entry.coverPath ? <Thumbnail src={entry.coverPath} alt="封面" /> : null}
+          {entry.coverPath ? <Thumbnail src={entry.coverPath} alt={t(c.cover)} /> : null}
           <VStack gap={1}>
-            <Text type="body">封面图</Text>
+            <Text type="body">{t(c.cover)}</Text>
             <Text type="supporting" color="secondary">
-              {entry.coverPath ?? '未设置'}
+              {entry.coverPath ?? t(c.coverNone)}
             </Text>
           </VStack>
           <Button
-            label="选择封面"
+            label={t(c.coverChoose)}
             variant="secondary"
             onClick={() => {
               const input = document.createElement('input');
@@ -156,7 +160,7 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
               input.onchange = async () => {
                 const file = input.files?.[0];
                 if (!file) return;
-                setBusy('上传封面…');
+                setBusy(t(c.uploadingCover));
                 try {
                   set('coverPath', await upload(file));
                 } finally {
@@ -169,18 +173,18 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
         </HStack>
       </Card>
 
-      <SegmentedControl label="视图" value={tab} onChange={(v) => setTab(v as 'write' | 'preview')}>
-        <SegmentedControlItem value="write" label="写" />
-        <SegmentedControlItem value="preview" label="预览" />
+      <SegmentedControl label={t(c.view)} value={tab} onChange={(v) => setTab(v as 'write' | 'preview')}>
+        <SegmentedControlItem value="write" label={t(c.viewWrite)} />
+        <SegmentedControlItem value="preview" label={t(c.viewPreview)} />
       </SegmentedControl>
 
       {tab === 'write' ? (
         <TextArea
           ref={bodyRef}
-          label="正文（中文 Markdown）"
+          label={t(c.body)}
           value={entry.bodyZh}
           onChange={(v) => set('bodyZh', v)}
-          placeholder="粘贴或拖入图片即可插入"
+          placeholder={t(c.bodyPlaceholder)}
           xstyle={styles.editorHeight}
           onPaste={(event: React.ClipboardEvent) => {
             const file = [...event.clipboardData.files][0];
@@ -199,13 +203,13 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
         />
       ) : (
         <VStack xstyle={styles.pane}>
-          <Markdown headingLevelStart={2}>{entry.bodyZh || '（还没有正文）'}</Markdown>
+          <Markdown headingLevelStart={2}>{entry.bodyZh || t(c.bodyEmpty)}</Markdown>
         </VStack>
       )}
 
       <HStack gap={3} vAlign="center">
-        <Button label="发布" onClick={() => void save('published')} isDisabled={busy != null} variant="primary" />
-        <Button label="存草稿" variant="secondary" onClick={() => void save('draft')} isDisabled={busy != null} />
+        <Button label={t(c.publish)} onClick={() => void save('published')} isDisabled={busy != null} variant="primary" />
+        <Button label={t(c.saveDraft)} variant="secondary" onClick={() => void save('draft')} isDisabled={busy != null} />
         {busy ? <Text type="supporting">{busy}</Text> : null}
         {message ? (
           <Text type="supporting" color="secondary">
@@ -216,10 +220,8 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
 
       {entry.id ? (
         <VStack gap={2}>
-          <Heading level={2}>生成与同步</Heading>
-          <Text type="supporting" color="secondary">
-            保存之后到 <code>/admin/syndicate/{entry.id}</code> 生成英文版与四个平台版本。
-          </Text>
+          <Heading level={2}>{t(c.nextStep)}</Heading>
+          <Text type="supporting" color="secondary">{t(c.nextStepHint)}</Text>
         </VStack>
       ) : null}
     </VStack>

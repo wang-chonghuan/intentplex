@@ -10,7 +10,9 @@ import {Text} from '@astryxdesign/core/Text';
 import {TextArea} from '@astryxdesign/core/TextArea';
 import {TextInput} from '@astryxdesign/core/TextInput';
 
+import {adminCopy} from '~/content/admin-copy';
 import {CHANNELS} from '~/content/channels';
+import {useLocale} from '~/i18n/locale';
 import {
   adminGenerate,
   adminGetEntry,
@@ -41,15 +43,10 @@ export const Route = createFileRoute('/admin/syndicate/$id')({
   component: SyndicatePage,
 });
 
-const STATUS_LABEL: Record<string, string> = {
-  draft: '草稿',
-  approved: '已批准，等待本机发送',
-  posting: '发送中',
-  posted: '已发送',
-  skip: '不发这个平台',
-};
 
 function SyndicatePage() {
+  const {t} = useLocale();
+  const c = adminCopy.syndicate;
   const initial = Route.useLoaderData();
   const [entry, setEntry] = useState(initial.entry);
   const [channels, setChannels] = useState(initial.channels);
@@ -60,7 +57,7 @@ function SyndicatePage() {
   const [enBody, setEnBody] = useState(en?.body ?? '');
 
   async function generate() {
-    setBusy('生成中，五份…');
+    setBusy(t(c.generating));
     try {
       const result = await adminGenerate({data: {entryId: entry.id}});
       setEnTitle(result.en.title);
@@ -68,7 +65,7 @@ function SyndicatePage() {
       setChannels(await adminSyndications({data: {entryId: entry.id}}));
       setEntry(await adminGetEntry({data: {entryId: entry.id}}));
     } catch (error) {
-      setBusy(`生成失败：${(error as Error).message}`);
+      setBusy(t(adminCopy.errors.generateFailed) + (error as Error).message);
       return;
     }
     setBusy(null);
@@ -87,26 +84,26 @@ function SyndicatePage() {
   return (
     <VStack gap={8}>
       <VStack gap={2}>
-        <Heading level={1}>生成与同步</Heading>
+        <Heading level={1}>{t(c.heading)}</Heading>
         <Text type="supporting" color="secondary">
-          中文原文是唯一手写的。英文站点版与四个平台版本都由这里生成，发布前你要读过。
+          {t(c.lede)}
         </Text>
         <HStack gap={3} vAlign="center">
-          <Button label="生成五份" variant="primary" onClick={() => void generate()} isDisabled={busy != null} />
+          <Button label={t(c.generate)} variant="primary" onClick={() => void generate()} isDisabled={busy != null} />
           {busy ? <Text type="supporting">{busy}</Text> : null}
         </HStack>
       </VStack>
 
       <VStack gap={3}>
         <HStack gap={2} vAlign="center">
-          <Heading level={2}>英文站点版</Heading>
-          {en?.origin === 'generated' ? <Badge label="机器生成，需你过目" /> : null}
+          <Heading level={2}>{t(c.englishHeading)}</Heading>
+          {en?.origin === 'generated' ? <Badge label={t(c.generatedBadge)} /> : null}
         </HStack>
-        <TextInput label="English title" value={enTitle} onChange={setEnTitle} />
-        <TextArea label="English body" value={enBody} onChange={setEnBody} />
+        <TextInput label={t(c.englishTitle)} value={enTitle} onChange={setEnTitle} />
+        <TextArea label={t(c.englishBody)} value={enBody} onChange={setEnBody} />
         <HStack>
           <Button
-            label="保存英文版"
+            label={t(c.saveEnglish)}
             variant="secondary"
             isDisabled={enTitle.trim() === '' || enBody.trim() === ''}
             onClick={() =>
@@ -119,7 +116,7 @@ function SyndicatePage() {
       </VStack>
 
       <VStack gap={4}>
-        <Heading level={2}>四个平台</Heading>
+        <Heading level={2}>{t(c.platformsHeading)}</Heading>
         {CHANNELS.map((meta) => {
           const row = channels.find((c) => c.channel === meta.id);
           const body = row?.body ?? '';
@@ -131,25 +128,25 @@ function SyndicatePage() {
               <VStack gap={3}>
                 <HStack hAlign="between" vAlign="center">
                   <HStack gap={2} vAlign="center">
-                    <Text type="body">{meta.label}</Text>
+                    <Text type="body">{t(meta.label)}</Text>
                     <Text type="supporting" color={over ? 'accent' : 'secondary'}>
                       {body.length} / {meta.limit}
                     </Text>
                   </HStack>
                   <HStack gap={2} vAlign="center">
                     <Text type="supporting" color="secondary">
-                      {STATUS_LABEL[row?.status ?? 'draft']}
+                      {t(adminCopy.status[(row?.status ?? 'draft') as keyof typeof adminCopy.status])}
                     </Text>
                     {row?.remote_url ? (
                       <Link href={row.remote_url} isExternalLink>
-                        看一眼
+                        {t(c.view)}
                       </Link>
                     ) : null}
                   </HStack>
                 </HStack>
 
                 <TextArea
-                  label={`${meta.label} 正文`}
+                  label={`${t(meta.label)} — ${t(c.englishBody)}`}
                   isLabelHidden
                   value={body}
                   isReadOnly={sent}
@@ -158,13 +155,13 @@ function SyndicatePage() {
 
                 <HStack gap={2}>
                   <Button
-                    label="发送"
+                    label={t(c.send)}
                     variant="primary"
                     isDisabled={sent || over || body.trim() === ''}
                     onClick={() => void setChannelStatus(meta.id, 'approved')}
                   />
                   <Button
-                    label="不发"
+                    label={t(c.skip)}
                     variant="secondary"
                     isDisabled={sent}
                     onClick={() => void setChannelStatus(meta.id, 'skip')}
