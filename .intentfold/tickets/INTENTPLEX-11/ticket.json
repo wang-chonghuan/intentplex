@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-11",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "auto-deploy",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-11",
+  "branch": "INTENTPLEX-11-forwarded-proto",
+  "base": "34bf4f0",
+  "ports": {
+    "web": 53011
+  }
+}
