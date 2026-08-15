@@ -9,6 +9,7 @@ import {useRouterState} from '@tanstack/react-router';
 
 import {AppearanceSwitch} from '~/components/AppearanceSwitch';
 import {LanguageSwitch} from '~/components/LanguageSwitch';
+import {adminCopy} from '~/content/admin-copy';
 import {site} from '~/content/site';
 import {useLocale} from '~/i18n/locale';
 import {frame, space} from '~/styles/tokens.stylex';
@@ -33,6 +34,12 @@ const NAV_ITEMS = [
   {to: '/works', key: 'works'},
   {to: '/contacts', key: 'contacts'},
 ] as const;
+
+// Admin sits after the content items and is deliberately visible to everyone.
+// Hiding it until signed in would make this page's HTML vary by cookie, which
+// is a bad trade for one button — and the door is not a secret anyway: it opens
+// for exactly one GitHub account.
+const ADMIN_ITEM = {to: '/admin'} as const;
 
 const styles = stylex.create({
   column: {
@@ -60,14 +67,22 @@ export function SiteShell({children}: {children: ReactNode}) {
         <TopNav
           label={t(site.nav.home)}
           heading={<TopNavHeading heading={site.wordmark} headingHref="/" />}
-          startContent={NAV_ITEMS.map(({to, key}) => (
+          startContent={[
+            ...NAV_ITEMS.map(({to, key}) => (
+              <TopNavItem
+                key={to}
+                href={to}
+                label={t(site.nav[key])}
+                isSelected={to === '/' ? pathname === '/' : pathname.startsWith(to)}
+              />
+            )),
             <TopNavItem
-              key={to}
-              href={to}
-              label={t(site.nav[key])}
-              isSelected={to === '/' ? pathname === '/' : pathname.startsWith(to)}
-            />
-          ))}
+              key={ADMIN_ITEM.to}
+              href={ADMIN_ITEM.to}
+              label={t(adminCopy.nav)}
+              isSelected={pathname.startsWith(ADMIN_ITEM.to)}
+            />,
+          ]}
           endContent={
             <HStack gap={2} vAlign="center">
               <LanguageSwitch />

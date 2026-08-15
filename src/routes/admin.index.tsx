@@ -9,6 +9,8 @@ import {Text} from '@astryxdesign/core/Text';
 import {Timestamp} from '@astryxdesign/core/Timestamp';
 
 import {AppLink} from '~/components/AppLink';
+import {adminCopy} from '~/content/admin-copy';
+import {useLocale} from '~/i18n/locale';
 import {adminList} from '~/rpc/admin';
 
 export const Route = createFileRoute('/admin/')({
@@ -17,14 +19,15 @@ export const Route = createFileRoute('/admin/')({
 });
 
 function AdminIndex() {
+  const {t} = useLocale();
   const entries = Route.useLoaderData();
 
   return (
     <VStack gap={6}>
       <HStack hAlign="between" vAlign="center">
-        <Heading level={1}>后台</Heading>
+        <Heading level={1}>{t(adminCopy.index.heading)}</Heading>
         <AppLink href="/admin/new">
-          <Button label="写新的" variant="primary" />
+          <Button label={t(adminCopy.index.write)} variant="primary" />
         </AppLink>
       </HStack>
 
@@ -41,11 +44,11 @@ function AdminIndex() {
                   {entry.kind}
                 </Text>
                 <Text type="supporting" color="secondary">
-                  {entry.langs.filter(Boolean).join(' / ') || '—'}
+                  {entry.langs.filter(Boolean).join(' / ') || t(adminCopy.index.noLanguages)}
                 </Text>
               </HStack>
             }
-            endContent={entry.status === 'published' ? undefined : <Badge label="草稿" />}
+            endContent={entry.status === 'published' ? undefined : <Badge label={t(adminCopy.index.draft)} />}
           />
         ))}
       </List>

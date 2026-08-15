@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-12",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "auto-deploy",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-12",
+  "branch": "INTENTPLEX-12-admin-nav-i18n",
+  "base": "a8e1336",
+  "ports": {
+    "web": 53012
+  }
+}
