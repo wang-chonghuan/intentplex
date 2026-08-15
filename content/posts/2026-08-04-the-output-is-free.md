@@ -1,11 +1,10 @@
 ---
 title: "The output is free"
-date: "2026-08-04T00:03:20.074Z"
-lang: "en"
+date: 2026-08-04T00:03:20.074Z
+lang: en
 image: "/media/linkedin/li-35f18fe4d2b0.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7490195633258106880/"
 ---
-
 The output is free. The cost is paid by those who review it.
 That’s my biggest takeaway from the flood of AI-generated code.
 

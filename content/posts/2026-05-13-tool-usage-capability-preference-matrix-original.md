@@ -1,11 +1,10 @@
 ---
 title: "Tool Usage Capability Preference Matrix (Original)"
-date: "2026-05-13T07:38:01.700Z"
-lang: "en"
+date: 2026-05-13T07:38:01.700Z
+lang: en
 image: "/media/linkedin/li-8b5c0b9830bc.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7460231867846447104/"
 ---
-
 Tool Usage Capability Preference Matrix (Original)
 
 This 2x2 matrix measures individual capability preferences from a tool perspective.

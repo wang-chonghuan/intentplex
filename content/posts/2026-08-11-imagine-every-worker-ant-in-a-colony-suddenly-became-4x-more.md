@@ -1,11 +1,10 @@
 ---
 title: "Imagine every worker ant in a colony suddenly became 4x more productive"
-date: "2026-08-11T07:52:51.770Z"
-lang: "en"
+date: 2026-08-11T07:52:51.770Z
+lang: en
 image: "/media/linkedin/li-2371d55ac00a.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7492850508974653440/"
 ---
-
 Imagine every worker ant in a colony suddenly became 4x more productive.
 
 Soon, they’d start hauling in everything they could find, building whatever they wanted, and ignoring the original design.

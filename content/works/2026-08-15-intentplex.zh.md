@@ -1,10 +1,9 @@
 ---
 title: "intentplex"
-date: "2026-08-15T00:00:00.000Z"
-lang: "zh"
+date: 2026-08-15T00:00:00.000Z
+lang: zh
 image: "/media/intentplex.svg"
 ---
-
 这个网站。每一段文案都在同一处同时用两种语言写好，于是「翻译到一半」是类型错误，而不是上线后才发现的问题。
 
 基于 TanStack Start，配 Astryx 与 StyleX，没有 Tailwind，除了一份声明层叠顺序的九行样式表之外没有任何手写 CSS。

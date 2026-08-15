@@ -1,10 +1,9 @@
 ---
 title: "Socratic Deck"
-date: "2025-04-18T00:00:00.000Z"
-lang: "zh"
+date: 2025-04-18T00:00:00.000Z
+lang: zh
 image: "/media/socratic-deck.svg"
 ---
-
 会提问而不是告知的间隔重复。在你写下一个错误答案之前，卡片不会给你正确答案。
 
 小范围课堂试验里记忆留存提升了 40%，挫败感提升得更多。

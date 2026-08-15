@@ -1,9 +1,14 @@
 import {createFileRoute} from '@tanstack/react-router';
 
 import {ItemPage} from '~/components/ItemPage';
-import {posts} from '~/content/loader';
 import {site} from '~/content/site';
+import {listItems} from '~/rpc/content';
 
 export const Route = createFileRoute('/posts')({
-  component: () => <ItemPage title={site.nav.posts} items={posts} />,
+  loader: () => listItems({data: 'post'}),
+  component: PostsPage,
 });
+
+function PostsPage() {
+  return <ItemPage title={site.nav.posts} items={Route.useLoaderData()} />;
+}

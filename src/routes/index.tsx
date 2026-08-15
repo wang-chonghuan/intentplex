@@ -6,11 +6,14 @@ import {Text} from '@astryxdesign/core/Text';
 
 import {ItemList} from '~/components/ItemList';
 import {home} from '~/content/home';
-import {recentItems} from '~/content/loader';
 import {useLocale} from '~/i18n/locale';
+import {listRecent} from '~/rpc/content';
 import {frame} from '~/styles/tokens.stylex';
 
+const RECENT_COUNT = 8;
+
 export const Route = createFileRoute('/')({
+  loader: () => listRecent({data: RECENT_COUNT}),
   component: HomePage,
 });
 
@@ -22,8 +25,6 @@ const styles = stylex.create({
     maxWidth: frame.proseWidth,
   },
 });
-
-const RECENT_COUNT = 8;
 
 function HomePage() {
   const {t} = useLocale();
@@ -41,7 +42,7 @@ function HomePage() {
 
       <VStack gap={4}>
         <Heading level={2}>{t(home.recentHeading)}</Heading>
-        <ItemList items={recentItems(RECENT_COUNT)} />
+        <ItemList items={Route.useLoaderData()} />
       </VStack>
     </VStack>
   );

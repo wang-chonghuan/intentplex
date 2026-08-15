@@ -1,10 +1,9 @@
 ---
 title: "Marginalia"
-date: "2023-06-30T00:00:00.000Z"
-lang: "en"
+date: 2023-06-30T00:00:00.000Z
+lang: en
 image: "/media/marginalia.svg"
 ---
-
 Public reading notes with an argument graph. Every highlight had to be linked to a claim it supported or attacked.
 
 It made me read better and post less. Archived when I admitted those were the same thing.

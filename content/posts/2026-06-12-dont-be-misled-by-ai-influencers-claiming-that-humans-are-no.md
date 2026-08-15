@@ -1,11 +1,10 @@
 ---
 title: "Don't be misled by AI influencers claiming that humans are no longer involved in developme"
-date: "2026-06-12T09:28:27.670Z"
-lang: "en"
+date: 2026-06-12T09:28:27.670Z
+lang: en
 image: "/media/linkedin/li-5d4bc47be320.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7471131295146975232/"
 ---
-
 Don't be misled by AI influencers claiming that humans are no longer involved in development. 
 
 They're only showing you the tip of the iceberg.

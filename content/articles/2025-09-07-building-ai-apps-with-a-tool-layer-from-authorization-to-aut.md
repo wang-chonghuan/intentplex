@@ -1,11 +1,10 @@
 ---
 title: "Building AI Apps with a Tool Layer: from Authorization to Automation"
-date: "2025-09-07T12:00:00.000Z"
-lang: "en"
+date: 2025-09-07T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-846a8015c0ad.webp"
 source: "https://www.linkedin.com/pulse/building-ai-apps-tool-layer-from-authorization-automation-wang-oa7xf"
 ---
-
 - **Composio as the Tool Layer for AI Apps**: It unifies OAuth, action calls, and triggers for third-party apps like Gmail and Google Calendar, enabling you to build an "authorization-execution-listening" automation loop with minimal engineering effort.
 
 - **Key to Rapid Launch**: Skip the lengthy and costly process of applying for sensitive Google permissions (e.g., Gmail send, Calendar write) and focus your time on product functionality and user experience.

@@ -1,11 +1,10 @@
 ---
 title: "Why Do Agent Skills Fail?"
-date: "2026-06-03T12:00:00.000Z"
-lang: "en"
+date: 2026-06-03T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-71e87928dcb2.webp"
 source: "https://www.linkedin.com/pulse/why-do-agent-skills-fail-chonghuan-wang-mrnrf"
 ---
-
 Recently, I have been building an Agent Skill that automatically generates documentation from source code. The goal sounds straightforward: make the agent read the codebase deeply, understand each module, and generate high-quality documentation that can help the next AI agent or engineer maintain the system safely.
 
 After several rounds of debugging, I was still not satisfied with the output. The generated documents had the right structure, enough words, correct headings, and could pass the validator. But once I actually read them, many of them were empty. They looked like documentation, but they did not demonstrate real understanding of the code. They had form, but not semantics.

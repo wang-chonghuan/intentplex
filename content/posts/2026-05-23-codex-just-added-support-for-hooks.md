@@ -1,10 +1,9 @@
 ---
 title: "Codex just added support for Hooks"
-date: "2026-05-23T06:15:36.979Z"
-lang: "en"
+date: 2026-05-23T06:15:36.979Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7463835006839238656/"
 ---
-
 Codex just added support for Hooks.
 
 A lot of people still do not know when they should use Hooks.

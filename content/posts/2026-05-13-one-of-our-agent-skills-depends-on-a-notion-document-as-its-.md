@@ -1,10 +1,9 @@
 ---
 title: "One of our agent skills depends on a Notion document as its working standard"
-date: "2026-05-13T15:47:58.328Z"
-lang: "en"
+date: 2026-05-13T15:47:58.328Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7460355166240776192/"
 ---
-
 One of our agent skills depends on a Notion document as its working standard.
 
 In the past, we were constantly struggling with how to keep that Notion document and the skill in sync. Every time the Notion document was updated, we had to manually update the skill as well.

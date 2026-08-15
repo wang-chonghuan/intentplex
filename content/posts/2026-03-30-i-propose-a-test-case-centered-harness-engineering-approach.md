@@ -1,11 +1,10 @@
 ---
 title: "I propose a test-case-centered Harness Engineering approach"
-date: "2026-03-30T04:36:11.499Z"
-lang: "en"
+date: 2026-03-30T04:36:11.499Z
+lang: en
 image: "/media/linkedin/li-19f6291c120f.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7444241041060241408/"
 ---
-
 I propose a test-case-centered Harness Engineering approach. In this method, the test case collection includes a series of rigorous, production-oriented test cases such as:
 
 1. Whether blue-green deployment behaves normally.  

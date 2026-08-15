@@ -1,10 +1,9 @@
 ---
 title: "Rulesmith"
-date: "2025-09-02T00:00:00.000Z"
-lang: "zh"
+date: 2025-09-02T00:00:00.000Z
+lang: zh
 image: "/media/rulesmith.svg"
 ---
-
 一个给桌游规则书用的 linter。把规则书解析成状态机，报告不可达规则、未定义术语，以及没有退出条件的回合阶段。
 
 设计师在用，出版方装作没在用。

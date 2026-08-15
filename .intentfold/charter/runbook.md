@@ -13,9 +13,10 @@ npm 11.*
 
 ## Contract
 
-**One long-running service: `web`.** A single TanStack Start process that server-renders the pages
-and serves the client bundle. Its fixed main port is **3000** (`.intentfold/project.json`). There is
-no API service, no database and no worker — "start the product" means starting `web` and nothing else.
+**One long-running service: `web`**, and **one database it cannot start without.** A single TanStack
+Start process server-renders the pages and serves the client bundle; the content it renders lives in
+Postgres. Its fixed main port is **3000** (`.intentfold/project.json`). There is no API service and no
+worker — "start the product" means starting `web`, with `DATABASE_URL` set.
 
 ## Tools
 
@@ -66,10 +67,11 @@ binds a port and serves the static assets around it, and it is what the producti
 npm start
 ```
 
-`PORT` moves it off 3000 — the same variable the container platform sets:
+`PORT` moves it off 3000 — the same variable the container platform sets. Locally the environment
+comes from `.env`:
 
 ```bash
-PORT=<port> npm start
+PORT=<port> node --env-file=.env server.mjs
 ```
 
 `npm run preview` also exists, but it is Vite's own preview server: convenient for eyeballing a
@@ -88,9 +90,24 @@ against the running product. See `qa.md`.
 
 **Environment**
 
-No env file is required. The app reads no secrets and calls no external service at runtime; the only
-network dependency is the Google Fonts stylesheet, which degrades to system fonts if unreachable.
-`.env` and `.env.*` are git-ignored should one ever be needed.
+`.env.example` lists every key with a note on what it is for; copy it to `.env` and fill it in.
+`.env` and `.env.*` are git-ignored.
+
+`DATABASE_URL` is the only one the public site needs — without it the process exits at startup rather
+than serving empty pages. The rest gate the admin: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
+`ADMIN_GITHUB_USER_ID`, `SESSION_SECRET`, and `ANTHROPIC_API_KEY` for generation.
+
+**Content operations**
+
+```bash
+node --env-file=.env scripts/migrate.mjs          # apply the schema; import content/ + export/media/
+node --env-file=.env scripts/export-to-repo.mjs   # write the database back out to the repo
+node --env-file=.env scripts/sender-queue.mjs list
+```
+
+The two import/export scripts are each other's inverse — the export is the only copy of the writing
+outside the database, so run it after publishing. `sender-queue.mjs` is what the local
+`ipsl-syndicate` skill talks to.
 
 ## Guidance
 
@@ -106,6 +123,13 @@ network dependency is the Google Fonts stylesheet, which degrades to system font
   intact. See `ui.md`.
 - **Port already in use** — a dev server from an earlier run is still up. Find it with
   `lsof -ti tcp:<port>` and stop that process; a dev server never outlives the run that started it.
+- **`DATABASE_URL is not set`** — the process is refusing to start rather than serving a site with no
+  content. Use `--env-file=.env`, or set it in the container.
+- **`password authentication failed for user "intentplex-user"`** — the role or schema is missing from
+  the shared server. n-easyapp's contract derives their names but its cap1 has to create them; that
+  step can be skipped without anything else noticing.
+- **A page renders but its images 404** — the images are rows now, not files. Check the corpus is
+  actually imported (`select count(*) from media`) rather than looking in `public/`.
 
 ## Redlines
 

@@ -1,11 +1,10 @@
 ---
 title: "Today I shared a T2P (Ticket to PR) skill I’ve been developing with the team"
-date: "2026-04-29T17:44:42.413Z"
-lang: "en"
+date: 2026-04-29T17:44:42.413Z
+lang: en
 image: "/media/linkedin/li-ec398003ab1b.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7455311113384214528/"
 ---
-
 Today I shared a T2P (Ticket to PR) skill I’ve been developing with the team.
 
 T2P is a #harnessengineering automatic workflow that covers the full lifecycle from creating a Linear ticket to completing development, testing, documentation updates, and merging the PR.

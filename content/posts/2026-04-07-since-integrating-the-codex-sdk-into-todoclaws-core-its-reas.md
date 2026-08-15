@@ -1,10 +1,9 @@
 ---
 title: "Since integrating the Codex SDK into TodoClaw’s core, its reasoning capabilities have impr"
-date: "2026-04-07T16:53:48.723Z"
-lang: "en"
+date: 2026-04-07T16:53:48.723Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7447325772236836864/"
 ---
-
 Since integrating the Codex SDK into TodoClaw’s core, its reasoning capabilities have improved dramatically, turning it into a truly reliable and powerful development tool.
 
 We’re now moving into the next phase — building advanced harness engineering capabilities for the target projects managed by TodoClaw:

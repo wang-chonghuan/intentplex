@@ -1,10 +1,9 @@
 ---
 title: "How do you push back against a trend?"
-date: "2026-08-08T23:43:27.169Z"
-lang: "en"
+date: 2026-08-08T23:43:27.169Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7492002569179951104/"
 ---
-
 How do you push back against a trend?  
 Sometimes the smartest move is to fully lean into it first.
 

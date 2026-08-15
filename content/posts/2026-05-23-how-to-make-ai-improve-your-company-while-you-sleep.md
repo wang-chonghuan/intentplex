@@ -1,10 +1,9 @@
 ---
 title: "How to Make AI Improve Your Company While You Sleep"
-date: "2026-05-23T06:41:38.230Z"
-lang: "en"
+date: 2026-05-23T06:41:38.230Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7463841555200598016/"
 ---
-
 How to Make AI Improve Your Company While You Sleep
 
 In a recent batch talk, YC General Partner @t_blom broke down how to build a self-improving, AI-native company.

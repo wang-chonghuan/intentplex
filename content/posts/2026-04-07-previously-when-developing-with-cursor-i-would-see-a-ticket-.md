@@ -1,10 +1,9 @@
 ---
 title: "Previously, when developing with Cursor, I would see a ticket, vibe code the changes, star"
-date: "2026-04-07T19:33:34.635Z"
-lang: "en"
+date: 2026-04-07T19:33:34.635Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7447365978465783810/"
 ---
-
 Previously, when developing with Cursor, I would see a ticket, vibe code the changes, start the frontend, click around a bit, make some tweaks, submit the code, and move on to the next one.
 Now, with Harness Engineering, the process is completely different:
 

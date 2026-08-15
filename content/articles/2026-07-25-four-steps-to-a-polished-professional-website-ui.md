@@ -1,11 +1,10 @@
 ---
 title: "Four Steps to a Polished, Professional Website UI"
-date: "2026-07-25T12:00:00.000Z"
-lang: "en"
+date: 2026-07-25T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-39705dd92523.webp"
 source: "https://www.linkedin.com/pulse/four-steps-polished-professional-website-ui-chonghuan-wang-g9t7f"
 ---
-
 Not a professional designer. Can you still ship a genuinely good-looking UI?
 
 I think so. Here's the workflow I use.

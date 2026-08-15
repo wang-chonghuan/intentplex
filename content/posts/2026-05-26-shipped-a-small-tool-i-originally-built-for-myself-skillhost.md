@@ -1,10 +1,9 @@
 ---
 title: "Shipped a small tool I originally built for myself: SkillHost"
-date: "2026-05-26T18:19:18.886Z"
-lang: "en"
+date: 2026-05-26T18:19:18.886Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7465104295114321920/"
 ---
-
 Shipped a small tool I originally built for myself: SkillHost.
 
 Problem: our team uses Claude Code, Codex, OpenCode — every agent expects skills in a different directory. Sharing skills turned into zip files, stale forks, and constant “which version are you on?” confusion.

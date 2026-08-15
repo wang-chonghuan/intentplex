@@ -1,11 +1,10 @@
 ---
 title: "I am using loop engineering to build a brand new Product Operating System"
-date: "2026-07-02T17:54:09.527Z"
-lang: "en"
+date: 2026-07-02T17:54:09.527Z
+lang: en
 image: "/media/linkedin/li-7133676b9701.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7478506315431129089/"
 ---
-
 I am using loop engineering to build a brand new Product Operating System.
 
 The idea is simple: give Codex only the product objective, then let it use my harness skills and Plane.so to create its own tickets, implement them, deploy them, and repeat the loop.

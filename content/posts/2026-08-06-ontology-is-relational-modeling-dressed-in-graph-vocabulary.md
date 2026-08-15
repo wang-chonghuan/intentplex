@@ -1,11 +1,10 @@
 ---
 title: "Ontology is relational modeling dressed in graph vocabulary"
-date: "2026-08-06T23:19:14.998Z"
-lang: "en"
+date: 2026-08-06T23:19:14.998Z
+lang: en
 image: "/media/linkedin/li-d33a93fa26b7.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7491271702602129408/"
 ---
-
 Ontology is relational modeling dressed in graph vocabulary.
 
 My intuition is that the right way to apply LLMs to large-scale business datasets is to let the LLM design a relational database and then operate on that database, rather than relying on an excessively complex graph database. But Palantir’s heavily promoted Ontology model appears, at first glance, to be a knowledge graph. So I looked into it.

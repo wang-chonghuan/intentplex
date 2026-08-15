@@ -1,10 +1,9 @@
 ---
 title: "The ticket-to-PR skill will be TodoClaw’s primary weapon"
-date: "2026-04-29T19:59:16.763Z"
-lang: "en"
+date: 2026-04-29T19:59:16.763Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7455344979662622721/"
 ---
-
 The ticket-to-PR skill will be TodoClaw’s primary weapon.
 
 When a ticket is assigned to TodoClaw in Linear, it will launch a sandbox and prepare the required project environment and skills to develop that ticket using T2P.

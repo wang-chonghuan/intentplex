@@ -1,11 +1,10 @@
 ---
 title: "TodoClaw: The Execution Engine for Harness Engineering"
-date: "2026-03-28T12:00:00.000Z"
-lang: "en"
+date: 2026-03-28T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-7508e26d106f.webp"
 source: "https://www.linkedin.com/pulse/todoclaw-execution-engine-harness-engineering-chonghuan-wang-cg1sc"
 ---
-
 At [Narrative](https://www.linkedin.com/company/narrative-banking/) , we have developed [TodoClaw.com](http://todoclaw.com/) as the central orchestration hub and agent for our Harness Engineering ecosystem. A lightweight variant of #OpenClaw , TodoClaw is purpose-built for isolated task execution and comprehensive activity tracking.
 
 By integrating Linear, Notion, GitHub and Ubuntu server through business-logic-aware skills, it creates a unified execution layer for complex project management and engineering workflows.

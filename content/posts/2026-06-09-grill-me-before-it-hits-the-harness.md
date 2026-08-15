@@ -1,10 +1,9 @@
 ---
 title: "#grill-me before it hits the harness"
-date: "2026-06-09T07:20:38.680Z"
-lang: "en"
+date: 2026-06-09T07:20:38.680Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7470011965474697216/"
 ---
-
 #grill-me before it hits the harness.
 
 Yesterday I was debugging our harness system.
