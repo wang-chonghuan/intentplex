@@ -59,14 +59,21 @@ Output goes to `dist/client/` and `dist/server/`.
 
 **Serve the production build**
 
-`dist/server/server.js` is a fetch handler, not a listening server, so it cannot be run with `node`
-directly. Serve the build with:
+`dist/server/server.js` is a fetch handler, not a listening server. `server.mjs` is the half that
+binds a port and serves the static assets around it, and it is what the production container runs:
 
 ```bash
-npm run preview
+npm start
 ```
 
-Add `-- --port <port>` to move it off Vite's preview default.
+`PORT` moves it off 3000 — the same variable the container platform sets:
+
+```bash
+PORT=<port> npm start
+```
+
+`npm run preview` also exists, but it is Vite's own preview server: convenient for eyeballing a
+build, not how this project runs in production.
 
 **Typecheck**
 
