@@ -226,3 +226,17 @@ export async function listAllEntries(): Promise<
   `);
   return rows.map((r) => ({...r, date: r.date.toISOString()}));
 }
+
+/**
+ * Ask for the English version and the four platform posts to be written.
+ *
+ * The container does none of that. Generation happens on the author's own
+ * machine, in Claude Code, through the `ipsl-compose` skill — for the same
+ * reason posting does: the work belongs where the author and their tools are,
+ * not in a web process holding an API key. This only raises a flag.
+ */
+export async function requestGeneration(entryId: string): Promise<void> {
+  await query('update entry set generate_requested = true, updated_at = now() where id = $1', [
+    entryId,
+  ]);
+}

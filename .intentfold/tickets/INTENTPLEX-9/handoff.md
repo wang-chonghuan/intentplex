@@ -77,12 +77,10 @@ Type: story。走 draft 路线（approach 在对话里议定，见 `draft.md`）
 
 **没有 `ac.md`。** 工单的四条验收标准写在 backend 上，本文件逐条给了证据。
 
-**`arch.md` 未改。** 它的 Contract 现在写着"没有数据库、没有认证、没有服务端数据源"，
-这三样这个工单全破了。改 charter 需要你说出「我亲自同意修改charter」——
-INTENTPLEX-10 那次授权只覆盖那一张单子。**这是合并前要处理的事。**
-
-**`runbook.md` 未改。** 它没有 `DATABASE_URL`、没有新脚本、没有 `node --env-file=.env
-server.mjs`。同样需要那句话。
+**`arch.md` 与 `runbook.md` 已改**，人类在本工单里再次授权。arch 的 Contract 改为
+「内容在 Postgres、认证存在且只放行一个人、仓库里的是副本」，Redlines 新增两条
+（越界 import `src/server`/`src/db`；网站不得写 `posting`/`posted`）；runbook 补上
+`DATABASE_URL`、内容操作三条命令与三条排障。
 
 **新增依赖 `pg`、`sharp`**（`arch.md` redline 2）。工单 Scope 与 Constraints 载明了数据库
 与配图决策，两者是那个决策不可回避的实现。其余一律没加：OAuth 用 `fetch`，会话签名用
@@ -96,26 +94,44 @@ server.mjs`。同样需要那句话。
 
 - worktree：`/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-9`，端口 web **53009**
   （本地验证用的是 3000，因为 `server.mjs` 读 `PORT`）
-- **新增 env key，四个**：`DATABASE_URL`、`GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`、
-  `ADMIN_GITHUB_USER_ID`、`SESSION_SECRET`、`ANTHROPIC_API_KEY`
+- **新增 env key**：`DATABASE_URL`、`GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`、
+  `ADMIN_GITHUB_USER_ID`、`SESSION_SECRET`、`AZURE_OPENAI_API_KEY`
 - `.env` 已在 `.gitignore` 里，未提交
 
 ## Residual — 合并/部署前必须处理
 
-1. **`arch.md` 与 `runbook.md` 要改**，需要你说那句话。
-2. **部署会触发 `devops.md` redline 3**：容器需要六个它原本没有的环境变量。那次部署需要
-   你点头，且要先在 Container App 上配好这些变量，否则站点起不来——内容现在在库里。
-3. **AI 生成没能真跑**：本机没有 `ANTHROPIC_API_KEY`。代码路径写完了，但**"生成五份"这条
-   链路我没有端到端验证过**，这是本工单唯一未经实测的部分。
-4. **GitHub OAuth 应用要建**：拿到 client id / secret，回调 URL
-   `https://intentplex.com/auth/callback`，并把你的数字 user id 填进 `ADMIN_GITHUB_USER_ID`
-   （`curl https://api.github.com/users/wang-chonghuan | jq .id`）。
+1. ~~`arch.md` 与 `runbook.md` 要改~~ —— **已改**。人类在本工单里再次授权。
+2. ~~容器要配环境变量~~ —— **五个已配好**（`DATABASE_URL`、`SESSION_SECRET`、
+   `ADMIN_GITHUB_USER_ID`、`GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`，密钥走 secretref）。
+   `AZURE_OPENAI_API_KEY` 尚未配到容器上。部署仍触发 `devops.md` redline 3——需要你点头。
+3. ~~AI 生成没能真跑~~ —— **已实测通过**。改用人类自己的 Azure OpenAI 部署
+   （`gpt-5.6-sol`，`reasoning_effort: high`；配图用 `gpt-image-2`），也就是本机 litellm
+   代理背后的同一组凭证。代理本身不在路径上：它监听笔记本的 127.0.0.1，而这跑在容器里。
+   实跑结果：英文站点版 + 四个平台版本全部生成，且各按各的形状——x-zh 153 字、
+   微博 210 字带 `#AI产品#`、x-en 621 字成 thread、LinkedIn 809 字。
+~~GitHub OAuth 应用要建~~ —— **已建并配好**。client id / secret 已写入本地 main 与
+   worktree 的 `.env`（0600、git-ignored），并作为 secretref 配到 Container App 上；
+   数字 user id `1408305` 已填。**唯一没能本地验证的是真正的 GitHub 跳转**：OAuth 应用的
+   回调是 `https://intentplex.com/auth/callback`，和 localhost 不匹配，所以本地登录用
+   `SESSION_SECRET` 自签会话测的——走的是同一条鉴权中间件（有会话 200、无会话 302）。
 5. **平台发送未实测**：`ipsl-syndicate` 的队列部分全通，但真正的四个 composer 需要在你的
    Chrome 会话里跑一次才算数。技能里写明了"改了就先抓包再写进 references"。
 
 ## 其余
 
-- slug 目前手填。draft 里议定的是由生成的英文标题派生，这一步没做——生成链路本身还没验证，
-  在它上面再加一层派生不合适。
+- slug 目前手填。draft 里议定的是由生成的英文标题派生，没做——生成是发布之后的动作，
+  而 slug 在发布时就要定下来并冻结，两者的时序对不上。要做得先让「先生成、后发布」成立。
 - 早先未处理的：404 页用的是 TanStack Router 内置组件，`site.ts` 里的双语文案是死的；
   `/favicon.ico`、`/robots.txt` 仍 404；Playwright 不在 `package.json`（`arch.md` redline 2）。
+
+
+## 途中修掉的两个真 bug
+
+**服务端函数被写成了空操作。** `const adminFn = () => createServerFn({method:'POST'})`
+这个工厂函数破坏了 Start 插件的静态匹配——它靠匹配 `createServerFn(...).handler(...)`
+这条**完整字面链**来登记服务端函数。包了一层之后函数没被登记，调用它**静默返回
+`undefined`**，页面对着空数据渲染而不是报错。现在每处都写全。
+
+**函数中间件吞掉了返回值。** 原先用 `createMiddleware({type:'function'})` 做鉴权，
+返回 `next()`。SSR 期间这条链把 handler 的返回值丢了。换成在每个 handler 开头显式调
+`assertAdmin()`——笨一点，但不会这样。

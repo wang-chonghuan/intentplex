@@ -44,6 +44,8 @@ async function applySchema() {
   // unique until the archive proved it should not be — the same picture lives at
   // two paths there.
   await pool.query('alter table media drop constraint if exists media_sha256_key');
+  await pool.query(
+    'alter table entry add column if not exists generate_requested boolean not null default false');
   console.log('schema: applied');
 }
 

@@ -33,6 +33,11 @@ create table if not exists entry (
   date           timestamptz not null,
   cover_media_id uuid references media (id),
   status         text        not null default 'published' check (status in ('draft', 'published')),
+  -- The author asked for the English version and the four platform posts to be
+  -- (re)written. Nothing in the container does that work: it happens on the
+  -- author's own machine, in Claude Code, through the ipsl-compose skill — the
+  -- same reason posting does. This column is how the website asks.
+  generate_requested boolean not null default false,
   created_at     timestamptz not null default now(),
   updated_at     timestamptz not null default now(),
   unique (kind, slug)

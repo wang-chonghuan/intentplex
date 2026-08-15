@@ -33,10 +33,11 @@ import {
  */
 
 export const Route = createFileRoute('/admin/syndicate/$id')({
-  loader: async ({params}) => ({
-    entry: await adminGetEntry({data: {entryId: params.id}}),
-    channels: await adminSyndications({data: {entryId: params.id}}),
-  }),
+  loader: async ({params}) => {
+    const entry = await adminGetEntry({data: {entryId: params.id}});
+    const channels = await adminSyndications({data: {entryId: params.id}});
+    return {entry, channels};
+  },
   component: SyndicatePage,
 });
 
