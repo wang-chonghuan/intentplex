@@ -20,10 +20,18 @@ clean build; the "Key decisions" reasons are recovered from why the code is shap
 - **Astryx + StyleX** is the only styling authority. See `ui.md`, which owns that dimension in full.
 - **TypeScript, strict**, ESM-only, single package, npm.
 
-There is no database, no backend service, no authentication, and no server-side data source. Content
-is files in the repo, in two shapes: **entries are Markdown with frontmatter under `content/`** at the
-repo root, and **the chrome's own copy is TypeScript in `src/content/`**. Both are read at build time;
-neither is fetched.
+**Content lives in Postgres** — the shared `pg-easyapp-shared` server, schema `intentplex-schema`,
+allocated by n-easyapp. Entries, their language versions, the images and the syndication queue are all
+rows. The chrome's own copy (nav, buttons, labels) stays TypeScript in `src/content/`, because it
+changes when the code changes.
+
+There is still no second process and no worker: one SSR process, one database. **Authentication exists
+and admits exactly one person** — a GitHub OAuth round trip checked against a single numeric user id.
+
+The repo keeps a **copy**, not the source: `scripts/export-to-repo.mjs` writes the corpus back to
+`content/` and `export/media/` after publishing, and `scripts/migrate.mjs` reads it back. That is the
+only thing standing between the writing and a single Burstable instance, and it is why the export is
+a required step rather than a nicety.
 
 **Structure**
 
@@ -31,15 +39,25 @@ neither is fetched.
 content/         # the entries — Markdown + frontmatter, one file per entry per language
   posts/ articles/ works/
                  # <YYYY-MM-DD>-<slug>[.<lang>].md; lang is the suffix or a frontmatter field
-public/media/    # the images those entries reference
+export/media/    # the images, same backup. NOT under public/ — a static copy there
+                 # would shadow the database route with whatever was exported last
 src/
   routes/        # one file per page + __root.tsx; the only place a route is declared
   components/    # the app shell and adapters — see ui.md for the tier rule
-  content/       # the chrome's copy as {en, zh} objects, plus the loader and validator for content/
+  content/       # the chrome's copy as {en, zh} objects, plus the corpus types and
+                 # pure helpers, plus the per-platform channel briefs
+  rpc/           # server functions. The BOUNDARY: the browser may import these
+  server/        # what those functions do — auth, upload, generation, the queue.
+  db/            # the pool and the queries.
+                 #   src/server and src/db are forbidden to the client and the build
+                 #   enforces it; see Key decisions
   i18n/          # locale context and the t() reader
   styles/        # app.css (cascade order + vendor imports), tokens.stylex.ts (token constants)
   types/         # ambient declarations for build-time virtual modules
+  start.ts       # createStart(): request middleware for /media/* and the /admin gate
   router.tsx     # getRouter(), the entry TanStack Start calls
+scripts/         # migrate / export-to-repo / sender-queue — operational, not shipped
+.agents/skills/  # ipsl-* skills that belong to this project
 server.mjs       # binds a port around the built fetch handler; what the container runs
 ```
 
@@ -72,10 +90,21 @@ not import React**; **`styles/` is the only place a design token is named**.
   post written once in English is complete, and the reader is told which language they are getting —
   the type-level guarantee above is deliberately not extended here, because it would mean either
   blocking an entry until it is translated or committing a machine translation.
-- **Content is validated at build time, not at first request.** `src/content/validate.ts` is the one
-  definition of a valid entry, and a Vite plugin runs it over `content/` during `buildStart`. `vite
-  build` bundles the loader without executing it, so without that plugin a malformed file would only
-  surface on the first production request.
+- **Content is validated when it is written.** It used to be checked at build time by a Vite plugin
+  reading `content/`. Rows cannot be checked by a build, so the same rules run on the write path
+  instead — which is the only moment anything can become malformed anyway.
+- **The client may import `src/rpc/`, never `src/server/` or `src/db/`.** `importProtection` in
+  `vite.config.ts` makes crossing that line a build failure that names the file. It exists because it
+  already happened: a top-level import is an edge in the module graph *even when the code that used it
+  was stripped*, and following it dragged `pg` and `sharp`'s native bindings into the browser bundle.
+  Dynamic `import()` is an edge too. `src/rpc` reaches across only inside a handler body.
+- **The corpus is cached in the process and invalidated on write.** 180 entries is a couple of
+  megabytes and every page wants most of it. It also means a blip on the shared Burstable server does
+  not take the site down mid-render.
+- **Publishing and sending are separate acts.** The site marks a row `approved`; it never posts.
+  Posting needs the author's signed-in browser, which is on their laptop, not in the container — so a
+  local skill claims the row and sends it. `posting` is written before the network call, so a crash
+  leaves a visible stuck row rather than one that looks unsent and goes out twice.
 
 ## Tools
 
@@ -128,13 +157,21 @@ Guidance instead (`format.md`, test 2).
 
 1. **A copy file under `src/content/` importing React, an Astryx component, or anything from
    `src/components/` or `src/routes/`** — forbidden outright. Copy is data; the moment it renders, it
-   stops being extractable and the bilingual guarantee goes with it. `loader.ts` and `validate.ts` sit
-   in the same directory and are code, not copy — the same import list still binds them.
+   stops being extractable and the bilingual guarantee goes with it. `loader.ts`, `validate.ts` and
+   `channels.ts` sit in the same directory and are code, not copy — the same import list still binds
+   them.
 2. **Adding, removing or changing a dependency** — not without the human's explicit approval, and
    only when a ticket carries that decision.
 3. **Hand-editing `src/routeTree.gen.ts`** — forbidden outright.
-4. **Introducing a second process, a database, or a server-side data source** — not without the
-   human's explicit approval. The project is deliberately one SSR process with static content.
-5. **Changing the browser targets in `vite.config.ts`** — `build.cssTarget` or the StyleX plugin's
+4. **Introducing a second process, a second datastore, or a background worker** — not without the
+   human's explicit approval. One SSR process and one Postgres schema is the whole runtime; a queue
+   broker, a cache server or a cron container is the shape this exists to keep out.
+5. **Importing `src/server/**` or `src/db/**` from anywhere but `src/rpc/**`** — forbidden outright.
+   Lookupable: the build fails and names the importer. This is not style; it is what keeps database
+   credentials and native modules out of a browser bundle.
+6. **Writing `posting` or `posted` on a syndication row from the website** — forbidden outright. Those
+   two belong to the sender. A UI that can mark something posted can mark something posted that never
+   was.
+7. **Changing the browser targets in `vite.config.ts`** — `build.cssTarget` or the StyleX plugin's
    `lightningcssOptions.targets` — not without the human's explicit approval. Lowering either breaks
    `light-dark()` silently.
