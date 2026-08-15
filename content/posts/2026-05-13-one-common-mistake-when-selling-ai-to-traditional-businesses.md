@@ -1,11 +1,10 @@
 ---
 title: "One common mistake when selling AI to traditional businesses: walking in and trying to “re"
-date: "2026-05-13T06:42:51.684Z"
-lang: "en"
+date: 2026-05-13T06:42:51.684Z
+lang: en
 image: "/media/linkedin/li-900d0729a63b.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7460217984633200640/"
 ---
-
 One common mistake when selling AI to traditional businesses: walking in and trying to “reengineer their entire workflow.”
 
 That approach fails almost every time.

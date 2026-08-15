@@ -1,11 +1,10 @@
 ---
 title: "As of July 18, among all OpenClaw PRs:"
-date: "2026-07-21T22:22:39.732Z"
-lang: "en"
+date: 2026-07-21T22:22:39.732Z
+lang: en
 image: "/media/linkedin/li-4df266c60b10.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7485459255974629376/"
 ---
-
 As of July 18, among all OpenClaw PRs: 
 - Fix PRs account for 62% 
 - Feature iteration-related PRs only account for 8.5% 

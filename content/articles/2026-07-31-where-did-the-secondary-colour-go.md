@@ -1,11 +1,10 @@
 ---
 title: "Where Did the Secondary Colour Go?"
-date: "2026-07-31T12:00:00.000Z"
-lang: "en"
+date: 2026-07-31T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-53ebfae7503c.webp"
 source: "https://www.linkedin.com/pulse/where-did-secondary-colour-go-chonghuan-wang-wxeif"
 ---
-
 ### Does UI Design in 2026 Still Need a Second Brand Colour?
 
 If you look through product interfaces launched over the past two years, you will notice a fairly consistent pattern: most of them use only one chromatic colour.

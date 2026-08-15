@@ -1,11 +1,10 @@
 ---
 title: "Final-Cause Adversarial Review"
-date: "2026-06-18T15:34:46.910Z"
-lang: "en"
+date: 2026-06-18T15:34:46.910Z
+lang: en
 image: "/media/linkedin/li-dcd6a76a0d6e.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7473397809954729984/"
 ---
-
 Final-Cause Adversarial Review
 
 The secret of adversarial agent review is to ask first: what was this artifact created to achieve?

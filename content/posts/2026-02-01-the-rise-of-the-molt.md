@@ -1,10 +1,9 @@
 ---
 title: "The Rise of the \"Molt\""
-date: "2026-02-01T03:04:33.491Z"
-lang: "en"
+date: 2026-02-01T03:04:33.491Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7423561872404119552/"
 ---
-
 The Rise of the "Molt"
 
 ​Very soon, the "first-class citizens" of the internet will no longer be websites or apps, but fully autonomous agents—or "molts"—like OpenClaw.

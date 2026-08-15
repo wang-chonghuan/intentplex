@@ -1,11 +1,10 @@
 ---
 title: "Over the past two months, I have been building and evolving a comprehensive Harness Engine"
-date: "2026-06-10T14:04:19.826Z"
-lang: "en"
+date: 2026-06-10T14:04:19.826Z
+lang: en
 image: "/media/linkedin/li-143584ce86f8.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7470475944189718528/"
 ---
-
 Over the past two months, I have been building and evolving a comprehensive Harness Engineering ecosystem focused on automating the software development lifecycle.
 
 The core initiatives include:

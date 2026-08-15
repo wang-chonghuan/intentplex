@@ -1,11 +1,10 @@
 ---
 title: "Can Agents Safely Rewrite Themselves?"
-date: "2026-08-15T12:00:00.000Z"
-lang: "en"
+date: 2026-08-15T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-759f2b2fa6f2.webp"
 source: "https://www.linkedin.com/pulse/can-agents-safely-rewrite-themselves-chonghuan-wang-sqxdf"
 ---
-
 DeepSeek just open-sourced its Harness and, together with Peking University, released a paper that looks past the model itself and tackles a foundational problem for the next generation of agents:
 
 **How can an agent continuously modify its own Harness without permanently breaking itself?**

@@ -1,11 +1,10 @@
 ---
 title: "Abstraction Patterns and Anti-Patterns in Software Design from a Category Theory Perspective"
-date: "2026-06-15T12:00:00.000Z"
-lang: "en"
+date: 2026-06-15T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-aa178dbfa9a9.webp"
 source: "https://www.linkedin.com/pulse/abstraction-patterns-anti-patterns-software-design-from-wang-cua5f"
 ---
-
 I used to think that Single Source of Truth in software development was merely an engineering habit. Now I realize it is actually the core structural foundation of software development.
 
 When faced with a new requirement, the most important step is not to start coding immediately, but to determine which authoritative object this new fact, state, or constraint should belong to: Should we reuse an existing Source of Truth, create a new one, or update the existing one along with all its derived paths?

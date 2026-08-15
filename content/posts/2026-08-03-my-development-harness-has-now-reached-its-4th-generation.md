@@ -1,11 +1,10 @@
 ---
 title: "My development harness has now reached its 4th generation"
-date: "2026-08-03T22:12:23.206Z"
-lang: "en"
+date: 2026-08-03T22:12:23.206Z
+lang: en
 image: "/media/linkedin/li-78a5bc32155a.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7490167712330027008/"
 ---
-
 My development harness has now reached its 4th generation.
 
 The 1st version, T2P, ticket to PR, automatically created a worktree from a ticket, reviewed the code, and opened a pull request.

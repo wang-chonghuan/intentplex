@@ -1,0 +1,10 @@
+{
+  "ticket": "INTENTPLEX-9",
+  "mode": "autonomous",
+  "stage": "drafting",
+  "finish": "review",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-9",
+  "branch": "INTENTPLEX-9-content-workbench",
+  "base": "1df413b",
+  "ports": {"web": 53009}
+}

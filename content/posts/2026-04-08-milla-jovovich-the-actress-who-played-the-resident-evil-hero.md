@@ -1,10 +1,9 @@
 ---
 title: "Milla Jovovich (the actress who played the Resident Evil heroine)'s critique of current AI"
-date: "2026-04-08T02:11:23.376Z"
-lang: "en"
+date: 2026-04-08T02:11:23.376Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7447466091221671936/"
 ---
-
 Milla Jovovich (the actress who played the Resident Evil heroine)'s critique of current AI long-term memory systems: faulty memory retrieval and integration. Once these errors gradually accumulate, they make the memory unreliable, ultimately causing new tasks to fail.
 
 This matches my thinking perfectly, which is why I never use long-term memory systems myself.

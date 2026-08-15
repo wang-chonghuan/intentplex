@@ -1,11 +1,10 @@
 ---
 title: "Introducing Space Engineering: A New Definition of AI Engineering"
-date: "2026-07-28T12:00:00.000Z"
-lang: "en"
+date: 2026-07-28T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-4f5b60836419.webp"
 source: "https://www.linkedin.com/pulse/introducing-space-engineering-new-definition-ai-chonghuan-wang-3ap8f"
 ---
-
 **I propose the term “Space Engineering” to describe the fundamental discipline behind human–AI interaction.**
 
 Over the past few years, anyone building AI applications has seen a succession of newly coined concepts:

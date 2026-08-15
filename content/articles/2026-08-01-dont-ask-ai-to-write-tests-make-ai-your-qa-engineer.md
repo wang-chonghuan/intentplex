@@ -1,11 +1,10 @@
 ---
 title: "Don’t Ask AI to Write Tests. Make AI Your QA Engineer."
-date: "2026-08-01T12:00:00.000Z"
-lang: "en"
+date: 2026-08-01T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-a98ba1f5164f.webp"
 source: "https://www.linkedin.com/pulse/dont-ask-ai-write-tests-make-your-qa-engineer-chonghuan-wang-ctemf"
 ---
-
 For a small team—or even a one-person company—writing and maintaining hundreds or thousands of fixed, mechanical automated test cases is no longer realistic. This is especially true when the product is evolving quickly. Keeping AI-generated test code accurate and reliable still requires substantial human review, correction, and maintenance, turning automation into yet another form of manual work.
 
 Can we bypass the traditional approach of maintaining test code altogether?

@@ -1,11 +1,10 @@
 ---
 title: "The most informative takeaway from ByteDance's FORCE conference wasn't the product name TR"
-date: "2026-06-27T17:10:25.516Z"
-lang: "en"
+date: 2026-06-27T17:10:25.516Z
+lang: en
 image: "/media/linkedin/li-269b53f48f24.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7476683370203123712/"
 ---
-
 The most informative takeaway from ByteDance's FORCE conference wasn't the product name TRAE Work, but a set of real internal metrics: over 90% of the code written by the TRAE team is AI-generated, yet per-engineer feature throughput has increased by only about 60%.
 
 This doesn't mean AI coding has failed. A 60% throughput gain is already substantial for any mature engineering team.

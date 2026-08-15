@@ -1,14 +1,10 @@
-import {createFileRoute, notFound} from '@tanstack/react-router';
+import {createFileRoute} from '@tanstack/react-router';
 
 import {ItemDetail} from '~/components/ItemDetail';
-import {findItem} from '~/content/loader';
+import {getDetail} from '~/server/content';
 
 export const Route = createFileRoute('/works/$slug')({
-  loader: ({params}) => {
-    const item = findItem('work', params.slug);
-    if (item == null) throw notFound();
-    return item;
-  },
+  loader: ({params}) => getDetail({data: {kind: 'work', slug: params.slug}}),
   component: WorkDetailPage,
 });
 

@@ -1,11 +1,10 @@
 ---
 title: "Understanding Autoregressive Generation in Transformer Decoders (Original + Claude)"
-date: "2024-11-30T12:00:00.000Z"
-lang: "en"
+date: 2024-11-30T12:00:00.000Z
+lang: en
 image: "/media/linkedin/li-3e7bb57b66a7.webp"
 source: "https://www.linkedin.com/pulse/understanding-autoregressive-generation-transformer-decoders-wang-4rprf"
 ---
-
 ```
 # Understanding Autoregressive Generation in Transformer Decoders (Original + Claude)
 

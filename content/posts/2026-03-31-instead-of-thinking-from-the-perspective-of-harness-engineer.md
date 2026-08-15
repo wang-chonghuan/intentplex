@@ -1,10 +1,9 @@
 ---
 title: "Instead of thinking from the perspective of harness engineering, I now view agentic softwa"
-date: "2026-03-31T01:22:45.429Z"
-lang: "en"
+date: 2026-03-31T01:22:45.429Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7444554749540216832/"
 ---
-
 Instead of thinking from the perspective of harness engineering, I now view agentic software development as a software factory.
 
 In this factory, every stage is transformed into a specialized professional role, and each role is powered by a dedicated AI agent such as Codex/Claude Code. The factory equips every role with the necessary knowledge base, tools, and resources to perform its duties effectively and autonomously.

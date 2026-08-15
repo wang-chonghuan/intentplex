@@ -1,10 +1,9 @@
 ---
 title: "Some principles for building consumer AI products:"
-date: "2026-08-13T07:32:52.303Z"
-lang: "en"
+date: 2026-08-13T07:32:52.303Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7493570253776437248/"
 ---
-
 Some principles for building consumer AI products:
 
 1. Keep it small. Focus on solving one clear problem. Skip the big vision.

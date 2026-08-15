@@ -1,10 +1,9 @@
 ---
 title: "We're a Codex team"
-date: "2026-05-26T18:38:13.940Z"
-lang: "en"
+date: 2026-05-26T18:38:13.940Z
+lang: en
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7465109055875923968/"
 ---
-
 We're a Codex team. Everyone built useful skills. Nobody had a clean way to share them. That's why I built SkillHost.
 
 ```

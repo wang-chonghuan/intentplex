@@ -1,10 +1,9 @@
 ---
 title: "intentplex"
-date: "2026-08-15T00:00:00.000Z"
-lang: "en"
+date: 2026-08-15T00:00:00.000Z
+lang: en
 image: "/media/intentplex.svg"
 ---
-
 This site. Every string is authored in both languages at once, so a half-translated page is a type error rather than a discovery.
 
 Built on TanStack Start with Astryx and StyleX, no Tailwind and no hand-written CSS beyond a nine-line stylesheet that declares the cascade order.

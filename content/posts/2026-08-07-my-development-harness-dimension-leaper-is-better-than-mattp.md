@@ -1,11 +1,10 @@
 ---
 title: "My development harness Dimension Leaper is better than #MattPocock’s, which is widely rega"
-date: "2026-08-07T07:11:17.559Z"
-lang: "en"
+date: 2026-08-07T07:11:17.559Z
+lang: en
 image: "/media/linkedin/li-5f3cf8270127.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7491390496033116161/"
 ---
-
 My development harness Dimension Leaper is better than #MattPocock’s, which is widely regarded as one of the best on the market.
 
 One of the key differences is that #dimleaper supports parallel development across multiple worktrees by default, with each worktree automatically assigned its own unique ports.

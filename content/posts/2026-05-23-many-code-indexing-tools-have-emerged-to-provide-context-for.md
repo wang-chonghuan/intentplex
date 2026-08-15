@@ -1,11 +1,10 @@
 ---
 title: "Many code indexing tools have emerged to provide context for AI coding"
-date: "2026-05-23T07:32:52.751Z"
-lang: "en"
+date: 2026-05-23T07:32:52.751Z
+lang: en
 image: "/media/linkedin/li-66495f522685.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7463854450676355072/"
 ---
-
 Many code indexing tools have emerged to provide context for AI coding.
 
 But I think they make two fatal mistakes.

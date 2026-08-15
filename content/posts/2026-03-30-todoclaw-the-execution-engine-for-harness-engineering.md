@@ -1,11 +1,10 @@
 ---
 title: "TodoClaw: The Execution Engine for Harness Engineering 🦮"
-date: "2026-03-30T01:29:40.841Z"
-lang: "en"
+date: 2026-03-30T01:29:40.841Z
+lang: en
 image: "/media/linkedin/li-5203db429411.webp"
 source: "https://www.linkedin.com/feed/update/urn:li:activity:7444194104038768640/"
 ---
-
 TodoClaw: The Execution Engine for Harness Engineering 🦮
 
 At Narrative, we have developed TodoClaw.com as the central orchestration hub for our Harness Engineering ecosystem. A lightweight variant of OpenClaw, TodoClaw is purpose-built for isolated task execution and comprehensive activity tracking.

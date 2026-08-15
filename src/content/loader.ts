@@ -1,5 +1,16 @@
 import {LOCALES, type Locale} from '~/i18n/locale';
-import {parseContentFile} from '~/content/validate';
+
+/**
+ * The corpus's shape and the pure things you can do with it.
+ *
+ * Everything that *reads* the corpus lives in `src/db/repo.ts` and runs only on
+ * the server. This module stays free of imports that cannot cross to the browser,
+ * because components call `pickRendition` and `leadOf` while rendering.
+ *
+ * It used to hold an `import.meta.glob` over `content/**` — the whole corpus was
+ * bundled into the client and re-parsed on hydration. Content now lives in
+ * Postgres and reaches the browser through the route loaders' SSR payload.
+ */
 
 export type ItemKind = 'post' | 'article' | 'work';
 
@@ -16,11 +27,11 @@ export type Rendition = {
 /**
  * One entry, in whichever languages exist for it.
  *
- * The bilingual guarantee is **at least one language**, not both: content
- * imported from elsewhere arrives in the language it was written in, and a
- * translation is added later by dropping a second file beside the first.
- * Nothing else has to change when that happens — that is the point of keying
- * renditions by locale rather than baking `{en, zh}` into the type.
+ * The bilingual guarantee is **at least one language**, not both: an entry is
+ * authored in Chinese and its English version is generated and then read by the
+ * author (`ui.md`), while the imported archive predates that rule and is
+ * English-only. Keying renditions by locale rather than baking `{en, zh}` into
+ * the type is what makes both shapes legal.
  */
 export type Item = {
   id: string;
@@ -38,85 +49,13 @@ export type Item = {
 };
 
 /**
- * The 128px sibling of an imported photo, or the image itself.
+ * The 128px sibling of a raster image, or the image itself.
  *
- * Only the imported photos have one; the works entries point at SVGs, which
- * are vector and already smaller than any raster thumbnail would be.
+ * Only the webp uploads have one; the works entries point at SVGs, which are
+ * vector and already smaller than any raster thumbnail would be.
  */
-function thumbOf(image: string): string {
-  return /^\/media\/linkedin\/li-[a-z0-9]+\.webp$/.test(image)
-    ? image.replace(/\.webp$/, '.thumb.webp')
-    : image;
-}
-
-/**
- * Every markdown file in content/, read at build time.
- *
- * `eager` because this is a static site: the whole corpus is known when the
- * bundle is built, and a lazy import would make every list render async for
- * no benefit.
- */
-const FILES = import.meta.glob('/content/**/*.md', {
-  eager: true,
-  query: '?raw',
-  import: 'default',
-}) as Record<string, string>;
-
-/**
- * Build the corpus. Field rules live in `validate.ts` because the Vite plugin
- * in vite.config.ts applies the same ones at build time — `vite build` bundles
- * this module without running it, so a broken file has to be caught there.
- */
-function parseAll(): readonly Item[] {
-  const byId = new Map<string, Item>();
-
-  for (const [path, raw] of Object.entries(FILES)) {
-    const f = parseContentFile(path, raw);
-    const id = `${f.kind}:${f.slug}`;
-    const rendition: Rendition = {
-      lang: f.lang,
-      title: f.title,
-      body: f.body,
-      ...(f.source != null ? {source: f.source} : {}),
-    };
-
-    const existing = byId.get(id);
-    if (existing) {
-      if (existing.renditions[f.lang]) {
-        throw new Error(`content: ${path} — duplicate ${f.lang} rendition for ${id}`);
-      }
-      existing.renditions[f.lang] = rendition;
-      if (!existing.image && f.image) {
-        existing.image = f.image;
-        existing.thumb = thumbOf(f.image);
-      }
-    } else {
-      byId.set(id, {
-        id: f.slug,
-        kind: f.kind,
-        date: f.date,
-        ...(f.image ? {image: f.image, thumb: thumbOf(f.image)} : {}),
-        renditions: {[f.lang]: rendition},
-      });
-    }
-  }
-
-  return [...byId.values()].sort((a, b) => b.date.localeCompare(a.date));
-}
-
-const ALL = parseAll();
-
-export const posts = ALL.filter((i) => i.kind === 'post');
-export const articles = ALL.filter((i) => i.kind === 'article');
-export const works = ALL.filter((i) => i.kind === 'work');
-
-/** The home feed: everything, newest first. */
-export function recentItems(limit: number): readonly Item[] {
-  return ALL.slice(0, limit);
-}
-
-export function findItem(kind: 'article' | 'work', id: string): Item | undefined {
-  return ALL.find((i) => i.kind === kind && i.id === id);
+export function thumbOf(image: string): string {
+  return /^\/media\/.+\.webp$/.test(image) ? image.replace(/\.webp$/, '.thumb.webp') : image;
 }
 
 export function itemHref(item: Item): string | null {

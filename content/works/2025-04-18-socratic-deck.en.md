@@ -1,10 +1,9 @@
 ---
 title: "Socratic Deck"
-date: "2025-04-18T00:00:00.000Z"
-lang: "en"
+date: 2025-04-18T00:00:00.000Z
+lang: en
 image: "/media/socratic-deck.svg"
 ---
-
 Spaced repetition that asks instead of tells. Cards refuse to show the answer until you have written a wrong one.
 
 Retention went up 40% in a small classroom trial. Frustration went up considerably more.
