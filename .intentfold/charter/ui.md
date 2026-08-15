@@ -279,14 +279,19 @@ never restyled per component — the ring is a shared token set.
 
 **Content and tone.** The chrome — nav, buttons, labels, empty states — is bilingual by construction:
 authored as an `L10n` object (`{en, zh}`) in `src/content/`, so a half-translated label is a
-TypeScript error rather than something a reader discovers. **Entries are not held to that**, because
-the alternative is either hiding a post until it is translated or shipping a machine translation. An
-entry exists in whatever languages it was written in, and when the reader's language is not among
-them the site shows the original and says so. Both languages are written by a person who means them —
-the Chinese is not a translation of the English, and neither is filler. The voice is first-person,
-plain, specific,
-and willing to be dry; no marketing register in either language. `<html lang>` follows the locale
-(`en` / `zh-Hans`) so the browser hyphenates and breaks lines correctly.
+TypeScript error rather than something a reader discovers. **Entries are not held to that.** An entry
+exists in whatever languages it has, and when the reader's language is not among them the site shows
+the original and says so.
+
+**An entry is authored in Chinese; its English version is generated, and the author reads it before
+it is published.** The review is the rule here, not the generation — an English version nobody read
+is not publishable, because publishing it puts words under the author's name that the author has
+never seen. Edit it until it is what you would have written, or do not publish it. The imported
+archive predates this and is English-only; it is left as it was written.
+
+The voice is first-person, plain, specific, and willing to be dry; no marketing register in either
+language. `<html lang>` follows the locale (`en` / `zh-Hans`) so the browser hyphenates and breaks
+lines correctly.
 
 ## Redlines
 
