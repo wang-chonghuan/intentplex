@@ -2,6 +2,12 @@
 
 Project-specific guidance for AI coding agents.
 
+## Project context
+
+Read `.intentfold/readme.md` first — it routes to this project's intent (`.intentfold/charter/`) and
+its ticket workflow. No product change without a ticket in the backend `.intentfold/project.json` names;
+use the `intentfold` skill.
+
 <!-- ASTRYX:START -->
 Astryx v0.4.1 · 156 components
 CLI: run every command as `npx astryx <cmd>` (shown below as `astryx ...`).

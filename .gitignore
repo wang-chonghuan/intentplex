@@ -7,3 +7,10 @@ dist
 src/routeTree.gen.ts
 *.log
 .DS_Store
+
+.intentfold/tmp/
+.intentfold/tickets/*/tmp/
+.playwright-cli/
+.env
+.env.*
+!.env.example
