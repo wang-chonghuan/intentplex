@@ -76,19 +76,26 @@ if [ -z "$routes" ]; then
   exit 1
 fi
 
+pages=0
 fail=0
 while read -r p; do
   code=$(curl -s -o "$body" -w '%{http_code}' "$URL$p")
   bytes=$(wc -c < "$body" | tr -d ' ')
-  printf '%s  %-48s %8s bytes\n' "$code" "$p" "$bytes"
-  { [ "$code" = 200 ] && [ "$bytes" -gt 10000 ]; } || fail=1
+  case "$code" in
+    3??) printf '%s  %-48s %s\n' "$code" "$p" "(redirect — not a content page)" ;;
+    200) printf '%s  %-48s %8s bytes\n' "$code" "$p" "$bytes"
+         pages=$((pages + 1))
+         [ "$bytes" -gt 10000 ] || fail=1 ;;
+    *)   printf '%s  %-48s %8s bytes\n' "$code" "$p" "$bytes"; fail=1 ;;
+  esac
 done <<ROUTES
 $routes
 ROUTES
 
 rm -f "$body"
+[ "$pages" -gt 0 ] || { echo "FAIL: nothing answered with a page"; exit 1; }
 [ "$fail" -eq 0 ] || { echo "FAIL: a route is missing, erroring, or served without SSR content"; exit 1; }
-printf 'OK: %s routes derived, all 200 with SSR content\n' "$(printf '%s\n' "$routes" | wc -l | tr -d ' ')"
+printf 'OK: %s pages, all 200 with SSR content\n' "$pages"
 ```
 
 Read it as three separate assertions, because each one fails in a way the others cannot see:
@@ -100,6 +107,12 @@ Read it as three separate assertions, because each one fails in a way the others
 - **An empty derivation is a hard failure.** Deriving targets removes the stale-list failure and
   replaces it with a quieter one: derive zero, iterate zero times, exit 0. That reads as a clean bill
   of health for a site that is entirely down. A derived check must prove it derived something.
+- **A redirect is not a failure, and not a page either.** Some links on the site are doors rather
+  than pages — they answer 3xx by design, and following one lands somewhere that is not ours to
+  judge. They are printed and skipped. What replaces them as the guard is `pages`: at least one route
+  has to come back as a real page, so a site that started redirecting *everything* still fails even
+  though the derivation succeeded. Naming which paths redirect would put product facts back in this
+  file, which is the thing it is not allowed to hold.
 - **`grep -v` drops anything with a file extension.** `/assets/*.js` and `/media/*.jpg` come from the
   same origin and answer 200 whatever the app is doing, so leaving them in makes the check pass on a
   site whose pages are all broken.
