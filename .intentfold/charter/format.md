@@ -3,6 +3,11 @@
 Read this before writing or editing anything in `charter/`. It applies to the files laid down at
 initialization **and to every later edit by anyone** — human or machine.
 
+**An agent may not edit these files at all** unless the human says 「我亲自同意修改charter」 in the
+conversation (see `SKILL.md`, Hard rules). Proving the charter is stale is not permission to change
+it; it is the reason to report it. `format.md` itself is the one exception — it is machine-owned and
+cap1 refreshes it from the template.
+
 The charter is the only place this project's intent lives. It is read by people who have never seen
 the repo and by agents that will act on it within seconds. That is why its shape is fixed.
 

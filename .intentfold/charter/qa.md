@@ -71,7 +71,8 @@ await context.addInitScript(() => {
 Seeding is for reaching a state; if the criterion is *about* switching, click the control.
 
 **Test accounts and data** — none. The site has no authentication, no forms that submit, and no
-runtime data source; all content is static TypeScript in `src/content/`.
+runtime data source; all content is files in the repo, read at build time. Whatever is in `content/`
+and `src/content/` at build time is exactly what a criterion can be checked against.
 
 **Non-UI observation** — the SSR HTML, since server rendering is part of what this project promises:
 

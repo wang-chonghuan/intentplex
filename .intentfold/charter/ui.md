@@ -66,8 +66,8 @@ duplicate, not a component. What lives here is the **organism and shell tier**: 
 providers, and the adapters that bind Astryx to this stack. A local component that is really one
 Astryx component with props does not belong here.
 
-Route-level composition lives in `src/routes/`, copy in `src/content/`, and StyleX token constants in
-`src/styles/`.
+Route-level composition lives in `src/routes/`, chrome copy in `src/content/`, entries in `content/`,
+and StyleX token constants in `src/styles/`.
 
 **Tokens**
 
@@ -277,10 +277,14 @@ never restyled per component — the ring is a shared token set.
 **`:hover` needs a guard.** Any `:hover` inside `stylex.create` is wrapped in
 `@media (hover: hover)`.
 
-**Content and tone.** Every user-visible string is bilingual, authored as an `L10n` object
-(`{en, zh}`) in `src/content/`, so a half-translated string is a TypeScript error rather than
-something a reader discovers. Both languages are written by a person who means them — the Chinese is
-not a translation of the English, and neither is filler. The voice is first-person, plain, specific,
+**Content and tone.** The chrome — nav, buttons, labels, empty states — is bilingual by construction:
+authored as an `L10n` object (`{en, zh}`) in `src/content/`, so a half-translated label is a
+TypeScript error rather than something a reader discovers. **Entries are not held to that**, because
+the alternative is either hiding a post until it is translated or shipping a machine translation. An
+entry exists in whatever languages it was written in, and when the reader's language is not among
+them the site shows the original and says so. Both languages are written by a person who means them —
+the Chinese is not a translation of the English, and neither is filler. The voice is first-person,
+plain, specific,
 and willing to be dry; no marketing register in either language. `<html lang>` follows the locale
 (`en` / `zh-Hans`) so the browser hyphenates and breaks lines correctly.
 

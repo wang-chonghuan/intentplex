@@ -1,0 +1,12 @@
+{
+  "ticket": "INTENTPLEX-4",
+  "mode": "autonomous",
+  "stage": "handed-off",
+  "finish": "review",
+  "worktree": "/Users/yong/work/intentplex-ws/intentplex--INTENTPLEX-4",
+  "branch": "INTENTPLEX-4-fix-charter-drift",
+  "base": "52566af",
+  "ports": {
+    "web": 53004
+  }
+}
