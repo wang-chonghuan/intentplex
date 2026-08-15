@@ -59,6 +59,29 @@ future change can invalidate → **Tools**, and it appears there **once**. Elsew
 never restate it. A restated command is a stale command waiting to happen: the copy is not updated
 when the original is.
 
+**4. Is it Tools? — does the command enumerate, or derive?**
+A `Tools` command must **derive its targets from the artifact**, never list them. The moment an
+entry spells out product facts — the routes to hit, the pages to screenshot, the fixture ids, the
+field names — the charter is holding a second copy of something that lives in the code, and nothing
+in this flow ever reconciles the two.
+
+```bash
+# Enumerated — rots the first time a route is renamed, and nothing notices
+curl -sf https://example.com/posts https://example.com/essays https://example.com/work
+
+# Derived — cannot go stale, because the app is the source
+curl -s https://example.com/ | grep -oE 'href="/[^"#?]*"' | sort -u | while read -r p; do …; done
+```
+
+This is worse than a stale command, not a milder version of it. A stale command fails loudly — the
+binary is gone, the flag is unknown. A stale **list** fails in the wrong direction and stays quiet: it
+reports a healthy deploy as broken because three of its four routes now 404, or a broken one as
+healthy because it never asks about the route that was added. Both readings survive because the check
+"ran".
+
+If a target genuinely cannot be derived, that is a signal the artifact should expose it — a route
+manifest, a sitemap, a `--list` flag — not a signal to write the list down here.
+
 ## What each section may not do
 
 - **Contract** does not tell anyone what to do. If it contains an imperative, that sentence belongs
@@ -73,6 +96,11 @@ when the original is.
 - **Redlines** is a closed list, looked up and never judged. Every entry says which of the two it
   is — **forbidden outright**, or **not without the human's explicit approval**. Entries hold whether
   or not anyone thought of them when the plan was written.
+- **A redline states its test, never today's answer to it.** *"Lookupable: the service has no
+  existing revision"* is a test and stays true forever. *"This is the project's current state, so
+  every deploy right now is a stop"* is the answer on the day it was written — it goes false the
+  first time someone deploys, and then the entry fires on work it was never meant to catch. Same
+  failure as test 4, one section down.
 
 ## Where a rule lives
 
