@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="presentation">
+  <style>
+    .bg { fill: #e2f5ea; }
+    @media (prefers-color-scheme: dark) { .bg { fill: #1a2921; } }
+  </style>
+  <rect class="bg" width="400" height="300"/>
+  <circle cx="200" cy="150" r="96" fill="none" stroke="#9dafa5" stroke-width="14"/><circle cx="200" cy="150" r="58" fill="none" stroke="#5e6e65" stroke-width="14"/>
+</svg>
