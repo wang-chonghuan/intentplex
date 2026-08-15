@@ -7,7 +7,7 @@ import {Text} from '@astryxdesign/core/Text';
 import {ItemList} from '~/components/ItemList';
 import {home} from '~/content/home';
 import {useLocale} from '~/i18n/locale';
-import {listRecent} from '~/server/content';
+import {listRecent} from '~/rpc/content';
 import {frame} from '~/styles/tokens.stylex';
 
 const RECENT_COUNT = 8;

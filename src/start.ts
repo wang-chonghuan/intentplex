@@ -1,6 +1,5 @@
 import {createMiddleware, createStart} from '@tanstack/react-start';
 
-import {readMedia} from '~/server/media';
 
 /**
  * Serving `/media/*` out of Postgres.
@@ -17,6 +16,7 @@ const mediaMiddleware = createMiddleware({type: 'request'}).server(async ({next,
   const {pathname} = new URL(request.url);
   if (!pathname.startsWith('/media/')) return next();
 
+  const {readMedia} = await import('~/server/media');
   const found = await readMedia(pathname);
   if (!found) return next();
 
@@ -32,6 +32,20 @@ const mediaMiddleware = createMiddleware({type: 'request'}).server(async ({next,
   });
 });
 
+/**
+ * Sign-in, and the gate in front of `/admin`.
+ *
+ * This runs before routing for the same reason the media one does: a redirect
+ * and a `set-cookie` are not a React tree. Putting the gate here rather than in
+ * each admin route also means a route added later is protected by existing, not
+ * by remembering.
+ */
+const authMiddleware = createMiddleware({type: 'request'}).server(async ({next, request}) => {
+  const {handleAuthRoute} = await import('~/server/oauth-routes');
+  const handled = await handleAuthRoute(request);
+  return handled ?? next();
+});
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [mediaMiddleware],
+  requestMiddleware: [mediaMiddleware, authMiddleware],
 }));

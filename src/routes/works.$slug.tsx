@@ -1,7 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
 
 import {ItemDetail} from '~/components/ItemDetail';
-import {getDetail} from '~/server/content';
+import {getDetail} from '~/rpc/content';
 
 export const Route = createFileRoute('/works/$slug')({
   loader: ({params}) => getDetail({data: {kind: 'work', slug: params.slug}}),

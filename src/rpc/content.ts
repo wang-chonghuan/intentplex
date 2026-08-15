@@ -2,7 +2,6 @@ import {createServerFn} from '@tanstack/react-start';
 import {notFound} from '@tanstack/react-router';
 
 import type {Item, ItemKind} from '~/content/loader';
-import * as repo from '~/db/repo';
 
 /**
  * The corpus, as the routes see it.
@@ -10,7 +9,10 @@ import * as repo from '~/db/repo';
  * A route `loader` runs on the server for the first paint and **again in the
  * browser** on client-side navigation, so it cannot touch the database directly.
  * These wrappers are the boundary: the browser calls them over the wire, the
- * server calls them in process, and `src/db/` never reaches a bundle.
+ * server calls them in process, and `src/db/` never reaches a bundle — which is
+ * why the repo is imported *inside* each handler. A top-level import is an edge
+ * in the module graph even when the code that used it is stripped, and following
+ * that edge pulled `pg` into the browser build.
  */
 
 const KINDS: ReadonlyArray<ItemKind> = ['post', 'article', 'work'];
@@ -24,7 +26,10 @@ function asKind(value: unknown): ItemKind {
 
 export const listItems = createServerFn({method: 'GET'})
   .validator(asKind)
-  .handler(async ({data}): Promise<ReadonlyArray<Item>> => repo.itemsOfKind(data));
+  .handler(async ({data}): Promise<ReadonlyArray<Item>> => {
+    const repo = await import('~/db/repo');
+    return repo.itemsOfKind(data);
+  });
 
 export const listRecent = createServerFn({method: 'GET'})
   .validator((limit: unknown) => {
@@ -33,7 +38,10 @@ export const listRecent = createServerFn({method: 'GET'})
     }
     return limit;
   })
-  .handler(async ({data}): Promise<ReadonlyArray<Item>> => repo.recentItems(data));
+  .handler(async ({data}): Promise<ReadonlyArray<Item>> => {
+    const repo = await import('~/db/repo');
+    return repo.recentItems(data);
+  });
 
 export const getDetail = createServerFn({method: 'GET'})
   .validator((input: unknown): {kind: 'article' | 'work'; slug: string} => {
@@ -44,6 +52,7 @@ export const getDetail = createServerFn({method: 'GET'})
     return {kind, slug};
   })
   .handler(async ({data}): Promise<Item> => {
+    const repo = await import('~/db/repo');
     const item = await repo.findItem(data.kind, data.slug);
     // Thrown here rather than in the route so the 404 is decided by the same
     // thing that knows whether the row exists.
