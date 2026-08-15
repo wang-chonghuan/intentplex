@@ -1,0 +1,19 @@
+# The build context is uploaded whole before the build starts — to the Docker
+# daemon locally, to ACR in CI. node_modules alone is several hundred MB and is
+# reinstalled inside the image anyway, so excluding it is what makes the upload
+# finish rather than an optimisation.
+node_modules
+dist
+.output
+.git
+.github
+.vite
+.tanstack
+.playwright-cli
+.intentfold/tmp
+.intentfold/tickets/*/tmp
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
