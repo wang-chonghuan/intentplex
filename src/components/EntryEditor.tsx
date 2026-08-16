@@ -30,6 +30,11 @@ import {frame} from '~/styles/tokens.stylex';
  */
 
 const styles = stylex.create({
+  // The form is a column, not a grid. Side-by-side fields were a choice, not a
+  // requirement, and they are what broke at 320px: an HStack does not wrap by
+  // default and flex items refuse to shrink below their content, so the right
+  // half was simply cut off. One field per row needs no breakpoint at all.
+  form: {maxWidth: frame.proseWidth},
   pane: {maxWidth: frame.proseWidth},
   editorHeight: {minHeight: '24rem'},
 });
@@ -114,18 +119,23 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
   }
 
   return (
-    <VStack gap={5}>
-      <HStack gap={3} vAlign="end">
-        <TextInput
-          label={t(c.title)}
-          value={entry.titleZh}
-          onChange={(v) => set('titleZh', v)}
-          isRequired
-        />
-        <TextInput label={t(c.slug)} value={entry.slug} onChange={(v) => set('slug', v)} isRequired />
-      </HStack>
+    <VStack gap={5} xstyle={styles.form}>
+      <TextInput
+        label={t(c.title)}
+        value={entry.titleZh}
+        onChange={(v) => set('titleZh', v)}
+        width="100%"
+        isRequired
+      />
+      <TextInput
+        label={t(c.slug)}
+        value={entry.slug}
+        onChange={(v) => set('slug', v)}
+        width="100%"
+        isRequired
+      />
 
-      <HStack gap={3} vAlign="end">
+      <HStack gap={3} vAlign="end" wrap="wrap">
         <TextInput
           label={t(c.date)}
           value={entry.date.slice(0, 10)}
@@ -142,7 +152,7 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
       </HStack>
 
       <Card>
-        <HStack gap={3} vAlign="center">
+        <HStack gap={3} vAlign="center" wrap="wrap">
           {entry.coverPath ? <Thumbnail src={entry.coverPath} alt={t(c.cover)} /> : null}
           <VStack gap={1}>
             <Text type="body">{t(c.cover)}</Text>
@@ -181,6 +191,7 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
       {tab === 'write' ? (
         <TextArea
           ref={bodyRef}
+          width="100%"
           label={t(c.body)}
           value={entry.bodyZh}
           onChange={(v) => set('bodyZh', v)}
@@ -207,7 +218,7 @@ export function EntryEditor({initial}: {initial: EditorEntry}) {
         </VStack>
       )}
 
-      <HStack gap={3} vAlign="center">
+      <HStack gap={3} vAlign="center" wrap="wrap">
         <Button label={t(c.publish)} onClick={() => void save('published')} isDisabled={busy != null} variant="primary" />
         <Button label={t(c.saveDraft)} variant="secondary" onClick={() => void save('draft')} isDisabled={busy != null} />
         {busy ? <Text type="supporting">{busy}</Text> : null}

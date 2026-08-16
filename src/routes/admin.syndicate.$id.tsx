@@ -88,20 +88,20 @@ function SyndicatePage() {
         <Text type="supporting" color="secondary">
           {t(c.lede)}
         </Text>
-        <HStack gap={3} vAlign="center">
+        <HStack gap={3} vAlign="center" wrap="wrap">
           <Button label={t(c.generate)} variant="primary" onClick={() => void generate()} isDisabled={busy != null} />
           {busy ? <Text type="supporting">{busy}</Text> : null}
         </HStack>
       </VStack>
 
       <VStack gap={3}>
-        <HStack gap={2} vAlign="center">
+        <HStack gap={2} vAlign="center" wrap="wrap">
           <Heading level={2}>{t(c.englishHeading)}</Heading>
           {en?.origin === 'generated' ? <Badge label={t(c.generatedBadge)} /> : null}
         </HStack>
-        <TextInput label={t(c.englishTitle)} value={enTitle} onChange={setEnTitle} />
-        <TextArea label={t(c.englishBody)} value={enBody} onChange={setEnBody} />
-        <HStack>
+        <TextInput label={t(c.englishTitle)} value={enTitle} onChange={setEnTitle} width="100%" />
+        <TextArea label={t(c.englishBody)} value={enBody} onChange={setEnBody} width="100%" />
+        <HStack wrap="wrap">
           <Button
             label={t(c.saveEnglish)}
             variant="secondary"
@@ -126,14 +126,14 @@ function SyndicatePage() {
           return (
             <Card key={meta.id}>
               <VStack gap={3}>
-                <HStack hAlign="between" vAlign="center">
-                  <HStack gap={2} vAlign="center">
+                <HStack hAlign="between" vAlign="center" wrap="wrap">
+                  <HStack gap={2} vAlign="center" wrap="wrap">
                     <Text type="body">{t(meta.label)}</Text>
                     <Text type="supporting" color={over ? 'accent' : 'secondary'}>
                       {body.length} / {meta.limit}
                     </Text>
                   </HStack>
-                  <HStack gap={2} vAlign="center">
+                  <HStack gap={2} vAlign="center" wrap="wrap">
                     <Text type="supporting" color="secondary">
                       {t(adminCopy.status[(row?.status ?? 'draft') as keyof typeof adminCopy.status])}
                     </Text>
@@ -147,13 +147,14 @@ function SyndicatePage() {
 
                 <TextArea
                   label={`${t(meta.label)} — ${t(c.englishBody)}`}
+                  width="100%"
                   isLabelHidden
                   value={body}
                   isReadOnly={sent}
                   onChange={(v) => void setChannelBody(meta.id, v)}
                 />
 
-                <HStack gap={2}>
+                <HStack gap={2} wrap="wrap">
                   <Button
                     label={t(c.send)}
                     variant="primary"

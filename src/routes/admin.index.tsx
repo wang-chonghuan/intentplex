@@ -60,7 +60,7 @@ function AdminIndex() {
         </Card>
       ) : null}
 
-      <HStack hAlign="between" vAlign="center">
+      <HStack hAlign="between" vAlign="center" wrap="wrap">
         <Heading level={1}>{t(adminCopy.index.heading)}</Heading>
         <AppLink href="/admin/new">
           <Button label={t(adminCopy.index.write)} variant="primary" />
@@ -74,7 +74,7 @@ function AdminIndex() {
             href={`/admin/edit/${entry.id}`}
             label={entry.slug}
             description={
-              <HStack gap={2} vAlign="center">
+              <HStack gap={2} vAlign="center" wrap="wrap">
                 <Timestamp value={entry.date} format="date" />
                 <Text type="supporting" color="secondary">
                   {entry.kind}
