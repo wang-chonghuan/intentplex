@@ -113,6 +113,12 @@ export const adminSaveRendition = createServerFn({method: 'POST'})
     return {ok: true as const};
   });
 
+export const adminPending = createServerFn({method: 'POST'}).handler(async () => {
+  await assertAdmin();
+  const {pendingWork} = await import('~/server/syndication');
+  return pendingWork();
+});
+
 export const adminSyndications = createServerFn({method: 'POST'})
   .validator((input: unknown): {entryId: string} => input as {entryId: string})
   .handler(async ({data}) => {

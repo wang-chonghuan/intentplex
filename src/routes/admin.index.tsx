@@ -1,6 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {Badge} from '@astryxdesign/core/Badge';
 import {Button} from '@astryxdesign/core/Button';
+import {Card} from '@astryxdesign/core/Card';
 import {Heading} from '@astryxdesign/core/Heading';
 import {List} from '@astryxdesign/core/List';
 import {ListItem} from '@astryxdesign/core/List';
@@ -11,19 +12,54 @@ import {Timestamp} from '@astryxdesign/core/Timestamp';
 import {AppLink} from '~/components/AppLink';
 import {adminCopy} from '~/content/admin-copy';
 import {useLocale} from '~/i18n/locale';
-import {adminList} from '~/rpc/admin';
+import {CHANNELS} from '~/content/channels';
+import {adminList, adminPending} from '~/rpc/admin';
 
 export const Route = createFileRoute('/admin/')({
-  loader: () => adminList(),
+  loader: async () => ({entries: await adminList(), pending: await adminPending()}),
   component: AdminIndex,
 });
 
 function AdminIndex() {
   const {t} = useLocale();
-  const entries = Route.useLoaderData();
+  const {entries, pending} = Route.useLoaderData();
+  const c = adminCopy.pending;
+  const channelLabel = (id: string) =>
+    CHANNELS.find((ch) => ch.id === id)?.label ?? {en: id, zh: id};
 
   return (
     <VStack gap={6}>
+      {/* Approving here writes a row and stops. Everything below is waiting on a
+          person with a signed-in browser, and nothing else in the admin says so
+          across entries. */}
+      {pending.length > 0 ? (
+        <Card>
+          <VStack gap={3}>
+            <Heading level={2}>{t(c.heading)}</Heading>
+            <Text type="supporting" color="secondary">
+              {t(c.lede)}
+            </Text>
+            <Text type="body">
+              <code>{t(c.command)}</code>
+            </Text>
+            <List hasDividers>
+              {pending.map((row) => (
+                <ListItem
+                  key={row.id}
+                  label={`${row.slug} · ${t(channelLabel(row.channel))}`}
+                  description={row.status === 'posting' ? t(c.stuck) : undefined}
+                  endContent={
+                    row.status === 'posting' ? (
+                      <Badge label={t(adminCopy.status.posting)} />
+                    ) : undefined
+                  }
+                />
+              ))}
+            </List>
+          </VStack>
+        </Card>
+      ) : null}
+
       <HStack hAlign="between" vAlign="center">
         <Heading level={1}>{t(adminCopy.index.heading)}</Heading>
         <AppLink href="/admin/new">

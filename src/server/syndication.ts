@@ -124,3 +124,24 @@ export async function release(id: string): Promise<void> {
     [id],
   );
 }
+
+/**
+ * Everything waiting on a person, across every entry.
+ *
+ * The website cannot post — that needs the author's signed-in browser, which is
+ * on their laptop. So `approved` means *waiting for a human to run the sender*,
+ * and until this view existed that fact was only visible inside one entry's
+ * page. `posting` is kept separate: a row parked there is a send that crashed
+ * mid-flight, and it needs a person rather than another run.
+ */
+export async function pendingWork(): Promise<
+  Array<{id: string; entryId: string; slug: string; channel: string; status: string}>
+> {
+  return query(
+    `select s.id, s.entry_id as "entryId", e.slug, s.channel, s.status
+       from syndication s
+       join entry e on e.id = s.entry_id
+      where s.status in ('approved', 'posting')
+      order by s.status desc, s.updated_at`,
+  );
+}

@@ -15,6 +15,20 @@ export const adminCopy = {
   // both languages, and 管理 reads like a section of the site rather than a door.
   nav: {en: 'Admin', zh: 'Admin'} satisfies L10n<string>,
 
+  pending: {
+    heading: {en: 'Waiting on you', zh: '待发送'},
+    lede: {
+      en: 'These were approved here, but posting needs your signed-in browser — the site cannot do it. Run this in Claude Code:',
+      zh: '这些已经在这里批准了，但发帖需要你已登录的浏览器，站点自己做不到。在 Claude Code 里跑：',
+    },
+    command: {en: '/ipsl-syndicate', zh: '/ipsl-syndicate'},
+    empty: {en: 'Nothing waiting.', zh: '没有待发送的。'},
+    stuck: {
+      en: 'Claimed by a sender that never finished. It needs looking at, not another run.',
+      zh: '被某次发送认领后没有收尾。需要人看一眼，而不是再跑一次。',
+    },
+  } satisfies Record<string, L10n<string>>,
+
   index: {
     heading: {en: 'Admin', zh: '后台'},
     write: {en: 'Write', zh: '写新的'},
